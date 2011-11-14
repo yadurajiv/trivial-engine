@@ -43,6 +43,56 @@ public:
     float GetWidth() const { return _width; };
     float GetHeight() const { return _height; };
 
+    sf::Vector2i getMousePositionRel() {
+        _lastMousePositionRelative = sf::Mouse::GetPosition(_app);
+        return _lastMousePositionRelative;
+    }
+
+    int getMouseXRel() {
+        getMousePositionRel();
+        return _lastMousePositionRelative.x;
+    }
+
+    int getMouseYRel() {
+        getMousePositionRel();
+        return _lastMousePositionRelative.y;
+    }
+
+    void setMousePositionRel(sf::Vector2i &pos) {
+        setMouseXYToScreen(pos.x, pos.y);
+    }
+
+    void setMouseXYToScreen(int x, int y) {
+        _lastMousePositionRelative.x = x;
+        _lastMousePositionRelative.y = y;
+        sf::Mouse::SetPosition(_lastMousePositionRelative, _app);
+    }
+
+    sf::Vector2i getMousePositionDesk() {
+        _lastMousePosition = sf::Mouse::GetPosition();
+        return _lastMousePosition;
+    }
+
+    int getMouseXDesk() {
+        getMousePositionDesk();
+        return _lastMousePosition.x;
+    }
+
+    int getMouseYDesk() {
+        getMousePositionDesk();
+        return _lastMousePosition.y;
+    }
+
+    void setMousePositionDesk(sf::Vector2i &pos) {
+        setMouseXYDesk(pos.x, pos.y);
+    }
+
+    void setMouseXYDesk(int x, int y) {
+        _lastMousePosition.x = x;
+        _lastMousePosition.y = y;
+        sf::Mouse::SetPosition(_lastMousePosition);
+    }
+
     void quit() { _quitFlag = true; };
 
 private:
@@ -58,6 +108,9 @@ private:
     int _colorDepth;
     string _windowTitle;
     bool _autoUpdate;
+
+    sf::Vector2i _lastMousePosition;
+    sf::Vector2i _lastMousePositionRelative;
 
     sf::RenderWindow _app;
     sf::Event _appEvent;

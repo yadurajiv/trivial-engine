@@ -5,6 +5,7 @@
 
 // Box2D for removal
 // #include "TrivialBox2D.h"
+#include "TrivialHelper.h"
 #include "TrivialGraphicsObject.h"
 #include "TrivialGroup.h"
 
@@ -80,7 +81,7 @@ public:
     // Box2D for removal
     // TrivialBox2DObject* getPhysicsObject() { return &_physics; };
 
-    void setVelocity(float x, float y) {
+    void setVelocity(const float &x, const float &y) {
         _velocity.x = x;
         _velocity.y = y;
 
@@ -92,7 +93,7 @@ public:
         }
     }
 
-    void setDrag(float dx, float dy) {
+    void setDrag(const float &dx, const float &dy) {
         _drag.x = dx;
         _drag.y = dy;
 
@@ -104,7 +105,7 @@ public:
         }
     }
 
-    void setAngularDrag(float d) {
+    void setAngularDrag(const float &d) {
         _angularDrag = d;
 
         if(_affectChildren) {
@@ -115,7 +116,7 @@ public:
         }
     }
 
-    void setAcceleration(float ax, float ay) {
+    void setAcceleration(const float &ax, const float &ay) {
         _acceleration.x = ax;
         _acceleration.y = ay;
 
@@ -127,7 +128,7 @@ public:
         }
     }
 
-    void setMaxVelocity(float vx, float vy) {
+    void setMaxVelocity(const float &vx, const float &vy) {
         _maxVelocity.x = vx;
         _maxVelocity.y = vy;
 
@@ -139,7 +140,7 @@ public:
         }
     }
 
-    void setAngularAcceleration(float a) {
+    void setAngularAcceleration(const float &a) {
         _angularAcceleration = a;
 
         if(_affectChildren) {
@@ -150,7 +151,7 @@ public:
         }
     }
 
-    void setMaxAngular(float a) {
+    void setMaxAngular(const float &a) {
         _maxAngular = a;
 
         if(_affectChildren) {
@@ -159,6 +160,31 @@ public:
                 static_cast<SceneObject*>((*it).second)->setMaxAngular(a);
             }
         }
+    }
+
+    bool pointOverlap(float x, float y) {
+        if(Trivial::Helper::pointInRect(x,y,_x,_y,_width,_height)) {
+            return true;
+        }
+        return false;
+    }
+
+    virtual bool overlaps(SceneObject &o) {
+        if(Trivial::Helper::sphereCollision(_x,_y,_radius,o.X(),o.Y(),o.radius())) {
+            float w2 = _width/2;
+            float h2 = _height/2;
+            float ox = o.X();
+            float oy = o.Y();
+            float ow2 = o.width()/2;
+            float oh2 = o.height()/2;
+
+            if(Trivial::Helper::AABBAABB(_x - w2, _y - h2, _x + w2, _y + h2, ox - ow2, oy - oh2, ox + ow2, oy + oh2)) {
+                return true;
+            }
+        } else {
+            return false;
+        }
+        return false;
     }
 
     static float computeVelocity(float Velocity, float Acceleration = 0, float Drag = 0, float Max = 10000);

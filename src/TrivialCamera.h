@@ -39,6 +39,18 @@ public:
     float getCenterX() const { return _x + _halfWidth; }
     float getCenterY() const { return _y + _halfHeight; }
 
+    int getMouseX() {
+        _mousePosition = Trivial::App::Instance()->getMousePositionRel();
+        _mousePosition.x+=_x;
+        return _mousePosition.x;
+    }
+
+    int getMouseY() {
+        _mousePosition = Trivial::App::Instance()->getMousePositionRel();
+        _mousePosition.y+=_y;
+        return _mousePosition.y;
+    }
+
     //void rotate(float angle);
 
     //void follow(SceneObject& o, float lerp);
@@ -57,6 +69,8 @@ protected:
     float _halfHeight;
 
     bool _ready;
+
+    sf::Vector2i _mousePosition;
 
     // SceneObject* _followThis;
 
