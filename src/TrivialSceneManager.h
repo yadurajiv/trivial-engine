@@ -22,6 +22,8 @@ public:
     bool removeScene(const string &sceneName);
     Scene* getScene(const string &name);
 
+    Scene* getActiveScene();
+
     void update();
 
 private:

@@ -98,4 +98,8 @@ Scene* SceneManager::getScene(const string &name) {
     return _scenes[name];
 }
 
+Scene* SceneManager::getActiveScene() {
+    return _scenes[_currentScene];
+}
+
 }

@@ -2,6 +2,14 @@
 
 namespace Trivial {
 
+void Camera::init(const unsigned int &width, const unsigned int &height) {
+    _width = width;
+    _height = height;
+    _halfWidth = (_width / 2);
+    _halfHeight = (_height / 2);
+    _ready = true;
+}
+
 void Camera::_update() {
     SceneObject::_update();
 }
@@ -21,7 +29,7 @@ void Camera::moveTo(const float &x,const float &y) {
         if(_x != x || _y != y) {
             _x = x;
             _y = y;
-            _scene->moveLayers(_x, _y);
+            //_scene->moveLayers(_x, _y);
         }
     }
 }
@@ -34,11 +42,12 @@ void Camera::lookAt(const float &x, const float &y) {
         if(_x != x - _halfWidth || _y != y - _halfHeight) {
             _x = x - _halfWidth;
             _y = y - _halfHeight;
-            _scene->moveLayers(_x, _y);
+            //_scene->moveLayers(_x, _y);
         }
     }
 }
 
+/*
 void Camera::setScene(const string &name)  {
     _scene = SceneManager::Instance()->getScene(name);
     _width = _scene->width();
@@ -47,5 +56,6 @@ void Camera::setScene(const string &name)  {
     _halfHeight = (_height / 2);
     _ready = true;
 }
+*/
 
 }

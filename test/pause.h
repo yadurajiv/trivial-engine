@@ -40,7 +40,7 @@ public:
         add("hudtext", HUDText, "hud");
 
         /* set the camera to the current scene */
-        camera.setScene("pause");
+        //camera.setScene("pause");
 
     }
 
@@ -84,7 +84,7 @@ private:
     Trivial::GUIText HUDText;
 
 
-    Trivial::Camera camera;
+    // Trivial::Camera camera;
 
     bool key_spacebar;
 

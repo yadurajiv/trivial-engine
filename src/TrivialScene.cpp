@@ -27,6 +27,9 @@ void Scene::_update() {
     }
     */
 
+    _cameraMoveX = defaultCamera.X();
+    _cameraMoveY = defaultCamera.Y();
+
     map<int, string>::iterator it;
 
     for ( it=_layerIndexes.begin() ; it != _layerIndexes.end(); it++ ) {
@@ -61,6 +64,7 @@ void Scene::updateObjectsByLayerName(const string &layerName) {
 void Scene::_init() {
     // Box2D for removal
     // _hasBox2DPhysics = false;
+    defaultCamera.init(Trivial::App::Instance()->GetWidth(),Trivial::App::Instance()->GetHeight());
     init();
     _hasInited = true;
 }

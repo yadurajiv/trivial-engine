@@ -76,8 +76,11 @@ int EventManager::subscribe(const string &eventName, Object *o) {
         _keyboardEventSubscribers[eventPair].push_back(o);
         returnKey = _keyboardEventSubscribers[eventPair].size() - 1;
     } else if (eventType == "system") {
-        _SystemEventSubscribers[eventPair] = o;
-        returnKey = 1337; // wtf is a returnKey?
+        _systemEventSubscribers[eventPair] = o;
+        returnKey = 0;
+    } else if (eventType == "mouse") {
+        _mouseEventSubscribers[eventPair] = o;
+        returnKey = 0;
     } else {
         cout << "\nERROR: " << eventType << " The supplied event type is invalid.";
         return -1;
@@ -128,13 +131,32 @@ void EventManager::update() {
         if (raiseEvent) {
             for(i = 0; i < keyIt->second.size(); i++) {
                 (*(keyIt->second[i])).keyBoardEventCallback(keyIt->first.first + "-" + keyIt->first.second);
+                raiseEvent = false;
             }
+        }
+    }
+
+    /* mouse event callbacks */
+    map<pair<string, string>, Object *>::iterator mouseIt;
+    for (mouseIt = _mouseEventSubscribers.begin(); mouseIt != _mouseEventSubscribers.end(); mouseIt++) {
+        if(mouseIt->first.first == "update" && mouseIt->first.second == "mouse") {
+            TrivialMouseEvent tme;
+            tme.name = "update";
+            tme.lButton = sf::Mouse::IsButtonPressed(sf::Mouse::Left);
+            tme.mButton = sf::Mouse::IsButtonPressed(sf::Mouse::Middle);
+            tme.rButton = sf::Mouse::IsButtonPressed(sf::Mouse::Right);
+            tme.x1Button = sf::Mouse::IsButtonPressed(sf::Mouse::XButton1);
+            tme.x2Button = sf::Mouse::IsButtonPressed(sf::Mouse::XButton2);
+            tme.pos = sf::Mouse::GetPosition(*(Trivial::App::Instance()->getSFMLRenderWindow()));
+            tme.pos.x += Trivial::SceneManager::Instance()->getActiveScene()->getCamera()->X();
+            tme.pos.y += Trivial::SceneManager::Instance()->getActiveScene()->getCamera()->Y();
+            mouseIt->second->mouseEventCallBack(tme);
         }
     }
 
     /* system event callbacks */
     map<pair<string, string>, Object *>::iterator sysIt;
-    for (sysIt = _SystemEventSubscribers.begin(); sysIt != _SystemEventSubscribers.end(); sysIt++) {
+    for (sysIt = _systemEventSubscribers.begin(); sysIt != _systemEventSubscribers.end(); sysIt++) {
         if(sysIt->first.first == "update" && sysIt->first.second == "system") {
             sysIt->second->systemEventCallback(sysIt->first.first + "-" + sysIt->first.second);
         }

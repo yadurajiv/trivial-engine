@@ -64,6 +64,7 @@ public:
         myEventManager->subscribe("x-keydown", this);
         myEventManager->subscribe("x-keyup", this);
 
+        myEventManager->subscribe("update-mouse",this);
 
         /* add a couple of images to the image manager */
 
@@ -166,17 +167,18 @@ public:
         setLayerCameraDamp("bgLayer", 0.5, 0.5);
         setLayerCameraDamp("hud", 0, 0);
 
-        /* set the camera to the current scene */
-        camera.setScene("myScene");
+        // look at object needs to be rewritten or given to scene
+        defaultCamera.lookAt(300, 300);
 
-        camera.lookAt("explosion");
+        cout << "\ndefCamX: " << defaultCamera.width();
+        cout << "\ndefCamY: " << defaultCamera.height();
+
 //        myAudioManager->earPosition(camera.getCenterX(), camera.getCenterY());
 
     }
 
     /* the event call back is called by the event manager */
     void keyBoardEventCallback(const string &eventName) {
-
         /* un/setting flags to be used later */
 
         if (eventName == "up-keydown") {
@@ -233,9 +235,38 @@ public:
 
     }
 
+    void mouseEventCallBack(const Trivial::TrivialMouseEvent &e) {
+        if(e.name == "update") {
+
+            _mx = e.pos.x;
+            _my = e.pos.y;
+
+            if(e.lButton) {
+                cout << "\nLeft Button is Down!";
+            }
+
+            if(e.rButton) {
+                cout << "\nRight Button is Down!";
+            }
+
+            if(e.mButton) {
+                cout << "\nMiddle Button is Down!";
+            }
+
+            if(e.x1Button) {
+                cout << "\nX1 Button is Down!";
+            }
+
+            if(e.x2Button) {
+                cout << "\nX2 Button is Down!";
+            }
+
+        }
+    }
+
     void update() {
-        float mcx = camera.X();
-        float mcy = camera.Y();
+        float mcx = defaultCamera.X();
+        float mcy = defaultCamera.Y();
         float ft = myApp->frameTime()/1000;
 
         ossfps.str("");
@@ -243,12 +274,12 @@ public:
         ossfps << "\n";
         ossfps << "Cam X: " << floor(mcx) << "  Cam Y: " << floor(mcy);
         ossfps << "\n";
-        ossfps << "Cam Center-X: " << floor(camera.getCenterX()) << "  Cam Center-Y: " << floor(camera.getCenterY());
+        ossfps << "Cam Center-X: " << floor(defaultCamera.getCenterX()) << "  Cam Center-Y: " << floor(defaultCamera.getCenterY());
         ossfps << "\nEscape key to pause, space to continue";
         ossfps << "\nsmallChild.overlaps(testSprite) is " << (childSmallCol?"True":"False");
         ossfps << "\nEscape key to pause, space to continue\nZ key to fade and stop music! (5 seconds)\nX key to fade in and start music! (5 seconds)";
-        ossfps << "\nMouse X: " << camera.getMouseX();
-        ossfps << "\nMouse Y: " << camera.getMouseY();
+        ossfps << "\nMouse X: " << _mx;
+        ossfps << "\nMouse Y: " << _my;
         HUDText.text(ossfps.str());
         flush(ossfps);
 
@@ -274,8 +305,8 @@ public:
         }
 
         if(key_up || key_down || key_left || key_right) {
-            camera.moveTo(mcx, mcy);
-//            myAudioManager->earPosition(camera.getCenterX(), camera.getCenterY());
+            defaultCamera.moveTo(mcx, mcy);
+//            myAudioManager->earPosition(defaultCamera.getCenterX(), defaultCamera.getCenterY());
         }
 
 
@@ -351,8 +382,6 @@ private:
 
     float _lastTime;
 
-    Trivial::Camera camera;
-
     bool key_up;
     bool key_down;
     bool key_left;
@@ -360,6 +389,9 @@ private:
     bool key_escape;
     bool key_z;
     bool key_x;
+
+    int _mx;
+    int _my;
 
     /* fps output string stream */
     ostringstream ossfps;

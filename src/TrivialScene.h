@@ -11,6 +11,7 @@
 // Box2D for removal
 // #include "TrivialBox2D.h"
 #include "TrivialSceneObject.h"
+#include "TrivialCamera.h"
 
 using namespace std;
 
@@ -60,6 +61,18 @@ public:
     bool getPersistance() const { return _keepPersistent; }
     void setPersistance(bool p) { _keepPersistent = p; }
 
+    Camera* getCamera(const string &name = "default") {
+        return &defaultCamera;
+        /*
+        if(name == "default") {
+            return _defaultCamera;
+        } else {
+            return NULL;
+            // ? find the right camera and give it from a camera list
+        }
+        */
+    }
+
     bool ready() const { return _hasInited; }
     //void setReady(bool b) { _hasInited = b; }
 /*
@@ -94,6 +107,8 @@ protected:
 
     bool _keepPersistent;
     bool _hasInited;
+
+    Camera defaultCamera;
 
     // Box2D for removal
     // bool _hasBox2DPhysics;

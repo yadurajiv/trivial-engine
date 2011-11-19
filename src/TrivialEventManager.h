@@ -10,6 +10,7 @@
 // #include <Box2D/Box2D.h>
 
 #include "TrivialObject.h"
+#include "TrivialSceneManager.h"
 
 using namespace std;
 using namespace sf;
@@ -48,9 +49,10 @@ private:
     map<pair<string, string>, vector<Object *> > _keyboardEventSubscribers;
     map<string, int> _keyStates;
 
-    map<pair<string, string>, Object * > _SystemEventSubscribers;
+    map<pair<string, string>, Object * > _systemEventSubscribers;
 
-    map<string, vector<Object *> > _mouseEventSubscribers;
+    map<pair<string, string>, Object * > _mouseEventSubscribers;
+
     map<string, vector<Object *> > _joystickEventSubscribers;
     map<string, vector<Object *> > _collisionEventSubscribers;
     map<string, vector<Object *> > _customEventSubscribers;

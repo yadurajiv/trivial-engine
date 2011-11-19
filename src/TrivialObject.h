@@ -17,9 +17,22 @@
 
 #include <string>
 
+#include "SFML/System/Vector2.hpp"
+
 using namespace std;
 
 namespace Trivial {
+
+typedef struct {
+    int scroll;
+    bool lButton;
+    bool mButton;
+    bool rButton;
+    bool x1Button;
+    bool x2Button;
+    sf::Vector2i pos;
+    string name;
+} TrivialMouseEvent;
 
 class Object {
 
@@ -83,7 +96,7 @@ public:
         @see EventManager.subscribe
         @see EventManager.unsubscribe
     */
-    virtual void mouseEventCallBack() { };
+    virtual void mouseEventCallBack(const TrivialMouseEvent &e) { };
 
     /**
         collisionEventCallBack is a virtual collision event callback used

@@ -108,7 +108,7 @@ sf::Style::
         Fullscreen = 1 << 3  ///< Fullscreen mode (this flag and all others are mutually exclusive)
 */
 
-bool App::configure(sf::WindowHandle windowHandle, const int &width, const int &height, const int &colorDepth, const string &windowTitle, bool autoUpdate) {
+bool App::configure(sf::WindowHandle windowHandle, const unsigned int &width, const unsigned int &height, const int &colorDepth, const string &windowTitle, bool autoUpdate) {
     _handle = windowHandle;
     _width = width;
     _height = height;

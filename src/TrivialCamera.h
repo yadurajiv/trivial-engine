@@ -6,8 +6,6 @@
 
 #include "SFML/Graphics.hpp"
 
-#include "TrivialApp.h"
-#include "TrivialSceneManager.h"
 #include "TrivialSceneObject.h"
 
 using namespace std;
@@ -19,6 +17,8 @@ public:
     Camera() { };
     ~Camera() { };
 
+    void init(const unsigned int &width, const unsigned int &height);
+
     virtual void update() { };
 
     // update each frame.. used for follow and lerp et al.
@@ -26,6 +26,7 @@ public:
 
     void moveTo(const float &x, const float &y);
     void lookAt(const float &x, const float &y);
+    /*
     bool lookAt(const string &name) {
         SceneObject* o = _scene->get(name);
         if(o != NULL) {
@@ -35,21 +36,10 @@ public:
 
         return false;
     };
+    */
 
     float getCenterX() const { return _x + _halfWidth; }
     float getCenterY() const { return _y + _halfHeight; }
-
-    int getMouseX() {
-        _mousePosition = Trivial::App::Instance()->getMousePositionRel();
-        _mousePosition.x+=_x;
-        return _mousePosition.x;
-    }
-
-    int getMouseY() {
-        _mousePosition = Trivial::App::Instance()->getMousePositionRel();
-        _mousePosition.y+=_y;
-        return _mousePosition.y;
-    }
 
     //void rotate(float angle);
 
@@ -58,11 +48,11 @@ public:
 
     void reset();
 
-    void setScene(const string &name);
+    //void setScene(const string &name);
 
 
 protected:
-    Scene* _scene;
+    //Scene* _scene;
 
 /* half your own width */
     float _halfWidth;
