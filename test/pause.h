@@ -45,15 +45,15 @@ public:
     }
 
     /* the event call back is called by the event manager */
-    void keyBoardEventCallback(const string &eventName) {
+    void keyBoardEventCallback(const Trivial::TrivialKeyBoardEvent &e) {
 
         /* un/setting flags to be used later */
 
-        if (eventName == "spacebar-keydown") {
+        if (e.eventName == "spacebar-keydown") {
             key_spacebar = true;
         }
 
-        if (eventName == "spacebar-keyup") {
+        if (e.eventName == "spacebar-keyup") {
             key_spacebar = false;
         }
     }
