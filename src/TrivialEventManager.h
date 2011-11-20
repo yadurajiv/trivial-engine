@@ -42,17 +42,27 @@ private:
     EventManager& operator=(EventManager const&){};  // assignment operator is private
 
     static EventManager* _pInstance;
+    
+    pair<string, vector<string> > parseSubEventString(string subEventString);
 
-    map<string, sf::Keyboard::Key> keyBoardKeyCodeMap;
-    map<string, sf::Event::EventType> keyBoardEventMap;
-
+    // Keyboard events related
     map<pair<string, string>, vector<Object *> > _keyboardEventSubscribers;
+    map<string, sf::Keyboard::Key> _keyBoardKeyCodeMap;
+    // map<string, sf::Event::EventType> _keyBoardEventMap;
     map<string, int> _keyStates;
 
+    // System events related
     map<pair<string, string>, Object * > _systemEventSubscribers;
 
-    map<pair<string, string>, Object * > _mouseEventSubscribers;
+    // Mouse events related
+    map<pair<string, string>, vector<Object *> > _mouseEventSubscribers;
+    map<string, sf::Mouse::Button> _mouseButtonMap;
+    // map<string, int> _mouseButtonEventMap;
+    // Need to find a better way to do this
+    map<string, int> _mouseButtonStatesMain;
+    map<string, int> _mouseButtonStatesSub;
 
+    // Not sure what to do with the following for now x-)
     map<string, vector<Object *> > _joystickEventSubscribers;
     map<string, vector<Object *> > _collisionEventSubscribers;
     map<string, vector<Object *> > _customEventSubscribers;

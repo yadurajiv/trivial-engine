@@ -41,8 +41,7 @@ public:
         key_escape = false;
         key_z = false;
 
-        /* subscribing to keyboard events */
-
+        // subscribing to keyboard events 
         myEventManager->subscribe("up-keydown", this);
         myEventManager->subscribe("up-keyup", this);
 
@@ -64,7 +63,25 @@ public:
         myEventManager->subscribe("x-keydown", this);
         myEventManager->subscribe("x-keyup", this);
 
+        // General Mouse event test
         myEventManager->subscribe("update-mouse",this);
+        
+        // One time button stuff
+        myEventManager->subscribe("buttondown-mouse", this);
+        myEventManager->subscribe("buttonup-mouse", this);
+        
+        // Test for sub sub event functionality. Shiz's gettin trippy bro...
+        myEventManager->subscribe("left-buttondown-mouse", this);
+        myEventManager->subscribe("left-buttonup-mouse", this);
+        myEventManager->subscribe("right-buttonup-mouse", this);
+        myEventManager->subscribe("right-buttondown-mouse", this);
+        myEventManager->subscribe("middle-buttonup-mouse", this);
+        myEventManager->subscribe("middle-buttondown-mouse", this);  
+        
+        // 
+        // // Just for lulz
+        // myEventManager->subscribe("foo-bar-okey-middle-buttondown-mouse", this);  
+        
 
         /* add a couple of images to the image manager */
 
@@ -178,66 +195,68 @@ public:
     }
 
     /* the event call back is called by the event manager */
-    void keyBoardEventCallback(const string &eventName) {
+    void keyBoardEventCallback(const Trivial::TrivialKeyBoardEvent &e) {
         /* un/setting flags to be used later */
 
-        if (eventName == "up-keydown") {
+        if (e.eventName == "up-keydown") {
             key_up = true;
         }
-        if (eventName == "up-keyup") {
+        if (e.eventName == "up-keyup") {
             key_up = false;
         }
 
-        if (eventName == "down-keydown") {
+        if (e.eventName == "down-keydown") {
             key_down = true;
         }
-        if (eventName == "down-keyup") {
+        if (e.eventName == "down-keyup") {
             key_down = false;
         }
 
-        if (eventName == "left-keydown") {
+        if (e.eventName == "left-keydown") {
             key_left = true;
         }
-        if (eventName == "left-keyup") {
+        if (e.eventName == "left-keyup") {
             key_left = false;
         }
 
-        if (eventName == "right-keydown") {
+        if (e.eventName == "right-keydown") {
             key_right = true;
         }
-        if (eventName == "right-keyup") {
+        if (e.eventName == "right-keyup") {
             key_right = false;
         }
 
-        if (eventName == "escape-keydown") {
+        if (e.eventName == "escape-keydown") {
             key_escape = true;
         }
 
-        if (eventName == "escape-keyup") {
+        if (e.eventName == "escape-keyup") {
             key_escape = false;
         }
 
-        if (eventName == "z-keydown") {
+        if (e.eventName == "z-keydown") {
             key_z = true;
         }
 
-        if (eventName == "z-keyup") {
+        if (e.eventName == "z-keyup") {
             key_z = false;
         }
 
-        if (eventName == "x-keydown") {
+        if (e.eventName == "x-keydown") {
             key_x = true;
         }
 
-        if (eventName == "x-keyup") {
+        if (e.eventName == "x-keyup") {
             key_x = false;
         }
 
     }
 
     void mouseEventCallBack(const Trivial::TrivialMouseEvent &e) {
-        if(e.name == "update") {
 
+        if(e.eventName == "update-mouse") {
+            // Test for the general mouse update. This is an event in case any 
+            // aspect of the mouse changes.
             _mx = e.pos.x;
             _my = e.pos.y;
 
@@ -260,8 +279,52 @@ public:
             if(e.x2Button) {
                 cout << "\nX2 Button is Down!";
             }
-
+        } 
+        
+        if (e.eventName == "buttondown-mouse") {
+            // This is when the mouse button goes down. This is called once 
+            // for that button. Motivation behind this was so I get an event 
+            // only for the click. The mouse event struct will anyway have 
+            // all the details about the mouse position etc.
+            cout << "\nSup mawn";
         }
+        
+        if (e.eventName == "buttonup-mouse") {
+            // Same as the button down
+            cout << "\nBai mawn";
+        } 
+        
+        if (e.eventName == "left-buttondown-mouse") {
+            cout << "\nLeft button down lol ";
+
+        } 
+        
+        if (e.eventName == "left-buttonup-mouse") {
+            cout << "\nLeft button up lol ";
+            
+        }
+
+        if (e.eventName == "middle-buttondown-mouse") {
+            cout << "\nMiddle button down lol ";
+            
+        }
+        
+        if (e.eventName == "middle-buttonup-mouse") {
+            cout << "\nMiddle button up lol ";
+            
+        }
+        
+        if (e.eventName == "right-buttondown-mouse") {
+            cout << "\nRight button down lol ";
+            
+        }
+        
+        if (e.eventName == "right-buttonup-mouse") {
+            cout << "\nRight button up lol ";
+            
+        }
+        
+        fflush(stdout);
     }
 
     void update() {

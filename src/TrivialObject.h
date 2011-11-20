@@ -16,6 +16,7 @@
 #define TRIVIALOBJECT_H_INCLUDED
 
 #include <string>
+#include <vector>
 
 #include "SFML/System/Vector2.hpp"
 
@@ -23,7 +24,23 @@ using namespace std;
 
 namespace Trivial {
 
-typedef struct {
+
+struct TrivialEvent {
+    string eventName; // Complete string identifier
+    string eventType; // identifier substring defining event super type
+    string eventCode; // identifier substring defining event sub type
+    vector<string> subEventCodes; // vector of sub sub types (for crazy events)
+};
+
+struct TrivialKeyBoardEvent : TrivialEvent {
+    // Nothing special here, for now...
+};
+
+struct TrivialSystemEvent : TrivialEvent {
+    // Nothing special here, for now...
+};
+
+struct TrivialMouseEvent : TrivialEvent {
     int scroll;
     bool lButton;
     bool mButton;
@@ -31,8 +48,7 @@ typedef struct {
     bool x1Button;
     bool x2Button;
     sf::Vector2i pos;
-    string name;
-} TrivialMouseEvent;
+};
 
 class Object {
 
@@ -63,7 +79,7 @@ public:
         @see EventManager.subscribe
         @see EventManager.unsubscribe
     */
-    virtual void keyBoardEventCallback(const string &eventName) { };
+    virtual void keyBoardEventCallback(const TrivialKeyBoardEvent &e) { };
 
     /**
         systemEventCallback is a virtual system event callback used
@@ -80,7 +96,7 @@ public:
         @see EventManager.subscribe
         @see EventManager.unsubscribe
     */
-    virtual void systemEventCallback(const string &eventName) { };
+    virtual void systemEventCallback(const TrivialSystemEvent &e) { };
 
     /**
         mouseEventCallBack is a virtual mouse event callback used
