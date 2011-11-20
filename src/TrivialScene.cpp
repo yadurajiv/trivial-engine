@@ -64,7 +64,13 @@ void Scene::updateObjectsByLayerName(const string &layerName) {
 void Scene::_init() {
     // Box2D for removal
     // _hasBox2DPhysics = false;
+    addLayer("default", 0);
+
     defaultCamera.init(Trivial::App::Instance()->GetWidth(),Trivial::App::Instance()->GetHeight());
+
+    _cameraMoveX = 0;
+    _cameraMoveY = 0;
+
     init();
     _hasInited = true;
 }
@@ -99,15 +105,6 @@ bool Scene::add(const string &objectName,  SceneObject &object, const string &la
     // If an object with this name already exisits, return
     if(_objects.count(objectName) > 0) {
         return false;
-    }
-
-    // Create the default layer from default view
-    if (_layers.count("default") == 0) {
-            _layers["default"] = new sf::View(App::Instance()->getWindowRect());
-            _layerIndexes[0] = "default";
-            setLayerCameraDamp("default",1,1);
-            _cameraMoveX = 0;
-            _cameraMoveY = 0;
     }
 
     // If layer not found, return

@@ -137,19 +137,23 @@ void EventManager::update() {
     }
 
     /* mouse event callbacks */
+
+    TrivialMouseEvent tme;
+
+    if(_mouseEventSubscribers.size() >= 1) {
+        tme.name = "update";
+        tme.lButton = sf::Mouse::IsButtonPressed(sf::Mouse::Left);
+        tme.mButton = sf::Mouse::IsButtonPressed(sf::Mouse::Middle);
+        tme.rButton = sf::Mouse::IsButtonPressed(sf::Mouse::Right);
+        tme.x1Button = sf::Mouse::IsButtonPressed(sf::Mouse::XButton1);
+        tme.x2Button = sf::Mouse::IsButtonPressed(sf::Mouse::XButton2);
+        tme.pos = sf::Mouse::GetPosition(*(Trivial::App::Instance()->getSFMLRenderWindow()));
+        tme.pos.x += Trivial::SceneManager::Instance()->getActiveScene()->getCamera()->X();
+        tme.pos.y += Trivial::SceneManager::Instance()->getActiveScene()->getCamera()->Y();
+    }
     map<pair<string, string>, Object *>::iterator mouseIt;
     for (mouseIt = _mouseEventSubscribers.begin(); mouseIt != _mouseEventSubscribers.end(); mouseIt++) {
         if(mouseIt->first.first == "update" && mouseIt->first.second == "mouse") {
-            TrivialMouseEvent tme;
-            tme.name = "update";
-            tme.lButton = sf::Mouse::IsButtonPressed(sf::Mouse::Left);
-            tme.mButton = sf::Mouse::IsButtonPressed(sf::Mouse::Middle);
-            tme.rButton = sf::Mouse::IsButtonPressed(sf::Mouse::Right);
-            tme.x1Button = sf::Mouse::IsButtonPressed(sf::Mouse::XButton1);
-            tme.x2Button = sf::Mouse::IsButtonPressed(sf::Mouse::XButton2);
-            tme.pos = sf::Mouse::GetPosition(*(Trivial::App::Instance()->getSFMLRenderWindow()));
-            tme.pos.x += Trivial::SceneManager::Instance()->getActiveScene()->getCamera()->X();
-            tme.pos.y += Trivial::SceneManager::Instance()->getActiveScene()->getCamera()->Y();
             mouseIt->second->mouseEventCallBack(tme);
         }
     }

@@ -35,6 +35,7 @@ public:
     virtual void activated() {};
 
     bool add(const string &objectName, SceneObject &object, const string &layer="default");
+
     SceneObject* get(const string &objectName) {
         if(_objects.count(objectName) > 0) {
             return _objects[objectName];
