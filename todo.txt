@@ -1,6 +1,9 @@
 A general mind dump of todo
 
 TODO:  
+
+Take into account the focus on the renderwindow as well when handling input events
+
 Shape drawing functions
 
 Collision - scenegraph
