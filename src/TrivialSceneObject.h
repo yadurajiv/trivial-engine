@@ -70,6 +70,7 @@ public:
     virtual float height() const { return _height; };
 
     virtual float radius() const { return _radius; };
+    virtual float setRadius(const float &r) { return _radius = r; }
 
     void show();
     void hide();

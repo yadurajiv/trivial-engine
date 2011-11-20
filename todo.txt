@@ -1,3 +1,5 @@
+A general mind dump of todo
+
 TODO:  
 Shape drawing functions
 
@@ -7,12 +9,22 @@ Collision - closer collision like, seperated axis?
 Collision with groups
 collision groups will have a bit that is true by default for all groups(and their children by inheritance) which can be used to avoid groups or objects early on.
 
+GUIButton
+
 Tilemap
 
 Logger
 
-GUIButton
-
 Audio callbacks
 
 Networking
+
+Effects
+
+Pixel doubling
+
+Camera/Object paths (like splines and waypoints)
+
+Add a generic plugin model for thrid party dlls
+
+Way to access back buffer via plugins
