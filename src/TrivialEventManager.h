@@ -29,6 +29,9 @@ public:
     void update();
 
     void releaseResource();
+    
+    void gainedWindowFocus();
+    void lostWindowFocus();
 
     //class EventManager : public Object, public b2ContactListener {
     // Callbacks for physics
@@ -67,6 +70,8 @@ private:
     map<string, vector<Object *> > _collisionEventSubscribers;
     map<string, vector<Object *> > _customEventSubscribers;
 
+    bool _hasWindowFocus;
+    
     bool _quitFlag;
 };
 

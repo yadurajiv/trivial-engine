@@ -2,8 +2,6 @@ A general mind dump of todo
 
 TODO:  
 
-Take into account the focus on the renderwindow as well when handling input events
-
 Shape drawing functions
 
 Collision - scenegraph
@@ -31,3 +29,11 @@ Camera/Object paths (like splines and waypoints)
 Add a generic plugin model for thrid party dlls
 
 Way to access back buffer via plugins
+
+
+
+--------------------------------------------------------------------------------
+
+DONE:
+
+Take into account the focus on the renderwindow as well when handling input events

@@ -78,6 +78,8 @@ EventManager::EventManager() {
     }
     
     // mouseButtonEventMap.insert(make_pair("buttondown", 0))
+    
+    _hasWindowFocus = true;
 
     _quitFlag = false;
 }
@@ -153,9 +155,10 @@ and the functions are static so the class can be directly accessed.
 void EventManager::update() {
     if(_quitFlag)
         return;
-
-    //const sf::Input* _SFMLInput = App::Instance()->getInput();
-
+        
+    if (!_hasWindowFocus)
+        return;
+    
     int i = 0;
 
     bool isKeyDown = false;
@@ -332,6 +335,14 @@ pair<string, vector<string> > EventManager::parseSubEventString(string subEventS
     }
     
     return make_pair(eventCode, subEventCodes);
+}
+
+void EventManager::gainedWindowFocus() {
+    _hasWindowFocus = true;
+}
+
+void EventManager::lostWindowFocus() {
+    _hasWindowFocus = false;    
 }
 
 void EventManager::releaseResource() {

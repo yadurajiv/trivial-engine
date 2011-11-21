@@ -71,7 +71,18 @@ void App::update() {
         if (_appEvent.Type == sf::Event::Closed) {
             this->quit();
         }
-
+        
+        // Some classes need to be informed of these events 
+        // Funny how we have to tell the eventmanager about an event. 
+        // Can't do this inside the eventmanager as all the events get 
+        // eaten up here. Tried it before doing this.        
+        if (_appEvent.Type == sf::Event::GainedFocus) {
+            EventManager::Instance()->gainedWindowFocus();
+        }
+        
+        if (_appEvent.Type == sf::Event::LostFocus) {
+            EventManager::Instance()->lostWindowFocus();
+        }
     }
 
     EventManager::Instance()->update();
