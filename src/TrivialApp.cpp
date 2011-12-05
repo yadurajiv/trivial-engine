@@ -65,24 +65,28 @@ void App::update() {
         _app.Close();
     }
 
+    // NOTE: PollEvent will remove all items that are in the event queue!
+    // calling PollEvent elsewhere like the event manager will not work!
     while (_app.PollEvent(_appEvent))
     {
          // Close window : exit
         if (_appEvent.Type == sf::Event::Closed) {
             this->quit();
         }
-        
-        // Some classes need to be informed of these events 
-        // Funny how we have to tell the eventmanager about an event. 
-        // Can't do this inside the eventmanager as all the events get 
-        // eaten up here. Tried it before doing this.        
+
+        // Some classes need to be informed of these events
+        // Funny how we have to tell the eventmanager about an event.
+        // Can't do this inside the eventmanager as all the events get
+        // eaten up here. Tried it before doing this.
         if (_appEvent.Type == sf::Event::GainedFocus) {
             EventManager::Instance()->gainedWindowFocus();
         }
-        
+
         if (_appEvent.Type == sf::Event::LostFocus) {
             EventManager::Instance()->lostWindowFocus();
         }
+
+        EventManager::Instance()->setEvent(_appEvent); // we are polling, so use it!
     }
 
     EventManager::Instance()->update();

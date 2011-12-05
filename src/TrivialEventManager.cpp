@@ -60,25 +60,25 @@ EventManager::EventManager() {
     for (keyIt = _keyBoardKeyCodeMap.begin(); keyIt != _keyBoardKeyCodeMap.end(); keyIt++) {
         _keyStates[keyIt->first] = 0;
     }
-    
+
     map<string, sf::Mouse::Button>::iterator mouseButtonIt;
-    
+
     _mouseButtonMap.insert(make_pair("left", sf::Mouse::Left));
     _mouseButtonMap.insert(make_pair("right", sf::Mouse::Right));
     _mouseButtonMap.insert(make_pair("middle", sf::Mouse::Middle));
     _mouseButtonMap.insert(make_pair("x1", sf::Mouse::XButton1));
     _mouseButtonMap.insert(make_pair("x2", sf::Mouse::XButton2));
-    
+
     for (mouseButtonIt = _mouseButtonMap.begin(); mouseButtonIt != _mouseButtonMap.end(); mouseButtonIt++) {
         _mouseButtonStatesMain[mouseButtonIt->first] = 0;
     }
-    
+
     for (mouseButtonIt = _mouseButtonMap.begin(); mouseButtonIt != _mouseButtonMap.end(); mouseButtonIt++) {
         _mouseButtonStatesSub[mouseButtonIt->first] = 0;
     }
-    
+
     // mouseButtonEventMap.insert(make_pair("buttondown", 0))
-    
+
     _hasWindowFocus = true;
 
     _quitFlag = false;
@@ -99,9 +99,9 @@ int EventManager::subscribe(const string &eventName, Object *o) {
     string eventCode;
     size_t pos;
 
-    // Find from the right side 
+    // Find from the right side
     pos = eventName.rfind("-");
-    
+
     // In case not found
     if (pos == string::npos) {
         cout << "\nERROR: " << eventName << " The supplied event string is invalid.";
@@ -118,10 +118,10 @@ int EventManager::subscribe(const string &eventName, Object *o) {
     eventType = eventName.substr(pos + 1);   // get from last '-' to the end
     eventCode = eventName.substr(0, pos); // get everything from beginning of time and beyond...
 
-    // Make the higher level pair for the event identifier. 
+    // Make the higher level pair for the event identifier.
     // The eventCode can be parsed later for sub event types in its respective
-    // logic. Any further subsubsub event type parsing is left to the user as a 
-    // homework exercise. x-) eventType are a few keyworded types in Trivial. 
+    // logic. Any further subsubsub event type parsing is left to the user as a
+    // homework exercise. x-) eventType are a few keyworded types in Trivial.
     pair<string, string> eventPair = make_pair(eventCode, eventType);
 
     // Now lets see what we have here
@@ -155,10 +155,10 @@ and the functions are static so the class can be directly accessed.
 void EventManager::update() {
     if(_quitFlag)
         return;
-        
+
     if (!_hasWindowFocus)
         return;
-    
+
     int i = 0;
 
     bool isKeyDown = false;
@@ -185,17 +185,17 @@ void EventManager::update() {
         if (raiseKeyboardEvent) {
             for (i = 0; i < keyIt->second.size(); i++) {
                 TrivialKeyBoardEvent tke;
-                
+
                 tke.eventName = keyIt->first.first + "-" + keyIt->first.second;
                 tke.eventType = keyIt->first.second;
                 tke.eventCode = keyIt->first.first;
-                
+
                 (*(keyIt->second[i])).keyBoardEventCallback(tke);
                 raiseKeyboardEvent = false;
             }
         }
     }
-    
+
     TrivialMouseEvent tme;
 
     // Do this preemptive. Most of the mouse struct members are better filled
@@ -209,44 +209,57 @@ void EventManager::update() {
         tme.pos = sf::Mouse::GetPosition(*(Trivial::App::Instance()->getSFMLRenderWindow()));
         tme.pos.x += Trivial::SceneManager::Instance()->getActiveScene()->getCamera()->X();
         tme.pos.y += Trivial::SceneManager::Instance()->getActiveScene()->getCamera()->Y();
+
+        tme.scroll = _event.MouseWheel.Delta;
+        // _event filled with data from RenderWindow.PollEvent(event);
     }
-    
+
     map<pair<string, string>, vector<Object *> >::iterator mouseIt;
     for (mouseIt = _mouseEventSubscribers.begin(); mouseIt != _mouseEventSubscribers.end(); mouseIt++) {
         // Fill up the event string details
         tme.eventName = mouseIt->first.first + "-" + mouseIt->first.second;
         tme.eventType = mouseIt->first.second;
         tme.eventCode = mouseIt->first.first;
-        
+
         // First kick off the basic mouse handler directly if that is what it is
         if (tme.eventCode == "update") {
             for (i = 0; i < mouseIt->second.size(); i++) {
                  (*(mouseIt->second[i])).mouseEventCallBack(tme);
             }
+            // cannot be sure if the same object has subscribed for more so why continue?
             continue; // Move on to the next object
         }
-        
-        // Else calculate the other event types        
+
+        // Scroll or not? NOTE: cannot scroll while moving since mouse move and mouse scroll are two events
+        if (tme.eventCode == "scroll" && _event.Type == sf::Event::MouseWheelMoved) {
+            for (i = 0; i < mouseIt->second.size(); i++) {
+                 (*(mouseIt->second[i])).mouseEventCallBack(tme);
+            }
+            // cannot be sure if the same object has subscribed for more so why continue?
+            continue; // Move on to the next object
+        }
+
+        // Else calculate the other event types
         pair<string, vector<string> > eC;
-        
+
         eC = parseSubEventString(tme.eventCode);
-        
+
         tme.eventCode = eC.first;
         tme.subEventCodes = eC.second;
-        
+
         if (tme.eventCode == "buttondown" || tme.eventCode == "buttonup") {
             if (tme.subEventCodes.size() > 0) {
                 /* mouse event callbacks */
                 bool isMouseButtonDown = false;
                 bool raiseMouseButtonEvent = false;
-                
+
                 // Check for a specific button
                 isMouseButtonDown = sf::Mouse::IsButtonPressed(_mouseButtonMap[tme.subEventCodes.front()]);
-                            
+
                 if (tme.eventCode == "buttonup" && isMouseButtonDown == false && _mouseButtonStatesSub[tme.subEventCodes.front()] == 1) {
                     raiseMouseButtonEvent = true;
                     _mouseButtonStatesSub[tme.subEventCodes.front()] = 0;
-                } else if (tme.eventCode == "buttondown" && isMouseButtonDown == true && _mouseButtonStatesSub[tme.subEventCodes.front()] == 0) {                            
+                } else if (tme.eventCode == "buttondown" && isMouseButtonDown == true && _mouseButtonStatesSub[tme.subEventCodes.front()] == 0) {
                     raiseMouseButtonEvent = true;
                     _mouseButtonStatesSub[tme.subEventCodes.front()] = 1;
                 } else {
@@ -263,17 +276,17 @@ void EventManager::update() {
                 /* mouse event callbacks */
                 bool isMouseButtonDown = false;
                 bool raiseMouseButtonEvent = false;
-                
-                // Check if any button is down                
+
+                // Check if any button is down
                 map<string, sf::Mouse::Button>::iterator mouseButtonIt;
 
                 for (mouseButtonIt = _mouseButtonMap.begin(); mouseButtonIt != _mouseButtonMap.end(); mouseButtonIt++) {
                     isMouseButtonDown = sf::Mouse::IsButtonPressed(mouseButtonIt->second);
-                    
+
                     if (tme.eventCode == "buttonup" && isMouseButtonDown == false && _mouseButtonStatesMain[mouseButtonIt->first] == 1) {
                         raiseMouseButtonEvent = true;
                         _mouseButtonStatesMain[mouseButtonIt->first] = 0;
-                    } else if (tme.eventCode == "buttondown" && isMouseButtonDown == true && _mouseButtonStatesMain[mouseButtonIt->first] == 0) {                        
+                    } else if (tme.eventCode == "buttondown" && isMouseButtonDown == true && _mouseButtonStatesMain[mouseButtonIt->first] == 0) {
                         raiseMouseButtonEvent = true;
                         _mouseButtonStatesMain[mouseButtonIt->first] = 1;
                     } else {
@@ -298,14 +311,17 @@ void EventManager::update() {
     for (sysIt = _systemEventSubscribers.begin(); sysIt != _systemEventSubscribers.end(); sysIt++) {
         if (sysIt->first.first == "update") {
             TrivialSystemEvent tse;
-            
+
             tse.eventName = sysIt->first.first + "-" + sysIt->first.second;
             tse.eventType = sysIt->first.second;
             tse.eventCode = sysIt->first.first;
-            
+
             sysIt->second->systemEventCallback(tse);
         }
     }
+
+    // all events that we got are discarded!
+    _event = _emptyEvent;
 }
 
 pair<string, vector<string> > EventManager::parseSubEventString(string subEventString) {
@@ -313,7 +329,7 @@ pair<string, vector<string> > EventManager::parseSubEventString(string subEventS
     vector<string> subEventCodes;
 
     int subPos = subEventString.rfind("-");
-    
+
     if (subPos == string::npos) {
         eventCode = subEventString;
         return make_pair(eventCode, subEventCodes);
@@ -321,19 +337,19 @@ pair<string, vector<string> > EventManager::parseSubEventString(string subEventS
         eventCode = subEventString.substr(subPos + 1);
         subEventString = subEventString.substr(0, subPos);
     }
-    
+
     while (1) {
         subPos = subEventString.rfind("-");
-        
+
         if (subPos == string::npos) {
             subEventCodes.push_back(subEventString);
             break;
         }
-        
+
         subEventCodes.push_back(subEventString.substr(subPos + 1));
         subEventString = subEventString.substr(0, subPos);
     }
-    
+
     return make_pair(eventCode, subEventCodes);
 }
 
@@ -342,11 +358,15 @@ void EventManager::gainedWindowFocus() {
 }
 
 void EventManager::lostWindowFocus() {
-    _hasWindowFocus = false;    
+    _hasWindowFocus = false;
 }
 
 void EventManager::releaseResource() {
     _quitFlag = true;
+}
+
+void EventManager::setEvent(Event &event) {
+    _event = event;
 }
 
 // Box2D for removal

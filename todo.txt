@@ -30,7 +30,17 @@ Add a generic plugin model for thrid party dlls
 
 Way to access back buffer via plugins
 
+Simple file system access 
+- save files
+- high scores
 
+Show hide layers
+
+Tilemaps
+- pixel map
+- TileEd tmx tilemaps (xml) - https://github.com/bjorn/tiled/wiki/TMX-Map-Format
+
+tinyXML
 
 --------------------------------------------------------------------------------
 

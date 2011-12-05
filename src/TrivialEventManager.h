@@ -29,9 +29,11 @@ public:
     void update();
 
     void releaseResource();
-    
+
     void gainedWindowFocus();
     void lostWindowFocus();
+
+    void setEvent(Event &event);
 
     //class EventManager : public Object, public b2ContactListener {
     // Callbacks for physics
@@ -45,7 +47,7 @@ private:
     EventManager& operator=(EventManager const&){};  // assignment operator is private
 
     static EventManager* _pInstance;
-    
+
     pair<string, vector<string> > parseSubEventString(string subEventString);
 
     // Keyboard events related
@@ -71,8 +73,11 @@ private:
     map<string, vector<Object *> > _customEventSubscribers;
 
     bool _hasWindowFocus;
-    
+
     bool _quitFlag;
+
+    Event _event;
+    Event _emptyEvent;
 };
 
 }
