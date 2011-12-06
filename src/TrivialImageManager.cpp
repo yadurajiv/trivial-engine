@@ -37,6 +37,8 @@ bool ImageManager::add(const string &name, const string &path) {
 
     sf::Texture* img = new sf::Texture();
     if(img->LoadFromFile(path)) {
+        // images remain sharp after zooming if SetSmooth is false(by default)
+        // img->SetSmooth(true);
         _images[name] = img;
     } else {
         delete img;

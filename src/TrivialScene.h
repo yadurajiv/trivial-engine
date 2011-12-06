@@ -20,7 +20,7 @@ namespace Trivial {
 class Scene : public GraphicsObject {
 
 public:
-    Scene(): _hasInited(false) { };
+    Scene(): _hasInited(false), _defaultCameraZoom(1), _doZoom(false) { };
     ~Scene();
 
     virtual void update() {};
@@ -110,6 +110,8 @@ protected:
     bool _hasInited;
 
     Camera defaultCamera;
+    float _defaultCameraZoom;
+    bool _doZoom;
 
     // Box2D for removal
     // bool _hasBox2DPhysics;

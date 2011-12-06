@@ -30,6 +30,12 @@ void Scene::_update() {
     _cameraMoveX = defaultCamera.X();
     _cameraMoveY = defaultCamera.Y();
 
+    // if there is a change in the zoom factor then get the new zoom factor
+    if(_defaultCameraZoom != defaultCamera.getZoomFactor()) {
+        _defaultCameraZoom = defaultCamera.getZoomFactor();
+        _doZoom = true;
+    }
+
     map<int, string>::iterator it;
 
     for ( it=_layerIndexes.begin() ; it != _layerIndexes.end(); it++ ) {
@@ -37,10 +43,21 @@ void Scene::_update() {
         float moveFactorY = (_cameraMoveY * _cameraDamps[it->second].second) + height()/2;
         _layers[it->second]->SetCenter(moveFactorX,moveFactorY);
 
+        // zoom can be a factor for each layer, but ignored here
+        // zoom layers which has no damping!(eg. Hud dam x and y are 0)
+        if(_doZoom && (_cameraDamps[it->second].first != 0 && _cameraDamps[it->second].second !=0)) {
+            // reset view to 100% otherwise, your zoom is going to be relative!
+            _layers[it->second]->SetSize(width(),height());
+            _layers[it->second]->Zoom(_defaultCameraZoom);
+        }
+
         App::Instance()->renderView(*(_layers[it->second]));
 
         updateObjectsByLayerName(it->second);
     }
+
+    // if we zoomed then not again.
+    _doZoom = false;
 }
 
 void Scene::updateObjectsByLayerName(const string &layerName) {

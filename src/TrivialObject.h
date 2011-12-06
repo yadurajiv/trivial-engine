@@ -48,6 +48,7 @@ struct TrivialMouseEvent : TrivialEvent {
     bool x1Button;
     bool x2Button;
     sf::Vector2i pos;
+    sf::Vector2i screenPosition;
 };
 
 class Object {

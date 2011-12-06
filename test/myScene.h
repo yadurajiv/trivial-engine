@@ -41,7 +41,9 @@ public:
         key_escape = false;
         key_z = false;
 
-        // subscribing to keyboard events 
+        _mscroll = 0;
+
+        // subscribing to keyboard events
         myEventManager->subscribe("up-keydown", this);
         myEventManager->subscribe("up-keyup", this);
 
@@ -65,23 +67,26 @@ public:
 
         // General Mouse event test
         myEventManager->subscribe("update-mouse",this);
-        
+
         // One time button stuff
         myEventManager->subscribe("buttondown-mouse", this);
         myEventManager->subscribe("buttonup-mouse", this);
-        
+
+        // scroll!
+        myEventManager->subscribe("scroll-mouse", this);
+
         // Test for sub sub event functionality. Shiz's gettin trippy bro...
         myEventManager->subscribe("left-buttondown-mouse", this);
         myEventManager->subscribe("left-buttonup-mouse", this);
         myEventManager->subscribe("right-buttonup-mouse", this);
         myEventManager->subscribe("right-buttondown-mouse", this);
         myEventManager->subscribe("middle-buttonup-mouse", this);
-        myEventManager->subscribe("middle-buttondown-mouse", this);  
-        
-        // 
+        myEventManager->subscribe("middle-buttondown-mouse", this);
+
+        //
         // // Just for lulz
-        // myEventManager->subscribe("foo-bar-okey-middle-buttondown-mouse", this);  
-        
+        // myEventManager->subscribe("foo-bar-okey-middle-buttondown-mouse", this);
+
 
         /* add a couple of images to the image manager */
 
@@ -255,7 +260,7 @@ public:
     void mouseEventCallBack(const Trivial::TrivialMouseEvent &e) {
 
         if(e.eventName == "update-mouse") {
-            // Test for the general mouse update. This is an event in case any 
+            // Test for the general mouse update. This is an event in case any
             // aspect of the mouse changes.
             _mx = e.pos.x;
             _my = e.pos.y;
@@ -279,51 +284,57 @@ public:
             if(e.x2Button) {
                 cout << "\nX2 Button is Down!";
             }
-        } 
-        
+        }
+
+        if (e.eventName == "scroll-mouse") {
+            cout << "\nDead Sea Scrolls! - " << 100 * (1 - float(e.scroll)/2);
+            defaultCamera.setZoom(100 * (1 - float(e.scroll)/2));
+        }
+
         if (e.eventName == "buttondown-mouse") {
-            // This is when the mouse button goes down. This is called once 
-            // for that button. Motivation behind this was so I get an event 
-            // only for the click. The mouse event struct will anyway have 
+            // This is when the mouse button goes down. This is called once
+            // for that button. Motivation behind this was so I get an event
+            // only for the click. The mouse event struct will anyway have
             // all the details about the mouse position etc.
             cout << "\nSup mawn";
         }
-        
+
         if (e.eventName == "buttonup-mouse") {
             // Same as the button down
             cout << "\nBai mawn";
-        } 
-        
+        }
+
         if (e.eventName == "left-buttondown-mouse") {
             cout << "\nLeft button down lol ";
 
-        } 
-        
+        }
+
         if (e.eventName == "left-buttonup-mouse") {
             cout << "\nLeft button up lol ";
-            
+
         }
 
         if (e.eventName == "middle-buttondown-mouse") {
             cout << "\nMiddle button down lol ";
-            
+
         }
-        
+
         if (e.eventName == "middle-buttonup-mouse") {
             cout << "\nMiddle button up lol ";
-            
+            defaultCamera.setZoom();
+
         }
-        
+
         if (e.eventName == "right-buttondown-mouse") {
             cout << "\nRight button down lol ";
-            
+
         }
-        
+
         if (e.eventName == "right-buttonup-mouse") {
             cout << "\nRight button up lol ";
-            
+
         }
-        
+
         fflush(stdout);
     }
 
@@ -343,6 +354,7 @@ public:
         ossfps << "\nEscape key to pause, space to continue\nZ key to fade and stop music! (5 seconds)\nX key to fade in and start music! (5 seconds)";
         ossfps << "\nMouse X: " << _mx;
         ossfps << "\nMouse Y: " << _my;
+        ossfps << "\nZoom : " << defaultCamera.getZoom();
         HUDText.text(ossfps.str());
         flush(ossfps);
 
@@ -455,6 +467,8 @@ private:
 
     int _mx;
     int _my;
+
+    int _mscroll;
 
     /* fps output string stream */
     ostringstream ossfps;

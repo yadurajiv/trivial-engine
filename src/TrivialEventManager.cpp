@@ -201,14 +201,17 @@ void EventManager::update() {
     // Do this preemptive. Most of the mouse struct members are better filled
     // at the start.
     if (_mouseEventSubscribers.size() >= 1) {
+        Camera cam = *(Trivial::SceneManager::Instance()->getActiveScene()->getCamera());
+
         tme.lButton = sf::Mouse::IsButtonPressed(sf::Mouse::Left);
         tme.mButton = sf::Mouse::IsButtonPressed(sf::Mouse::Middle);
         tme.rButton = sf::Mouse::IsButtonPressed(sf::Mouse::Right);
         tme.x1Button = sf::Mouse::IsButtonPressed(sf::Mouse::XButton1);
         tme.x2Button = sf::Mouse::IsButtonPressed(sf::Mouse::XButton2);
         tme.pos = sf::Mouse::GetPosition(*(Trivial::App::Instance()->getSFMLRenderWindow()));
-        tme.pos.x += Trivial::SceneManager::Instance()->getActiveScene()->getCamera()->X();
-        tme.pos.y += Trivial::SceneManager::Instance()->getActiveScene()->getCamera()->Y();
+        tme.screenPosition = tme.pos;
+        tme.pos.x += cam.X();
+        tme.pos.y += cam.Y();
 
         tme.scroll = _event.MouseWheel.Delta;
         // _event filled with data from RenderWindow.PollEvent(event);
@@ -226,16 +229,15 @@ void EventManager::update() {
             for (i = 0; i < mouseIt->second.size(); i++) {
                  (*(mouseIt->second[i])).mouseEventCallBack(tme);
             }
-            // cannot be sure if the same object has subscribed for more so why continue?
             continue; // Move on to the next object
         }
 
-        // Scroll or not? NOTE: cannot scroll while moving since mouse move and mouse scroll are two events
+        // Scroll or not? NOTE: cannot scroll while moving since mouse move and
+        // mouse scroll are two events
         if (tme.eventCode == "scroll" && _event.Type == sf::Event::MouseWheelMoved) {
             for (i = 0; i < mouseIt->second.size(); i++) {
                  (*(mouseIt->second[i])).mouseEventCallBack(tme);
             }
-            // cannot be sure if the same object has subscribed for more so why continue?
             continue; // Move on to the next object
         }
 

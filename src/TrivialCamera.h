@@ -14,7 +14,7 @@ namespace Trivial {
 
 class Camera : public SceneObject {
 public:
-    Camera() { };
+    Camera():_zoom(1),_zoomFactor(1) { };
     ~Camera() { };
 
     void init(const unsigned int &width, const unsigned int &height);
@@ -41,6 +41,25 @@ public:
     float getCenterX() const { return _x + _halfWidth; }
     float getCenterY() const { return _y + _halfHeight; }
 
+    void setZoom(const float &percent = 100) {
+        /*
+         simple, 100 = 1; 150 = 1.5; 50 = 0.5
+         but if we were to set the zoom to 1.5 it would show 150% of the screen
+         rather than zoom to 150% so we need to convert 150 to 0.5
+         I sure hope this works ~_~ *sigh*
+        */
+        _zoomFactor = abs(1 - (percent-100)/100);
+        _zoom =  percent/100;
+    }
+
+    float getZoom() const {
+        return _zoom *100;
+    }
+
+    float getZoomFactor() const {
+        return _zoomFactor;
+    }
+
     //void rotate(float angle);
 
     //void follow(SceneObject& o, float lerp);
@@ -59,6 +78,9 @@ protected:
     float _halfHeight;
 
     bool _ready;
+
+    float _zoom;
+    float _zoomFactor;
 
     sf::Vector2i _mousePosition;
 
