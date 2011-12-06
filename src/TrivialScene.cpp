@@ -27,6 +27,9 @@ void Scene::_update() {
     }
     */
 
+    // updating default camera; replaced later with a list of active cameras
+    defaultCamera._update();
+
     _cameraMoveX = defaultCamera.X();
     _cameraMoveY = defaultCamera.Y();
 

@@ -60,6 +60,18 @@ public:
         return _zoomFactor;
     }
 
+    // shake will stop your camera from moving!
+    void shake(const float &intensity = 0.05, const float &duration=0.5) {
+        _shakeTimer = 0;
+        _shakeIntensity = intensity;
+        _shakeDuration = duration;
+        _shakePostX = _x;
+        _shakePostY = _y;
+        _doShake = true;
+
+        /// dispatch a shake start event
+    }
+
     //void rotate(float angle);
 
     //void follow(SceneObject& o, float lerp);
@@ -81,6 +93,13 @@ protected:
 
     float _zoom;
     float _zoomFactor;
+
+    float _shakeIntensity;
+    float _shakeDuration;
+    float _shakeTimer;
+    float _shakePostX;
+    float _shakePostY;
+    bool _doShake;
 
     sf::Vector2i _mousePosition;
 

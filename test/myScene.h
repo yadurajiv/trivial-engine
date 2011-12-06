@@ -265,6 +265,9 @@ public:
             _mx = e.pos.x;
             _my = e.pos.y;
 
+            screenPositionX = e.screenPosition.x;
+            screenPositionY = e.screenPosition.y;
+
             if(e.lButton) {
                 cout << "\nLeft Button is Down!";
             }
@@ -310,7 +313,8 @@ public:
         }
 
         if (e.eventName == "left-buttonup-mouse") {
-            cout << "\nLeft button up lol ";
+            cout << "\nLeft button up lol - SHAKE!!";
+            defaultCamera.shake();
 
         }
 
@@ -354,6 +358,8 @@ public:
         ossfps << "\nEscape key to pause, space to continue\nZ key to fade and stop music! (5 seconds)\nX key to fade in and start music! (5 seconds)";
         ossfps << "\nMouse X: " << _mx;
         ossfps << "\nMouse Y: " << _my;
+        ossfps << "\nScreen X: " << screenPositionX;
+        ossfps << "\nScreen Y: " << screenPositionY;
         ossfps << "\nZoom : " << defaultCamera.getZoom();
         HUDText.text(ossfps.str());
         flush(ossfps);
@@ -467,6 +473,9 @@ private:
 
     int _mx;
     int _my;
+
+    int screenPositionX;
+    int screenPositionY;
 
     int _mscroll;
 

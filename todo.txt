@@ -21,6 +21,13 @@ Audio callbacks
 Networking
 
 Effects
+ - Full screen post effects
+	- Shake
+	- Fade In/Out
+	
+ - Sprite
+	- Shaders
+	- flash
 
 Pixel doubling
 
@@ -47,3 +54,11 @@ tinyXML
 DONE:
 
 Take into account the focus on the renderwindow as well when handling input events
+
+Camera - Zoom
+
+Camera - Shake
+
+[BugFixes]
+
+Camera _update was never called as camera was never "add"ed to the scene

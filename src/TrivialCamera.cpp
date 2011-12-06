@@ -11,6 +11,23 @@ void Camera::init(const unsigned int &width, const unsigned int &height) {
 }
 
 void Camera::_update() {
+
+    // camera shake time!
+    if (_doShake) {
+        _shakeTimer += (App::Instance()->frameTime()/1000);
+        if (_shakeTimer >= _shakeDuration) {
+            _shakeTimer = 0;
+            moveTo(_shakePostX,_shakePostY);
+            _doShake = false;
+            /// dispatch shake end event
+        } else {
+            // shake
+            float shakex =  fmod((float)rand(),((_shakeIntensity * _width*2 - _shakeIntensity*_width))*_zoomFactor);
+            float shakey = fmod((float)rand(),((_shakeIntensity * _height*2 - _shakeIntensity*_height ))*_zoomFactor);
+            moveTo(_shakePostX+shakex,_shakePostY+shakey);
+        }
+    }
+
     SceneObject::_update();
 }
 
