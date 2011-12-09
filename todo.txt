@@ -51,14 +51,30 @@ tinyXML
 
 --------------------------------------------------------------------------------
 
-DONE:
-
-Take into account the focus on the renderwindow as well when handling input events
-
-Camera - Zoom
+[DONE - latest on top]
 
 Camera - Shake
 
-[BugFixes]
+Camera - Zoom
 
-Camera _update was never called as camera was never "add"ed to the scene
+Take into account the focus on the renderwindow as well when handling input events
+
+[BugFixes/changes - latest on top]
+
+demo scene now uses the activated and deactivated call system callbacks in a better way - only active scenes update constantly
+
+new functions to set color and alpha to a sprite
+
+point overlap and collision functions get fixes
+
+animated sprite now returns cellWidth and Height instead of texture w and h
+
+camera shake effect added
+
+Camera _update was never called as camera was never "add"ed to the scene 
+
+[Bugs - latest on top]
+
+* Zoom in and out does not compensate for the change in the mouse x and y values and also the overall scale of objects..
+
+* if a key is pressed and never released when the scene is inactive, then the keyup event never registers.. although inactive is a end-user concept, not the scene's. This is the same reason why the Escape key pressed in an active scene is not going to be in conflict with the escape key in an inactive scene.

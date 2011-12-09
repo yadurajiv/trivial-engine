@@ -45,7 +45,7 @@ public:
 
     void quit() { _quitFlag = true; };
 
-    sf::Window* getSFMLRenderWindow() {
+    sf::RenderWindow* getSFMLRenderWindow() {
         return &_app;
     }
 

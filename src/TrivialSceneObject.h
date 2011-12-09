@@ -164,16 +164,18 @@ public:
     }
 
     bool pointOverlap(float x, float y) {
-        if(Trivial::Helper::pointInRect(x,y,_x,_y,_width,_height)) {
+        float h = height();
+        float w = width();
+        if(Trivial::Helper::pointInRect(x,y,_x-w/2,_y-h/2,w,h)) {
             return true;
         }
         return false;
     }
 
     virtual bool overlaps(SceneObject &o) {
-        if(Trivial::Helper::sphereCollision(_x,_y,_radius,o.X(),o.Y(),o.radius())) {
-            float w2 = _width/2;
-            float h2 = _height/2;
+        float h2 = height()/2;
+        float w2 = width()/2;
+        if(Trivial::Helper::sphereCollision(_x-w2,_y-h2,_radius,o.X(),o.Y(),o.radius())) {
             float ox = o.X();
             float oy = o.Y();
             float ow2 = o.width()/2;

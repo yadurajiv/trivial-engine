@@ -61,7 +61,7 @@ public:
     }
 
     // shake will stop your camera from moving!
-    void shake(const float &intensity = 0.05, const float &duration=0.5) {
+    void shake(const float &duration=1, const float &intensity = 0.05) {
         _shakeTimer = 0;
         _shakeIntensity = intensity;
         _shakeDuration = duration;

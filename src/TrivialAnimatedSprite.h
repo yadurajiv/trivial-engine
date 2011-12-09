@@ -24,6 +24,12 @@ public:
 
     bool addAnimation(const string &name, const int &startFrame, const int &endFrame, const int &framerate);
 
+    virtual float width() const { return _cellWidth; };
+    virtual float height() const { return _cellHeight; };
+
+    virtual float textureWidth() const { return _width; };
+    virtual float textureHeight() const { return _height; };
+
     //bool removeAnimation(string name);
 
     bool play(const string &name);

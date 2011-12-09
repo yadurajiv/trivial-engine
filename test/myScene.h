@@ -203,6 +203,13 @@ public:
     void keyBoardEventCallback(const Trivial::TrivialKeyBoardEvent &e) {
         /* un/setting flags to be used later */
 
+        // if a key is pressed and never released when the scene is inactive, then the
+        // keyup event never registers..
+        /*
+        if(!_activated)
+            return;
+        */
+
         if (e.eventName == "up-keydown") {
             key_up = true;
         }
@@ -231,11 +238,11 @@ public:
             key_right = false;
         }
 
-        if (e.eventName == "escape-keydown") {
+        if (e.eventName == "escape-keydown" && _activated) {
             key_escape = true;
         }
 
-        if (e.eventName == "escape-keyup") {
+        if (e.eventName == "escape-keyup" && _activated) {
             key_escape = false;
         }
 
@@ -258,6 +265,9 @@ public:
     }
 
     void mouseEventCallBack(const Trivial::TrivialMouseEvent &e) {
+
+        if(!_activated)
+            return;
 
         if(e.eventName == "update-mouse") {
             // Test for the general mouse update. This is an event in case any
@@ -343,6 +353,11 @@ public:
     }
 
     void update() {
+
+        if(!_activated)
+            return;
+
+
         float mcx = defaultCamera.X();
         float mcy = defaultCamera.Y();
         float ft = myApp->frameTime()/1000;
@@ -435,13 +450,22 @@ public:
             childSmallCol = false;
         }
 
+        if (explosion.pointOverlap(_mx,_my)) {
+            explosion.setColor(100,12,10,255);
+        } else {
+            //explosion.setAlpha();
+            explosion.setColor(255,255,255,255);
+        }
+
     }
 
     void deactivated() {
+        _activated = false;
         cout << "\nmyScene deactivated" << endl;
     }
 
     void activated() {
+        _activated = true;
         cout << "\nmyScene activated!" << endl;
     }
 
@@ -476,6 +500,8 @@ private:
 
     int screenPositionX;
     int screenPositionY;
+
+    bool _activated;
 
     int _mscroll;
 

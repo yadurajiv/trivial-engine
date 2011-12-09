@@ -44,13 +44,35 @@ public:
     virtual void moveBy( const float &x, const float &y);
     virtual void rotate(const float &angle);
     virtual void rotateBy(const float &angle);
+    virtual void setAlpha(const int alpha = 255) {
+        if(_alpha != alpha) {
+            sf::Color c = SFMLsprite.GetColor();
+            _alpha = c.a = alpha;
+            SFMLsprite.SetColor(c);
+        }
+    }
+
+    virtual int getAlpha() {
+        sf::Color c = SFMLsprite.GetColor();
+        _alpha = c.a;
+        return _alpha;
+    }
+
+    virtual void setColor(const int r = 255, const int g = 255, const int b = 255, const int alpha=255) {
+        sf::Color c = SFMLsprite.GetColor();
+        c.r = r;
+        c.g = g;
+        c.b = b;
+        c.a = alpha;
+        SFMLsprite.SetColor(c);
+    }
 
     sf::Sprite SFMLsprite;
 
 private:
 
     string _id;
-
+    int _alpha;
 
 };
 
