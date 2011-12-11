@@ -357,11 +357,11 @@ public:
             return;
 
 
-        //float mcx = defaultCamera.X();
-        //float mcy = defaultCamera.Y();
+        float mcx = defaultCamera.X();
+        float mcy = defaultCamera.Y();
 
-float mcx = testSprite.X();
-        float mcy = testSprite.Y();
+        //float mcx = testSprite.X();
+        //float mcy = testSprite.Y();
 
         float ft = myApp->frameTime()/1000;
 
@@ -404,8 +404,8 @@ float mcx = testSprite.X();
         }
 
         if(key_up || key_down || key_left || key_right) {
-            // defaultCamera.moveTo(mcx, mcy);
-            testSprite.moveTo(mcx,mcy);
+            defaultCamera.moveTo(mcx, mcy);
+            //testSprite.moveTo(mcx,mcy);
 //            myAudioManager->earPosition(defaultCamera.getCenterX(), defaultCamera.getCenterY());
         }
 

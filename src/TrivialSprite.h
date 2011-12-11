@@ -71,7 +71,6 @@ public:
 
 private:
 
-    string _id;
     int _alpha;
 
 };

@@ -103,8 +103,11 @@ public:
     void hide();
     bool isVisible() const;
 
-    void setLayer(const string &name) { layerName = name; };
-    string getLayer() const { return layerName; };
+    void setLayer(const string &layerName) { _layerName = layerName; };
+    string getLayer() const { return _layerName; };
+
+    void setName(const string &name) { _name = name; };
+    string getName() const { return _name; };
 
     // Box2D for removal
     // TrivialBox2DObject* getPhysicsObject() { return &_physics; };
@@ -226,9 +229,9 @@ protected:
 
     std::map<string, GraphicsObject*> _items;
 
-    string layerName;
+    string _layerName;
 
-    string _id;
+    string _name;
 
     float _x;
     float _y;

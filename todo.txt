@@ -2,7 +2,7 @@ A general mind dump of todo
 
 TODO:  
 
-All children of a scene object should transform when the parent transforms.
+All children of a scene object should transform when the parent transforms. - l8r
 
 Shape drawing functions
 
@@ -54,6 +54,8 @@ tinyXML
 --------------------------------------------------------------------------------
 
 [DONE - latest on top]
+
+setName/getName for sceneObject added - scene explicitly sets the name when sceneObjects are added to scene.
 
 Merge TrivialAnimation and TrivialAnimatedSprite. Think about it bro... - done without thinking
 

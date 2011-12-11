@@ -142,6 +142,7 @@ bool Scene::add(const string &objectName,  SceneObject &object, const string &la
     */
 
     object.setLayer(layer);
+    object.setName(objectName);
 
     _objects[objectName] = &object;
 
