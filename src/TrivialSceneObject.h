@@ -7,13 +7,12 @@
 // #include "TrivialBox2D.h"
 #include "TrivialHelper.h"
 #include "TrivialGraphicsObject.h"
-#include "TrivialGroup.h"
 
 using namespace std;
 
 namespace Trivial {
 
-class SceneObject : public Group {
+class SceneObject : public GraphicsObject {
 public:
     SceneObject();
     ~SceneObject();
@@ -22,7 +21,13 @@ public:
 
     virtual void update() { };
     virtual void _update() {
-        Group::_update();
+
+        map<string, GraphicsObject*>::iterator it;
+
+        for ( it=_items.begin() ; it != _items.end(); it++ ) {
+            (*it).second->_update();
+        }
+
         updateMotion();
         update(); // does this need to be called, it wasn't here.. mm..
     }; // notice that unlike a GraphicsObject it does not check to see if one is active
@@ -33,7 +38,7 @@ public:
     // virtual void updatePhysics() { };
     // void _updatePhysics();
 
-    void affectChildren(bool b) {
+    void affectChildren(bool b=true) {
         _affectChildren = b;
 
         if(_affectChildren) {
@@ -192,7 +197,12 @@ public:
 
     static float computeVelocity(float Velocity, float Acceleration = 0, float Drag = 0, float Max = 10000);
 
+    virtual bool add(const string &name, GraphicsObject &o);
+    virtual bool remove(const string &name);
+
 protected:
+
+    std::map<string, GraphicsObject*> _items;
 
     string layerName;
 

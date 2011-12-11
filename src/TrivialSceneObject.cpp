@@ -41,7 +41,7 @@ SceneObject::SceneObject() {
 
     _visible = true;
 
-    _affectChildren = false;
+    _affectChildren = true;
 }
 
 SceneObject::~SceneObject() {
@@ -120,6 +120,32 @@ float SceneObject::updateMotion() {
     this->moveBy(xDelta,yDelta);
 
     return delta;
+}
+
+bool SceneObject::add(const string &name, GraphicsObject &o) {
+    // If an object with this name already exisits, return
+    if(_items.count(name) > 0) {
+        return false;
+    }
+
+    _items[name] = &o;
+
+    return true;
+}
+
+bool SceneObject::remove(const string &name) {
+    if(_items.count(name) == 0)
+        return false;
+
+    map<string, GraphicsObject*>::iterator it = _items.find(name);
+    if (it != _items.end())
+    {
+        _items.erase(it);
+        return true;
+    }
+
+    return false;
+
 }
 
 }

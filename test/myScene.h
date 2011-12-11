@@ -139,8 +139,6 @@ public:
 
         cout << "adding child object to testSprite >> " << testSprite.add("xchild", child) << endl;
 
-        testSprite.affectChildren(true);
-
         testSprite.setAngularAcceleration(10);
         testSprite.setVelocity(60,0);
         testSprite.setMaxVelocity(100,0);
