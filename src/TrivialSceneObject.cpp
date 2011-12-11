@@ -1,7 +1,6 @@
 #include <iostream>
 
 #include "TrivialSceneObject.h"
-#include "TrivialGroup.h"
 
 namespace Trivial {
 

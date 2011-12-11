@@ -18,7 +18,6 @@
 // #include "TrivialBox2D.h"
 #include "TrivialCamera.h"
 #include "TrivialGraphicsObject.h"
-#include "TrivialGroup.h"
 #include "TrivialGUIObject.h"
 #include "TrivialGUIText.h"
 #include "TrivialHelper.h"
