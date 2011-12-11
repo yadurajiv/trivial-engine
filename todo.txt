@@ -2,6 +2,12 @@ A general mind dump of todo
 
 TODO:  
 
+Remove TrivialGroup.
+
+All children of a scene object should transform when the parent transforms.
+
+Merge TrivialAnimation and TrivialAnimatedSprite. Think about it bro...
+
 Shape drawing functions
 
 Collision - scenegraph
