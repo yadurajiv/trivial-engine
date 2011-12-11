@@ -54,10 +54,32 @@ public:
     }
 
     virtual void moveTo( const float &x,  const float &y) {
+        /*
+        if(_affectChildren) {
+            map<string, GraphicsObject*>::iterator it;
+            for ( it=_items.begin() ; it != _items.end(); it++ ) {
+                float item_x = static_cast<SceneObject*>((*it).second)->X();
+                float item_y = static_cast<SceneObject*>((*it).second)->Y();
+                static_cast<SceneObject*>((*it).second)->moveTo( (x+(_x - item_x)), (y+(_y - item_y)));
+                cout << "\n this should work X - " << (x+(_x - item_x));
+            }
+        }
+*/
         _x = x;
         _y = y;
+
     };
     virtual void moveBy( const float &x,  const float &y) {
+/*
+        if(_affectChildren) {
+            map<string, GraphicsObject*>::iterator it;
+            for ( it=_items.begin() ; it != _items.end(); it++ ) {
+                float item_x = static_cast<SceneObject*>((*it).second)->X();
+                float item_y = static_cast<SceneObject*>((*it).second)->Y();
+                static_cast<SceneObject*>((*it).second)->moveTo( (x+item_x), (y+item_y));
+            }
+        }
+*/
         _x += x;
         _y += y;
     };

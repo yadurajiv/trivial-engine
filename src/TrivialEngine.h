@@ -11,7 +11,6 @@
 
 // Classes
 #include "TrivialAnimatedSprite.h"
-#include "TrivialAnimation.h"
 #include "TrivialApp.h"
 #include "TrivialAudioResource.h"
 // Box2D for removal

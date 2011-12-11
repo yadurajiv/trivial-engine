@@ -30,24 +30,22 @@ void Sprite::_update() {
 }
 
 void Sprite::moveTo( const float &x, const float &y) {
-    _x = x;
-    _y = y;
+    SceneObject::moveTo(x, y);
     this->SFMLsprite.SetPosition(_x, _y);
 }
 
 void Sprite::moveBy( const float &x, const float &y) {
-    _x += x;
-    _y += y;
+    SceneObject::moveBy(x, y);
     this->SFMLsprite.SetPosition(_x, _y);
 }
 
 void Sprite::rotate(const float &angle) {
-    _angle = angle;
+    SceneObject::rotate(angle);
     this->SFMLsprite.SetRotation(_angle);
 }
 
 void Sprite::rotateBy(const float &angle) {
-    _angle += angle;
+    SceneObject::rotateBy(angle);
     this->SFMLsprite.SetRotation(_angle);
 }
 

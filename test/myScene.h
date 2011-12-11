@@ -138,12 +138,12 @@ public:
         testSprite.moveTo(0,0);
 
         cout << "adding child object to testSprite >> " << testSprite.add("xchild", child) << endl;
-
+/*
         testSprite.setAngularAcceleration(10);
         testSprite.setVelocity(60,0);
         testSprite.setMaxVelocity(100,0);
         testSprite.setMaxAngular(100);
-
+*/
         //testSprite.getPhysicsObject()->setBoxShape(testSprite.X(), testSprite.Y(), testSprite.width(), testSprite.height());
         //testSprite.getPhysicsObject()->setDynamic();
 
@@ -192,6 +192,7 @@ public:
 
         cout << "\ndefCamX: " << defaultCamera.width();
         cout << "\ndefCamY: " << defaultCamera.height();
+
 
 //        myAudioManager->earPosition(camera.getCenterX(), camera.getCenterY());
 
@@ -356,8 +357,12 @@ public:
             return;
 
 
-        float mcx = defaultCamera.X();
-        float mcy = defaultCamera.Y();
+        //float mcx = defaultCamera.X();
+        //float mcy = defaultCamera.Y();
+
+float mcx = testSprite.X();
+        float mcy = testSprite.Y();
+
         float ft = myApp->frameTime()/1000;
 
         ossfps.str("");
@@ -399,7 +404,8 @@ public:
         }
 
         if(key_up || key_down || key_left || key_right) {
-            defaultCamera.moveTo(mcx, mcy);
+            // defaultCamera.moveTo(mcx, mcy);
+            testSprite.moveTo(mcx,mcy);
 //            myAudioManager->earPosition(defaultCamera.getCenterX(), defaultCamera.getCenterY());
         }
 
@@ -426,6 +432,7 @@ public:
             */
         }
 
+/*
         if(testSprite.X() > 500) {
             testSprite.setVelocity(-40,0);
         }
@@ -433,7 +440,7 @@ public:
         if(testSprite.X() < 0) {
             testSprite.setVelocity(40,0);
         }
-
+*/
         if(childSmall.Y() > 500) {
             childSmall.setVelocity(0,-120);
         }
