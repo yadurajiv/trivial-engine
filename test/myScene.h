@@ -196,7 +196,7 @@ public:
         setLayerCameraDamp("hud", 0, 0);
 
         // look at object needs to be rewritten or given to scene
-        defaultCamera.lookAt(300, 300);
+        defaultCamera.lookAt(400, 300);
 
         cout << "\ndefCamX: " << defaultCamera.width();
         cout << "\ndefCamY: " << defaultCamera.height();
@@ -469,7 +469,20 @@ public:
             explosion.setColor(255,255,255,255);
         }
 
-        myApp->getSFMLRenderWindow()->Draw(sf::Shape::Circle(200,200,100,sf::Color::Red));
+        // debug  - only main objects are iterated through, not children in a group
+        // need recursive func for that..
+        map<string, Trivial::SceneObject*>::iterator it;
+        for ( it=_objects.begin() ; it != _objects.end(); it++ ) {
+            int shw = it->second->width();
+            int shh = it->second->height();
+            float shx = it->second->X();
+            float shy = it->second->Y();
+            sf::Shape sh = sf::Shape::Rectangle(shx,shy,shw,shh,sf::Color(255,255,355,50),2,sf::Color(0,255,0,255));
+            sh.SetOrigin(shw/2,shh/2);
+            //sh.SetPosition(shx,shy);
+            myApp->getSFMLRenderWindow()->Draw(sh);
+
+        }
 
     }
 
