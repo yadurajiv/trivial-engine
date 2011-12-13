@@ -18,8 +18,6 @@ Scene::~Scene() {
 }
 
 void Scene::_update() {
-    update();
-
     // Box2D for removal
     /*
     if (_hasBox2DPhysics) {
@@ -61,6 +59,8 @@ void Scene::_update() {
 
     // if we zoomed then not again.
     _doZoom = false;
+
+    update();
 }
 
 void Scene::updateObjectsByLayerName(const string &layerName) {

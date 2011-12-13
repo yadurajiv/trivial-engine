@@ -55,6 +55,8 @@ tinyXML
 
 [DONE - latest on top]
 
+update() in _update of Scene class moved to end of function - draw calls were ignored
+
 setName/getName for sceneObject added - scene explicitly sets the name when sceneObjects are added to scene.
 
 Merge TrivialAnimation and TrivialAnimatedSprite. Think about it bro... - done without thinking

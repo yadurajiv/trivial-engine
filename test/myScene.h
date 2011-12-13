@@ -129,6 +129,14 @@ public:
         explosion.moveTo(300,300);
         add("explosion", explosion);
 
+
+
+
+        for(int c=0;c<1000;c++) {
+
+        }
+
+
         child.image("child");
         child.moveBy(50,50);
 
@@ -356,7 +364,6 @@ public:
         if(!_activated)
             return;
 
-
         float mcx = defaultCamera.X();
         float mcy = defaultCamera.Y();
 
@@ -461,6 +468,8 @@ public:
             //explosion.setAlpha();
             explosion.setColor(255,255,255,255);
         }
+
+        myApp->getSFMLRenderWindow()->Draw(sf::Shape::Circle(200,200,100,sf::Color::Red));
 
     }
 
