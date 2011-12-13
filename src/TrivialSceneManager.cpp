@@ -37,9 +37,11 @@ bool SceneManager::addScene(const string &sceneName, Scene* scene, bool keepPers
         return false;
     }
 
-    scene->setPersistance(keepPersistent);
-
     _scenes[sceneName] = scene;
+
+    scene->setPersistance(keepPersistent);
+    scene->shouldForceInit(forceInit);
+    scene->preload();
 
     if(forceInit) {
         scene->_init();
@@ -56,14 +58,16 @@ bool SceneManager::setActiveScene(const string &sceneName) {
         return false;
     }
 
+    // if the current scene exists, then deactivate it and remove it if need be
     if (_currentScene != "") {
         _scenes[_currentScene]->setActive(false);
         _scenes[_currentScene]->deactivated();
+        if(!_scenes[_currentScene]->getPersistance()) {
+            removeScene(_currentScene);
+        }
     }
 
     if(!_scenes[sceneName]->ready()) { // if the scene has not been inited before, then init it
-        _scenes[sceneName]->_init();
-    } else if(!_scenes[sceneName]->getPersistance()) { // if the scene is persistant then don't reinit
         _scenes[sceneName]->_init();
     }
 
@@ -99,7 +103,11 @@ Scene* SceneManager::getScene(const string &name) {
 }
 
 Scene* SceneManager::getActiveScene() {
-    return _scenes[_currentScene];
+    if(_currentScene != "") {
+        return _scenes[_currentScene];
+    } else {
+        return NULL;
+    }
 }
 
 }

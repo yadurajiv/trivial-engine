@@ -53,6 +53,18 @@ EventManager::EventManager() {
     _keyBoardKeyCodeMap.insert(make_pair("y", sf::Keyboard::Y));
     _keyBoardKeyCodeMap.insert(make_pair("z", sf::Keyboard::Z));
 
+    _keyBoardKeyCodeMap.insert(make_pair("0", sf::Keyboard::Num0));
+    _keyBoardKeyCodeMap.insert(make_pair("1", sf::Keyboard::Num1));
+    _keyBoardKeyCodeMap.insert(make_pair("2", sf::Keyboard::Num2));
+    _keyBoardKeyCodeMap.insert(make_pair("3", sf::Keyboard::Num3));
+    _keyBoardKeyCodeMap.insert(make_pair("4", sf::Keyboard::Num4));
+    _keyBoardKeyCodeMap.insert(make_pair("5", sf::Keyboard::Num5));
+    _keyBoardKeyCodeMap.insert(make_pair("6", sf::Keyboard::Num6));
+    _keyBoardKeyCodeMap.insert(make_pair("7", sf::Keyboard::Num7));
+    _keyBoardKeyCodeMap.insert(make_pair("8", sf::Keyboard::Num8));
+    _keyBoardKeyCodeMap.insert(make_pair("9", sf::Keyboard::Num9));
+
+
     // _keyBoardEventMap.insert(make_pair("keydown", sf::Event::KeyPressed));
     // _keyBoardEventMap.insert(make_pair("keyup", sf::Event::KeyReleased));
 
@@ -201,7 +213,15 @@ void EventManager::update() {
     // Do this preemptive. Most of the mouse struct members are better filled
     // at the start.
     if (_mouseEventSubscribers.size() >= 1) {
-        Camera cam = *(Trivial::SceneManager::Instance()->getActiveScene()->getCamera());
+
+        if (Trivial::SceneManager::Instance()->getActiveScene() != NULL) {
+            Camera cam = *(Trivial::SceneManager::Instance()->getActiveScene()->getCamera());
+            tme.pos.x += cam.X();
+            tme.pos.y += cam.Y();
+        } else {
+            tme.pos.x = 0;
+            tme.pos.y = 0;
+        }
 
         tme.lButton = sf::Mouse::IsButtonPressed(sf::Mouse::Left);
         tme.mButton = sf::Mouse::IsButtonPressed(sf::Mouse::Middle);
@@ -210,8 +230,6 @@ void EventManager::update() {
         tme.x2Button = sf::Mouse::IsButtonPressed(sf::Mouse::XButton2);
         tme.pos = sf::Mouse::GetPosition(*(Trivial::App::Instance()->getSFMLRenderWindow()));
         tme.screenPosition = tme.pos;
-        tme.pos.x += cam.X();
-        tme.pos.y += cam.Y();
 
         tme.scroll = _event.MouseWheel.Delta;
         // _event filled with data from RenderWindow.PollEvent(event);

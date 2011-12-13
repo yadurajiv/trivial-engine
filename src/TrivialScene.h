@@ -20,7 +20,7 @@ namespace Trivial {
 class Scene : public GraphicsObject {
 
 public:
-    Scene(): _hasInited(false), _defaultCameraZoom(1), _doZoom(false) { };
+    Scene(): _hasInited(false), _defaultCameraZoom(1), _doZoom(false), _forceInit(false) { };
     ~Scene();
 
     virtual void update() {};
@@ -33,6 +33,7 @@ public:
 
     virtual void deactivated() {};
     virtual void activated() {};
+    virtual void preload() {};
 
     bool add(const string &objectName, SceneObject &object, const string &layer="default");
 
@@ -61,6 +62,14 @@ public:
 
     bool getPersistance() const { return _keepPersistent; }
     void setPersistance(bool p) { _keepPersistent = p; }
+
+    bool shouldForceInit(int i = -1) {
+        if(i != -1) {
+            _forceInit = i;
+        }
+
+        return _forceInit;
+    }
 
     Camera* getCamera(const string &name = "default") {
         return &defaultCamera;
@@ -108,6 +117,7 @@ protected:
 
     bool _keepPersistent;
     bool _hasInited;
+    bool _forceInit;
 
     Camera defaultCamera;
     float _defaultCameraZoom;

@@ -40,6 +40,7 @@ public:
         key_right = false;
         key_escape = false;
         key_z = false;
+        key_1 = false;
 
         _mscroll = 0;
 
@@ -64,6 +65,9 @@ public:
 
         myEventManager->subscribe("x-keydown", this);
         myEventManager->subscribe("x-keyup", this);
+
+        myEventManager->subscribe("1-keydown", this);
+        myEventManager->subscribe("1-keyup", this);
 
         // General Mouse event test
         myEventManager->subscribe("update-mouse",this);
@@ -128,14 +132,6 @@ public:
         // regular stuff
         explosion.moveTo(300,300);
         add("explosion", explosion);
-
-
-
-
-        for(int c=0;c<1000;c++) {
-
-        }
-
 
         child.image("child");
         child.moveBy(50,50);
@@ -267,6 +263,14 @@ public:
 
         if (e.eventName == "x-keyup") {
             key_x = false;
+        }
+
+        if (e.eventName == "1-keydown") {
+            key_1 = true;
+        }
+
+        if (e.eventName == "1-keyup") {
+            key_1 = false;
         }
 
     }
@@ -410,6 +414,11 @@ public:
             mySceneManager->setActiveScene("pause");
         }
 
+        if(key_1) {
+            key_1 = false;
+            mySceneManager->setActiveScene("mouseDrawing");
+        }
+
         if(key_up || key_down || key_left || key_right) {
             defaultCamera.moveTo(mcx, mcy);
             //testSprite.moveTo(mcx,mcy);
@@ -521,6 +530,7 @@ private:
     bool key_escape;
     bool key_z;
     bool key_x;
+    bool key_1;
 
     int _mx;
     int _my;
