@@ -14,8 +14,6 @@
 
 /** game scenes here! **/
 #include "myScene.h"
-#include "pause.h"
-#include "mouseDrawing.h"
 
 #ifdef WIN32
     #ifndef _CONSOLE
@@ -37,9 +35,7 @@
     Trivial::SceneManager *mySceneManager = Trivial::SceneManager::Instance();
 
     /* add scene to scene manager */
-    mySceneManager->addScene("myScene", new myScene, true, true);
-    mySceneManager->addScene("pause", new pauseScene, true, true);
-    mySceneManager->addScene("mouseDrawing",new mouseDrawing);
+    mySceneManager->addScene("myScene", new myScene, true);
 
     /* tell the event manager which the current active scene is */
     mySceneManager->setActiveScene("myScene");
