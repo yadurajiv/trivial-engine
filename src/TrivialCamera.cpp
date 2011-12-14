@@ -7,9 +7,14 @@ void Camera::init(const unsigned int &width, const unsigned int &height) {
     _height = height;
     _halfWidth = (_width / 2);
     _halfHeight = (_height / 2);
+    _x = 0;
+    _y = 0;
+    _doShake = false;
+    _shakeTimer = 0;
+    _shakeDuration = 0;
+    _shakeIntensity = 0;
+    moveTo(_x,_y);
     _ready = true;
-
-    reset();
 }
 
 void Camera::_update() {

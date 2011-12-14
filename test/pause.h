@@ -76,7 +76,7 @@ public:
             return;
 
 
-        // cout << "\nPAUSE SCENE cam x " << defaultCamera.X();
+        cout << "\nPAUSE SCENE cam x " << defaultCamera.X();
 
         if(key_escape) {
             key_escape = false;

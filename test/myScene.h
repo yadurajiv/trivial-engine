@@ -430,7 +430,6 @@ public:
 
         if(key_escape) {
             key_escape = false;
-            cout << "ADDING NEW SCENE NAOOOOOOOOO. THE PAUSE ONE!!!" << endl;
             mySceneManager->addScene("pause", new pauseScene);
             mySceneManager->setActiveScene("pause");
         }

@@ -85,6 +85,7 @@ void Scene::_preload() {
     addLayer("default", 0);
 
     defaultCamera.init(Trivial::App::Instance()->GetWidth(),Trivial::App::Instance()->GetHeight());
+    cout << "\ncam x " << defaultCamera.X();
     defaultCamera.lookAt(width()/2,height()/2);
 
     _cameraMoveX = 0;

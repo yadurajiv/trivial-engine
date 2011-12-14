@@ -86,8 +86,8 @@ protected:
     //Scene* _scene;
 
 /* half your own width */
-    float _halfWidth;
-    float _halfHeight;
+    int _halfWidth;
+    int _halfHeight;
 
     bool _ready;
 
