@@ -1,5 +1,6 @@
-#ifndef PAUSE_H_INCLUDED
-#define PAUSE_H_INCLUDED
+#ifndef QUADTREETEST_H_INCLUDED
+#define QUADTREETEST_H_INCLUDED
+
 
 #include <stdio.h>
 
@@ -13,47 +14,38 @@
 
 using namespace std;
 
-class pauseScene : public Trivial::Scene {
+class quadTreeTest : public Trivial::Scene {
 public:
 
-    pauseScene() {
+    quadTreeTest() {
 
     }
 
     void preload() {
-        cout << "\nPause preload";
+        cout << "\nQuad Tree test preload";
 
         myApp = Trivial::App::Instance();
+
         mySceneManager = Trivial::SceneManager::Instance();
         myEventManager = Trivial::EventManager::Instance();
-        myImageManager = Trivial::ImageManager::Instance();
 
         myEventManager->subscribe("escape-keyup", this);
         myEventManager->subscribe("escape-keydown", this);
 
+        // General Mouse event test
+        myEventManager->subscribe("update-mouse",this);
+
         addLayer("hud", 1);
         HUDText.font("wendy");
-        HUDText.text(10,5,"PAUSED!! Hit [Esc] to continue");
-        cout << "\nadding pause scene hudtext - " << add("hudtext", HUDText, "hud");
+        HUDText.text(10,5,"Hit [Esc] to continue");
+        add("hudtext", HUDText, "hud");
 
-        myImageManager->add("pauseText","data/pausetext.png");
+        //cout << "\nQuad Tree test init!";
 
-        pauseText.image("pauseText");
-        pauseText.moveTo(width()/2, height()/2);
-        add("pauseText", pauseText);
-    }
-
-    void reset() {
+        /* key state flags */
         key_escape = false;
-
-        myApp->setClearColor(100,0,0,255);
-
-        defaultCamera.moveTo(0, 0);
-        defaultCamera.lookAt(400, 300);
-
-        cout << "\nPAUSE SCENE cam x " << defaultCamera.X();
-
     }
+
 
     /* the event call back is called by the event manager */
     void keyBoardEventCallback(const Trivial::TrivialKeyBoardEvent &e) {
@@ -71,43 +63,54 @@ public:
         }
     }
 
+    void mouseEventCallBack(const Trivial::TrivialMouseEvent &e) {
+        if(!_activated)
+            return;
+
+        _mx = e.pos.x;
+        _my = e.pos.y;
+
+    }
+
     void update() {
         if(!_activated)
             return;
 
+        cout << "\ncam x " << defaultCamera.X();
 
-        // cout << "\nPAUSE SCENE cam x " << defaultCamera.X();
+        ossHUD.str("");
+        ossHUD << "FPS: " << myApp->FPS();
+        ossHUD << "\nMouse X: " << _mx;
+        ossHUD << "\nMouse Y: " << _my;
+        HUDText.text(ossHUD.str());
+        flush(ossHUD);
 
         if(key_escape) {
             key_escape = false;
             mySceneManager->setActiveScene("myScene");
-
-            cout << "ACTIVATING MAI SCENE!!!" << endl;
-
         }
+
 
     }
 
     void deactivated() {
         _activated = false;
-        cout << "\npause deactivated" << endl;
+        cout << "\nmouseDrawing deactivated" << endl;
     }
 
     void activated() {
         _activated = true;
-        cout << "\npause activated!" << endl;
-
-        reset();
+        cout << "\nmouseDrawing activated!" << endl;
     }
 
-    ~pauseScene() {
+    ~quadTreeTest() {
     }
 
 
 private:
 
     Trivial::GUIText HUDText;
-    Trivial::Sprite pauseText;
+
 
     // Trivial::Camera camera;
 
@@ -116,11 +119,13 @@ private:
     Trivial::App *myApp;
     Trivial::SceneManager *mySceneManager;
     Trivial::EventManager *myEventManager;
-    Trivial::ImageManager *myImageManager;
 
     bool _activated;
 
+    float _mx;
+    float _my;
 
+    ostringstream ossHUD;
 };
 
-#endif // PAUSE_H_INCLUDED
+#endif // QUADTREETEST_H_INCLUDED

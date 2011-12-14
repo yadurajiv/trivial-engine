@@ -11,6 +11,10 @@
 
 #include "TrivialEngine.h"
 
+#include "pause.h"
+#include "mouseDrawing.h"
+#include "quadTreeTest.h"
+
 using namespace std;
 
 class myScene : public Trivial::Scene {
@@ -20,9 +24,8 @@ public:
 
     }
 
-    void init() {
-
-        cout << "myScene init()\n";
+    void preload() {
+        cout << "ONE TIME PRELOAD!\n";
 
         myApp = Trivial::App::Instance();
         mySceneManager = Trivial::SceneManager::Instance();
@@ -30,19 +33,6 @@ public:
         myImageManager = Trivial::ImageManager::Instance();
         myFontManager = Trivial::FontManager::Instance();
 //        myAudioManager = Trivial::AudioManager::Instance();
-
-        //enableBox2DPhysics();
-
-        /* key state flags */
-        key_up = false;
-        key_down = false;
-        key_left = false;
-        key_right = false;
-        key_escape = false;
-        key_z = false;
-        key_1 = false;
-
-        _mscroll = 0;
 
         // subscribing to keyboard events
         myEventManager->subscribe("up-keydown", this);
@@ -68,6 +58,9 @@ public:
 
         myEventManager->subscribe("1-keydown", this);
         myEventManager->subscribe("1-keyup", this);
+
+        myEventManager->subscribe("2-keydown", this);
+        myEventManager->subscribe("2-keyup", this);
 
         // General Mouse event test
         myEventManager->subscribe("update-mouse",this);
@@ -131,7 +124,7 @@ public:
         explosion.play("boom");
         // regular stuff
         explosion.moveTo(300,300);
-        add("explosion", explosion);
+        cout << "\nadding explosion - " << add("explosion", explosion);
 
         child.image("child");
         child.moveBy(50,50);
@@ -191,15 +184,31 @@ public:
         setLayerCameraDamp("bgLayer", 0.5, 0.5);
         setLayerCameraDamp("hud", 0, 0);
 
+        //enableBox2DPhysics();
+
+    }
+
+    void reset() {
+        /* key state flags */
+        key_up = false;
+        key_down = false;
+        key_left = false;
+        key_right = false;
+        key_escape = false;
+        key_z = false;
+        key_1 = false;
+        key_2 = false;
+
+        _mscroll = 0;
+
+
+
         // look at object needs to be rewritten or given to scene
         defaultCamera.lookAt(400, 300);
 
-        cout << "\ndefCamX: " << defaultCamera.width();
-        cout << "\ndefCamY: " << defaultCamera.height();
-
+        myApp->setClearColor();
 
 //        myAudioManager->earPosition(camera.getCenterX(), camera.getCenterY());
-
     }
 
     /* the event call back is called by the event manager */
@@ -271,6 +280,14 @@ public:
 
         if (e.eventName == "1-keyup") {
             key_1 = false;
+        }
+
+        if (e.eventName == "2-keydown") {
+            key_2 = true;
+        }
+
+        if (e.eventName == "2-keyup") {
+            key_2 = false;
         }
 
     }
@@ -368,6 +385,8 @@ public:
         if(!_activated)
             return;
 
+        // cout << "\nMAISCENE cam x " << defaultCamera.X();
+
         float mcx = defaultCamera.X();
         float mcy = defaultCamera.Y();
 
@@ -411,12 +430,21 @@ public:
 
         if(key_escape) {
             key_escape = false;
+            cout << "ADDING NEW SCENE NAOOOOOOOOO. THE PAUSE ONE!!!" << endl;
+            mySceneManager->addScene("pause", new pauseScene);
             mySceneManager->setActiveScene("pause");
         }
 
         if(key_1) {
             key_1 = false;
+            mySceneManager->addScene("mouseDrawing",new mouseDrawing);
             mySceneManager->setActiveScene("mouseDrawing");
+        }
+
+        if(key_2) {
+            key_2 = false;
+            mySceneManager->addScene("quadTreeTest",new quadTreeTest);
+            mySceneManager->setActiveScene("quadTreeTest");
         }
 
         if(key_up || key_down || key_left || key_right) {
@@ -424,7 +452,6 @@ public:
             //testSprite.moveTo(mcx,mcy);
 //            myAudioManager->earPosition(defaultCamera.getCenterX(), defaultCamera.getCenterY());
         }
-
 
         if(key_z) {
             key_z = false;
@@ -503,6 +530,8 @@ public:
     void activated() {
         _activated = true;
         cout << "\nmyScene activated!" << endl;
+
+        reset();
     }
 
     ~myScene() {
@@ -531,6 +560,7 @@ private:
     bool key_z;
     bool key_x;
     bool key_1;
+    bool key_2;
 
     int _mx;
     int _my;

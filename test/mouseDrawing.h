@@ -20,18 +20,13 @@ public:
 
     }
 
-    void init() {
+    void preload() {
+        cout << "\nMouse Drawing preload";
 
         myApp = Trivial::App::Instance();
 
         mySceneManager = Trivial::SceneManager::Instance();
         myEventManager = Trivial::EventManager::Instance();
-
-
-        //enableBox2DPhysics();
-
-        /* key state flags */
-        key_escape = false;
 
         myEventManager->subscribe("escape-keyup", this);
         myEventManager->subscribe("escape-keydown", this);
@@ -39,21 +34,23 @@ public:
         // General Mouse event test
         myEventManager->subscribe("update-mouse",this);
 
-
         addLayer("hud", 1);
         HUDText.font("wendy");
         HUDText.text(10,5,"Hit [Esc] to continue");
         add("hudtext", HUDText, "hud");
 
+//        cout << "\nMouse Drawing init!";
+
+        /* key state flags */
+        key_escape = false;
+
         _line = sf::Shape();
+
+        myApp->setClearColor(0,0,0,255);
 
         _line.EnableFill(false);
         _line.EnableOutline(true);
-        _line.SetOutlineThickness(1);
-
-        /* set the camera to the current scene */
-        //camera.setScene("pause");
-
+        _line.SetOutlineThickness(4);
     }
 
     /* the event call back is called by the event manager */
@@ -90,8 +87,7 @@ public:
         }
 
         if(_draw) {
-
-            _line.AddPoint(_lastX,_lastY,sf::Color(255,0,0,50),sf::Color(255,255,255,255));
+            _line.AddPoint(_lastX,_lastY,sf::Color(0,0,0,0),sf::Color(255,255,255,255));
 
             _draw = false;
         }
@@ -103,11 +99,14 @@ public:
         if(!_activated)
             return;
 
+        cout << "\ncam x " << defaultCamera.X();
 
         ossHUD.str("");
-//        ossHUD << "FPS: " << myApp->FPS();
+        ossHUD << "FPS: " << myApp->FPS();
         ossHUD << "\nMouse X: " << _mx;
         ossHUD << "\nMouse Y: " << _my;
+        ossHUD << "\nVertex Count: " << _line.GetPointsCount();
+        ossHUD << "\nPoly Count: " << _line.GetPointsCount()/2;
         HUDText.text(ossHUD.str());
         flush(ossHUD);
 

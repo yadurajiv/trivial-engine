@@ -17,7 +17,7 @@ class SceneManager : public Object {
 public:
     static SceneManager* Instance();
 
-    bool addScene(const string &sceneName, Scene* scene, bool keepPersistent = false, bool forceInit = false);
+    bool addScene(const string &sceneName, Scene* scene, bool keepPersistent = false);
     bool setActiveScene(const string &sceneName);
     bool removeScene(const string &sceneName);
     Scene* getScene(const string &name);

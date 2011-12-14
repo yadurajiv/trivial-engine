@@ -20,20 +20,27 @@ namespace Trivial {
 class Scene : public GraphicsObject {
 
 public:
-    Scene(): _hasInited(false), _defaultCameraZoom(1), _doZoom(false), _forceInit(false) { };
+    Scene(): _defaultCameraZoom(1), _doZoom(false) { };
     ~Scene();
 
     virtual void update() {};
 
     void _update();
 
-    virtual void init() = 0;
+    //virtual void init() = 0;
 
-    void _init();
+    //void _init();
 
     virtual void deactivated() {};
     virtual void activated() {};
+
     virtual void preload() {};
+
+    void _preload();
+
+    void _reset() {
+        defaultCamera.reset();
+    }
 
     bool add(const string &objectName, SceneObject &object, const string &layer="default");
 
@@ -63,13 +70,15 @@ public:
     bool getPersistance() const { return _keepPersistent; }
     void setPersistance(bool p) { _keepPersistent = p; }
 
-    bool shouldForceInit(int i = -1) {
+/*
+    int shouldForceInit(int i = -1) {
         if(i != -1) {
             _forceInit = i;
         }
 
         return _forceInit;
     }
+*/
 
     Camera* getCamera(const string &name = "default") {
         return &defaultCamera;
@@ -83,7 +92,7 @@ public:
         */
     }
 
-    bool ready() const { return _hasInited; }
+    //bool ready() const { return _hasInited; }
     //void setReady(bool b) { _hasInited = b; }
 /*
     bool glueLayerToCamera(string name);
@@ -116,8 +125,8 @@ protected:
     float _cameraAngle;
 
     bool _keepPersistent;
-    bool _hasInited;
-    bool _forceInit;
+    //bool _hasInited;
+   // int _forceInit;
 
     Camera defaultCamera;
     float _defaultCameraZoom;

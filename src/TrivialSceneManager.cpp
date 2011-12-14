@@ -27,11 +27,14 @@ SceneManager* SceneManager::Instance() {
 }
 
 void SceneManager::update() {
-    if (_currentScene != "")
+    if (_currentScene != "") {
         _scenes[_currentScene]->_update();
+    } else {
+        cout << "\nNo scene to update!";
+    }
 }
 
-bool SceneManager::addScene(const string &sceneName, Scene* scene, bool keepPersistent, bool forceInit) {
+bool SceneManager::addScene(const string &sceneName, Scene* scene, bool keepPersistent) {
     if(_scenes.count(sceneName) > 0) {
         std::cout << "\nERROR: Scene Already added!\n";
         return false;
@@ -40,14 +43,8 @@ bool SceneManager::addScene(const string &sceneName, Scene* scene, bool keepPers
     _scenes[sceneName] = scene;
 
     scene->setPersistance(keepPersistent);
-    scene->shouldForceInit(forceInit);
-    scene->preload();
-
-    if(forceInit) {
-        scene->_init();
-    } else {
-        //scene->setReady(false);
-    }
+    //scene->shouldForceInit(forceInitOnSetActive);
+    scene->_preload();
 
     return true;
 }
@@ -67,11 +64,12 @@ bool SceneManager::setActiveScene(const string &sceneName) {
         }
     }
 
-    if(!_scenes[sceneName]->ready()) { // if the scene has not been inited before, then init it
-        _scenes[sceneName]->_init();
-    }
-
     _currentScene = sceneName;
+
+    // force internal resets if not persistant
+    if(!_scenes[_currentScene]->getPersistance()) {
+        _scenes[_currentScene]->_reset();
+    }
 
     _scenes[_currentScene]->setActive(true);
     _scenes[_currentScene]->activated();
@@ -86,6 +84,7 @@ bool SceneManager::removeScene(const string &sceneName) {
     map<string, Scene*>::iterator it = _scenes.find(sceneName);
     if (it != _scenes.end())
     {
+        // delete _scenes[sceneName];
         _scenes.erase(it);
         return true;
     }

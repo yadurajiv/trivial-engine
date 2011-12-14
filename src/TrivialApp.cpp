@@ -16,6 +16,7 @@ App::App() {
     _timeElapsed = 0;
     _autoUpdate = true;
     _quitFlag = false;
+    _clearColor = sf::Color(0,0,0,255);
 }
 
 App* App::Instance()
@@ -91,7 +92,9 @@ void App::update() {
 
     EventManager::Instance()->update();
 
-    _app.Clear();
+    _app.Clear(_clearColor);
+
+    _app.Draw(sf::Shape::Rectangle(200,200,100,100,sf::Color::Blue));
 
     SceneManager::Instance()->update();
 

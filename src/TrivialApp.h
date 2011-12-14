@@ -45,6 +45,10 @@ public:
 
     void quit() { _quitFlag = true; };
 
+    // trivial color?
+    sf::Color getClearColor() { return _clearColor; }
+    void setClearColor(unsigned int r=0, unsigned int g=0, unsigned int b=0, unsigned int a=255) { _clearColor = sf::Color(r,g,b,a); }
+
     sf::RenderWindow* getSFMLRenderWindow() {
         return &_app;
     }
@@ -66,6 +70,8 @@ private:
     sf::RenderWindow _app;
     sf::Event _appEvent;
     sf::WindowHandle _handle;
+
+    sf::Color _clearColor;
 
     float _ft;
     float _timeElapsed;

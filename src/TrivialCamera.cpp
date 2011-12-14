@@ -8,6 +8,8 @@ void Camera::init(const unsigned int &width, const unsigned int &height) {
     _halfWidth = (_width / 2);
     _halfHeight = (_height / 2);
     _ready = true;
+
+    reset();
 }
 
 void Camera::_update() {
@@ -56,6 +58,10 @@ void Camera::moveTo(const float &x,const float &y) {
 **/
 void Camera::lookAt(const float &x, const float &y) {
     if(_ready) {
+        //cout << "camera X = " << _x << " ";
+        //cout << "camera Y = " << _y << endl;
+
+
         if(_x != x - _halfWidth || _y != y - _halfHeight) {
             _x = x - _halfWidth;
             _y = y - _halfHeight;

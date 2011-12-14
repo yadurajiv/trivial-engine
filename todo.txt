@@ -55,6 +55,8 @@ tinyXML
 
 [DONE - latest on top]
 
+a virtual preload func gets called once when a scene is added to scene manager; app runs even if current scene is not set; new scene showing mouse drawing awesome; 
+
 update() in _update of Scene class moved to end of function - draw calls were ignored
 
 setName/getName for sceneObject added - scene explicitly sets the name when sceneObjects are added to scene.
@@ -84,6 +86,8 @@ camera shake effect added
 Camera _update was never called as camera was never "add"ed to the scene 
 
 [Bugs - latest on top]
+
+* camera corrupted if scene not persistent - breaking the build.
 
 * Zoom in and out does not compensate for the change in the mouse x and y values and also the overall scale of objects..
 

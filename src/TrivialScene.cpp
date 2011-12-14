@@ -81,19 +81,27 @@ void Scene::updateObjectsByLayerName(const string &layerName) {
 
 }
 
-void Scene::_init() {
-    // Box2D for removal
-    // _hasBox2DPhysics = false;
+void Scene::_preload() {
     addLayer("default", 0);
 
     defaultCamera.init(Trivial::App::Instance()->GetWidth(),Trivial::App::Instance()->GetHeight());
+    defaultCamera.lookAt(width()/2,height()/2);
 
     _cameraMoveX = 0;
     _cameraMoveY = 0;
 
+    preload();
+}
+
+/*
+void Scene::_init() {
+    // Box2D for removal
+    // _hasBox2DPhysics = false;
+
     init();
     _hasInited = true;
 }
+*/
 
 void Scene::moveLayers(const float &x, const float &y) {
     _cameraMoveX = x;
