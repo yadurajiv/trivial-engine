@@ -99,13 +99,13 @@ public:
 
     void fadeOut(const string &name, unsigned int t) {
         if (_sounds.count(name) != 0) {
-            _sounds[name]->fadeOut(t);
+            _sounds[name]->fadeOut(t*1000);
         }
     }
 
     void fadeIn(const string &name, unsigned int t) {
         if (_sounds.count(name) != 0) {
-            _sounds[name]->fadeIn(t);
+            _sounds[name]->fadeIn(t*1000);
         }
     }
 

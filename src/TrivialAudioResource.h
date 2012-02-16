@@ -141,9 +141,9 @@ public:
     unsigned int channels() const {
         if(_ready) {
             if(_streaming) {
-                return _music->GetChannelsCount();
+                return _music->GetChannelCount();
             } else {
-                return _soundBuffer->GetChannelsCount();
+                return _soundBuffer->GetChannelCount();
             }
         }
     }
@@ -158,7 +158,7 @@ public:
         }
     }
 
-    unsigned int  getSlider() {
+    sf::Time getSlider() {
         if(_ready) {
             if(_streaming) {
                 return _music->GetPlayingOffset();
@@ -168,7 +168,7 @@ public:
         }
     }
 
-    void setSlider(unsigned int  pos) {
+    void setSlider(sf::Time pos) {
         if(_ready) {
             if(_streaming) {
                 _music->SetPlayingOffset(pos);
@@ -274,8 +274,8 @@ public:
         }
     }
 
-    void systemEventCallback(const string &eventName) {
-        if(eventName == "update-system") {
+    virtual void systemEventCallback(const TrivialSystemEvent &e) {
+        if(e.eventName == "update-system") {
             update();
         }
     };
@@ -289,6 +289,7 @@ public:
                 _eventManager->unsubscribe("update-system",0);
                 cout << "\nFade out complete!";
             } else {
+                cout << "\nVol: " << _volume;
                 _timeChanged += _app->frameTime();
                 if(_volume > 0 && _timeChanged >= _timeStep) {
                     setVolume(_volume-1);
@@ -304,6 +305,7 @@ public:
                 _eventManager->unsubscribe("update-system",0);
                 cout << "\nFade In complete!";
             } else {
+                cout << "\nVol: " << _volume;
                 _timeChanged += _app->frameTime();
                 if(_volume < 100 && _timeChanged >= _timeStep) {
                     setVolume(_volume+1);

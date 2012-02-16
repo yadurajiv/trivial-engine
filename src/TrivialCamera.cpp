@@ -22,6 +22,7 @@ void Camera::_update() {
     // camera shake time!
     if (_doShake) {
         _shakeTimer += (App::Instance()->frameTime()/1000);
+        cout << "_shakeTimer: " << _shakeTimer;
         if (_shakeTimer >= _shakeDuration) {
             _shakeTimer = 0;
             moveTo(_shakePostX,_shakePostY);

@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <math.h>
 
 #include "SFML/Graphics.hpp"
 
@@ -41,7 +42,7 @@ public:
     float getCenterX() const { return _x + _halfWidth; }
     float getCenterY() const { return _y + _halfHeight; }
 
-    void setZoom(const float &percent = 100) {
+    void setZoom(const int &percent = 100) {
         /*
          simple, 100 = 1; 150 = 1.5; 50 = 0.5
          but if we were to set the zoom to 1.5 it would show 150% of the screen

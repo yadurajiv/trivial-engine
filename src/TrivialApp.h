@@ -33,8 +33,8 @@ public:
     // total elapsed time
     float totalTimeElapsed() const;
 
-    // time per frame
-    float frameTime() const { return _app.GetFrameTime(); }
+    // time per frame in Milliseconds
+    float frameTime() const { return _frameTime; }
 
     float FPS() const { return _fps; }
 
@@ -73,10 +73,11 @@ private:
 
     sf::Color _clearColor;
 
-    float _ft;
-    float _timeElapsed;
+    sf::Clock _clock;
+    sf::Clock _ftimer;
+    sf::Time _time;
+    float _frameTime;
     float _fps;
-    float _fpsTime;
 
     bool _quitFlag;
 };

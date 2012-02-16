@@ -11,8 +11,8 @@ namespace Trivial {
 void Sprite::image(const string &name) {
     // SetImage becomes SetTexture
     SFMLsprite.SetTexture(*(ImageManager::Instance()->get(name))); // second param bool removed
-    _width = SFMLsprite.GetSize().x;
-    _height = SFMLsprite.GetSize().y;
+    _width = SFMLsprite.GetLocalBounds().Width;
+    _height = SFMLsprite.GetLocalBounds().Height;
     // SetCenter removed
     SFMLsprite.SetOrigin(_width/2,_height/2); // SetOrigin to SetCenter back to SetOrigin lol XD
     if(_width > _height) {

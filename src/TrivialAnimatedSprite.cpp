@@ -7,13 +7,13 @@ namespace Trivial {
 
 void AnimatedSprite::image(const string &name, const float &cellWidth, const float &cellHeight) {
     SFMLsprite.SetTexture(*(ImageManager::Instance()->get(name))); // bool second param removed
-    SFMLsprite.SetSubRect(sf::IntRect(0, 0, cellWidth, cellHeight));
+    SFMLsprite.SetTextureRect(sf::IntRect(0, 0, cellWidth, cellHeight));
     _width = ImageManager::Instance()->get(name)->GetWidth();
     _height = ImageManager::Instance()->get(name)->GetHeight();
     _cellWidth = cellWidth;
     _cellHeight = cellHeight;
     SFMLsprite.SetOrigin(cellWidth/2,cellHeight/2); // SetOrigin removed and now its SetOrigin again..
-    _cell = SFMLsprite.GetSubRect();
+    _cell = SFMLsprite.GetTextureRect();
 
     _ready = true;
 }
@@ -45,7 +45,7 @@ void AnimatedSprite::_update() {
         _cell.Left = _animations[_currentAnimation]->getRow();
         _cell.Top = _animations[_currentAnimation]->getCol();
 
-        SFMLsprite.SetSubRect(_cell);
+        SFMLsprite.SetTextureRect(_cell);
         Sprite::_update();
     }
 }

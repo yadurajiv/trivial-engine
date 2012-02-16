@@ -2,6 +2,10 @@ A general mind dump of todo
 
 TODO:  
 
+overload the add function in the scene class to take sf::Drawable - cast it to a trivial object - and also later let the user get the original object back(be it an sf::shape or sf::image? <- all of which are based on sf::Drawable)
+
+QuadTree - www.pa.msu.edu/~huston/SpartyJet/spartyjet_v2.20.0/fastjet/SISCone/quadtree.cpp
+
 All children of a scene object should transform when the parent transforms. - l8r
 
 Shape drawing functions

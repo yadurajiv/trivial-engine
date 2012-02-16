@@ -13,7 +13,6 @@ App::App() {
     _height = 600;
     _colorDepth = 32;
     _windowTitle = "Trivial App";
-    _timeElapsed = 0;
     _autoUpdate = true;
     _quitFlag = false;
     _clearColor = sf::Color(0,0,0,255);
@@ -48,7 +47,7 @@ int App::run() {
     _app.SetFramerateLimit(60);
 
     if(_autoUpdate) {
-        while(_app.IsOpened()) {
+        while(_app.IsOpen()) {
             update();
         }
     }
@@ -57,6 +56,7 @@ int App::run() {
 }
 
 void App::update() {
+    _ftimer.GetElapsedTime();
     _fps++;
 
     // freeeeedom!!
@@ -94,18 +94,16 @@ void App::update() {
 
     _app.Clear(_clearColor);
 
-    _app.Draw(sf::Shape::Rectangle(200,200,100,100,sf::Color::Blue));
-
     SceneManager::Instance()->update();
 
     /* display app */
     _app.Display();
 
-    _ft = _app.GetFrameTime();
+    _time = _ftimer.Restart();
 
-    _timeElapsed += _ft;
+    _frameTime = _time.AsMilliseconds();
 
-    _fps = (1/_ft)*1000;
+    _fps = (1/_frameTime)*1000;
 }
 
 // TODO: add WindowSettings param and also sf::Style
@@ -139,8 +137,8 @@ bool App::configure(sf::WindowHandle windowHandle, const unsigned int &width, co
 
 /** Segmentation fault **/
 float App::totalTimeElapsed() const {
-    if(_app.IsOpened()) {
-        return _timeElapsed;
+    if(_app.IsOpen()) {
+        return _clock.GetElapsedTime().AsSeconds();
     }
     return -1;
 }
