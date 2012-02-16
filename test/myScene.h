@@ -12,8 +12,8 @@
 #include "TrivialEngine.h"
 
 #include "pause.h"
-#include "mouseDrawing.h"
-#include "quadTreeTest.h"
+//#include "mouseDrawing.h"
+// #include "quadTreeTest.h"
 
 using namespace std;
 
@@ -101,19 +101,19 @@ public:
 
 /*
         cout << "Initializing Audio!\n";
-        myAudioManager->setVolume(50); // set the volume to 50
+        myAudioManager->setVolume(100); // set the volume to 50
         cout << "Done!\n";
-*/
+
 
         // Sound still has issues, look in the TrivialAudio class
-        /*
+
         cout << "Loading music file >> ";
-        myAudioManager->add("bgmusic","data/maenamMono.ogg", true); // Spatialization only works on mono sounds!!
+        myAudioManager->add("bgmusic","data/test.ogg", true); // Spatialization only works on mono sounds!!
         myAudioManager->setSoundPosition("bgmusic",300,300); // positioned with the explosion sprite
         myAudioManager->setSoundAttenuation("bgmusic",10); // fall off
         myAudioManager->setSoundDistance("bgmusic",100); // minimum distance till the sound is heard
         cout << myAudioManager->play("bgmusic") << "\n"; // play loaded music
-        */
+*/
 
         /** adding explosion **/
         // add the image to the sprite, pass in single cell width and height
@@ -141,8 +141,6 @@ public:
         testSprite.setMaxVelocity(100,0);
         testSprite.setMaxAngular(100);
 */
-        //testSprite.getPhysicsObject()->setBoxShape(testSprite.X(), testSprite.Y(), testSprite.width(), testSprite.height());
-        //testSprite.getPhysicsObject()->setDynamic();
 
         /* add the sprite to the scene */
         add("atestImage", testSprite);
@@ -184,8 +182,6 @@ public:
         setLayerCameraDamp("bgLayer", 0.5, 0.5);
         setLayerCameraDamp("hud", 0, 0);
 
-        //enableBox2DPhysics();
-
     }
 
     void reset() {
@@ -208,7 +204,7 @@ public:
 
         myApp->setClearColor();
 
-//        myAudioManager->earPosition(camera.getCenterX(), camera.getCenterY());
+////        myAudioManager->earPosition(camera.getCenterX(), camera.getCenterY());
     }
 
     /* the event call back is called by the event manager */
@@ -300,8 +296,10 @@ public:
         if(e.eventName == "update-mouse") {
             // Test for the general mouse update. This is an event in case any
             // aspect of the mouse changes.
-            _mx = e.pos.x;
-            _my = e.pos.y;
+            // e.pos and e.screenPosition are the same for now!!
+            // so add the camera position to get world position
+            _mx = e.pos.x + defaultCamera.X();
+            _my = e.pos.y + defaultCamera.Y();
 
             screenPositionX = e.screenPosition.x;
             screenPositionY = e.screenPosition.y;
@@ -436,14 +434,14 @@ public:
 
         if(key_1) {
             key_1 = false;
-            mySceneManager->addScene("mouseDrawing",new mouseDrawing);
-            mySceneManager->setActiveScene("mouseDrawing");
+            //mySceneManager->addScene("mouseDrawing",new mouseDrawing);
+            //mySceneManager->setActiveScene("mouseDrawing");
         }
 
         if(key_2) {
             key_2 = false;
-            mySceneManager->addScene("quadTreeTest",new quadTreeTest);
-            mySceneManager->setActiveScene("quadTreeTest");
+            //mySceneManager->addScene("quadTreeTest",new quadTreeTest);
+            //mySceneManager->setActiveScene("quadTreeTest");
         }
 
         if(key_up || key_down || key_left || key_right) {
@@ -455,23 +453,25 @@ public:
         if(key_z) {
             key_z = false;
             std::cout << "\nz key pressed - Audio code commented out";
-            /*
+//                std::cout << "\nz key pressed - fade to stop!";
+/*
             if(myAudioManager->playing("bgmusic")) {
                 std::cout << "\nsound is playing, trying to fadeOut in 5000ms";
-                myAudioManager->fadeOut("bgmusic",5000);
+                myAudioManager->fadeOut("bgmusic",5);
             }
-            */
+*/
         }
 
         if(key_x) {
             key_x = false;
             std::cout << "\nx key pressed - Audio code commented out";
-            /*
+//            std::cout << "\nx key pressed - fade to start";
+/*
             if(myAudioManager->playing("bgmusic") == false) {
                 std::cout << "\nsound is *NOT* playing, trying to fadeIn and play in 5000ms";
-                myAudioManager->fadeIn("bgmusic",5000);
+                myAudioManager->fadeIn("bgmusic",5);
             }
-            */
+*/
         }
 
 /*
@@ -506,6 +506,8 @@ public:
 
         // debug  - only main objects are iterated through, not children in a group
         // need recursive func for that..
+        // shape has virtual functions, use derived classes like RectangleShape or Circle
+        /*
         map<string, Trivial::SceneObject*>::iterator it;
         for ( it=_objects.begin() ; it != _objects.end(); it++ ) {
             int shw = it->second->width();
@@ -518,6 +520,7 @@ public:
             myApp->getSFMLRenderWindow()->Draw(sh);
 
         }
+        */
 
     }
 
@@ -584,7 +587,7 @@ private:
     Trivial::EventManager *myEventManager;
     Trivial::ImageManager *myImageManager;
     Trivial::FontManager *myFontManager;
-//    Trivial::AudioManager *myAudioManager;
+    //Trivial::AudioManager *myAudioManager;
 
 };
 
