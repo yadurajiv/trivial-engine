@@ -59,6 +59,8 @@ tinyXML
 
 [DONE - latest on top]
 
+Migrate to github.
+
 camera corrupted if scene not persistent - breaking the build. - Fixed it! 
 
 a virtual preload func gets called once when a scene is added to scene manager; app runs even if current scene is not set; new scene showing mouse drawing awesome; 
