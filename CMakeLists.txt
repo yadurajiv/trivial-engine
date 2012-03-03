@@ -1,0 +1,61 @@
+cmake_minimum_required(VERSION 2.6)
+
+project(Trivial)
+
+set(TRIVIAL_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src)
+set(TRIVIAL_LIB_DIR ${PROJECT_SOURCE_DIR}/src)
+
+FIND_PATH(SFML_INCLUDE_PATH SFML
+    /Users/nandeep/Projects/SFML/include
+	DOC "The directory where SFML include files reside"
+)
+
+FIND_LIBRARY(SFML_AUDIO_LIB
+    NAMES sfml-audio
+    PATHS
+    /Users/nandeep/Projects/SFML/lib
+    DOC "SFML Audio Library"
+)
+    
+FIND_LIBRARY(SFML_GRAPHICS_LIB
+    NAMES sfml-graphics
+    PATHS
+    /Users/nandeep/Projects/SFML/lib
+    DOC "SFML Graphics Library"
+)
+
+FIND_LIBRARY(SFML_NETWORK_LIB
+    NAMES sfml-network
+    PATHS
+    /Users/nandeep/Projects/SFML/lib
+    DOC "SFML Network Library"
+)
+
+FIND_LIBRARY(SFML_SYSTEM_LIB
+    NAMES sfml-system
+    PATHS
+    /Users/nandeep/Projects/SFML/lib
+    DOC "SFML System Library"
+)
+
+FIND_LIBRARY(SFML_WINDOW_LIB
+    NAMES sfml-window
+    PATHS
+    /Users/nandeep/Projects/SFML/lib
+    DOC "SFML Window Library"
+)
+
+set(TINYXML_INCLUDE_PATH ${PROJECT_SOURCE_DIR}/extlibs/tinyxml)
+
+FIND_LIBRARY(TINYXML_LIB
+    NAMES tinyxml
+    PATHS
+    /Users/nandeep/Projects/trivial/extlibs/tinyxml
+    DOC "TinyXML Library"
+)
+
+add_subdirectory(extlibs/tinyxml)
+
+add_subdirectory(src)
+
+add_subdirectory(test)
