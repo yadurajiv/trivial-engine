@@ -4,8 +4,12 @@ Makefile
 CMakeFiles/*
 CMakeFiles/
 CMakeCache.txt
-data/
 *.a	
 test/TrivialTest
 extlibs/tinyxml/libTinyXML.a
 src/libTrivialEngine.a
+obj/
+bin/
+*.cbp
+*.depend
+*.layout
