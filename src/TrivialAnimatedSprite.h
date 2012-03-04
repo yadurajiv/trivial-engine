@@ -20,8 +20,8 @@ public:
                         _frameStart(start), _frameEnd(end), _framerate(framerate),
                         _frameCurrent(start), _paused(true), _looped(true)
     {
-        _rows = int(_sheetWidth/_cellWidth);
-        _cols = int(_sheetHeight/_cellHeight);
+        _rows = int(_sheetHeight/_cellHeight);
+        _cols = int(_sheetWidth/_cellWidth);
         _countTotal = _rows * _cols;
         _count = (_frameEnd - _frameStart) + 1;
         _app = Trivial::App::Instance();
@@ -59,7 +59,7 @@ public:
     void update() {
 
         if(!_paused) {
-            if(_frameTimeTotal > 1/_framerate) {
+            if(_frameTimeTotal > 1/float(_framerate)) {
                 if(_looped) {
                     if(_frameCurrent < _frameEnd) {
                         _frameCurrent++;

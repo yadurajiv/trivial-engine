@@ -6,10 +6,8 @@
 namespace Trivial {
 
 void AnimatedSprite::image(const string &name, const float &cellWidth, const float &cellHeight) {
-    SFMLsprite.SetTexture(*(ImageManager::Instance()->get(name))); // bool second param removed
+    Sprite::image(name);
     SFMLsprite.SetTextureRect(sf::IntRect(0, 0, cellWidth, cellHeight));
-    _width = ImageManager::Instance()->get(name)->GetWidth();
-    _height = ImageManager::Instance()->get(name)->GetHeight();
     _cellWidth = cellWidth;
     _cellHeight = cellHeight;
     SFMLsprite.SetOrigin(cellWidth/2,cellHeight/2); // SetOrigin removed and now its SetOrigin again..
@@ -41,13 +39,21 @@ bool AnimatedSprite::play(const string &name) {
 
 void AnimatedSprite::_update() {
     if(_ready) {
-        _animations[_currentAnimation]->update();
-        _cell.Left = _animations[_currentAnimation]->getRow();
-        _cell.Top = _animations[_currentAnimation]->getCol();
-
+        if(!_currentAnimation.empty()) {
+            _animations[_currentAnimation]->update();
+            _cell.Left = _animations[_currentAnimation]->getRow();
+            _cell.Top = _animations[_currentAnimation]->getCol();
+        /*
+            cout << "\nfor animation: " << _currentAnimation;
+            cout << "\ncell left: "<< _cell.Left;
+            cout << "\ncell top: " << _cell.Top;
+            cout << "\n";
+            */
+        }
         SFMLsprite.SetTextureRect(_cell);
-        Sprite::_update();
     }
+
+    Sprite::_update();
 }
 
 }
