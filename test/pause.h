@@ -15,6 +15,8 @@ using namespace std;
 
 class pauseScene : public Trivial::Scene {
 public:
+    
+    // Trivial::TrivialTileMap *map;
 
     pauseScene() {
 
@@ -41,6 +43,9 @@ public:
         pauseText.image("pauseText");
         pauseText.moveTo(width()/2, height()/2);
         add("pauseText", pauseText);
+        
+        // map = new Trivial::TrivialTileMap("testperf.tmx");
+        
     }
 
     void reset() {
@@ -85,7 +90,8 @@ public:
             cout << "ACTIVATING MAI SCENE!!!" << endl;
 
         }
-
+    
+        // map->Draw(*myApp->getSFMLRenderWindow(), *_layers["default"]);
     }
 
     void deactivated() {

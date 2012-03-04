@@ -13,7 +13,8 @@
 #include "TrivialEngine.h"
 
 /** game scenes here! **/
-#include "myScene.h"
+//#include "myScene.h"
+#include "breakOutScene.h"
 
 #ifdef WIN32
     #ifndef _CONSOLE
@@ -35,11 +36,12 @@
     Trivial::SceneManager *mySceneManager = Trivial::SceneManager::Instance();
 
     /* add scene to scene manager */
-    mySceneManager->addScene("myScene", new myScene, true);
+    	//mySceneManager->addScene("myScene", new myScene, true);
+	mySceneManager->addScene("breakOutScene", new breakOutScene, true);
 
     /* tell the event manager which the current active scene is */
-    mySceneManager->setActiveScene("myScene");
-
+    //mySceneManager->setActiveScene("myScene");
+	mySceneManager->setActiveScene("breakOutScene");
     /* configure your app, get it ready */
     myApp->configure(NULL, 800, 600, 32, "myApp");
     /* run it! */

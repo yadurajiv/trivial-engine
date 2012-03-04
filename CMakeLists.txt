@@ -6,42 +6,42 @@ set(TRIVIAL_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src)
 set(TRIVIAL_LIB_DIR ${PROJECT_SOURCE_DIR}/src)
 
 FIND_PATH(SFML_INCLUDE_PATH SFML
-    /Users/nandeep/Projects/SFML/include
+    /Users/mayanksaini/programmingShits/sfml/SFML/include
 	DOC "The directory where SFML include files reside"
 )
 
 FIND_LIBRARY(SFML_AUDIO_LIB
-    NAMES sfml-audio
+    NAMES sfml-audio.2.0
     PATHS
-    /Users/nandeep/Projects/SFML/lib
+    /Users/mayanksaini/programmingShits/sfml/SFMLBuild/lib
     DOC "SFML Audio Library"
 )
     
 FIND_LIBRARY(SFML_GRAPHICS_LIB
-    NAMES sfml-graphics
+    NAMES sfml-graphics.2.0
     PATHS
-    /Users/nandeep/Projects/SFML/lib
+    /Users/mayanksaini/programmingShits/sfml/SFMLBuild/lib
     DOC "SFML Graphics Library"
 )
 
 FIND_LIBRARY(SFML_NETWORK_LIB
-    NAMES sfml-network
+    NAMES sfml-network.2.0
     PATHS
-    /Users/nandeep/Projects/SFML/lib
+    /Users/mayanksaini/programmingShits/sfml/SFMLBuild/lib
     DOC "SFML Network Library"
 )
 
 FIND_LIBRARY(SFML_SYSTEM_LIB
-    NAMES sfml-system
+    NAMES sfml-system.2.0
     PATHS
-    /Users/nandeep/Projects/SFML/lib
+    /Users/mayanksaini/programmingShits/sfml/SFMLBuild/lib
     DOC "SFML System Library"
 )
 
 FIND_LIBRARY(SFML_WINDOW_LIB
-    NAMES sfml-window
+    NAMES sfml-window.2.0
     PATHS
-    /Users/nandeep/Projects/SFML/lib
+    /Users/mayanksaini/programmingShits/sfml/SFMLBuild/lib
     DOC "SFML Window Library"
 )
 
@@ -50,7 +50,7 @@ set(TINYXML_INCLUDE_PATH ${PROJECT_SOURCE_DIR}/extlibs/tinyxml)
 FIND_LIBRARY(TINYXML_LIB
     NAMES tinyxml
     PATHS
-    /Users/nandeep/Projects/trivial/extlibs/tinyxml
+    /Users/mayanksaini/programmingShits/Trivial-Engine/TrivialEngine/extlibs/tinyxml
     DOC "TinyXML Library"
 )
 

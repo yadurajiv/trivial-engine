@@ -27,9 +27,20 @@ bool AnimatedSprite::addAnimation(const string &name, const int &startFrame, con
 }
 
 bool AnimatedSprite::play(const string &name) {
-    if(!_ready)
-        return false;
+    //To Check if the Animation is loaded or Not. Returns false for Animation not loaded.
+	//Try using addAnimation or There is a problem with your spriteSheet.
+	if(!_ready)
+	{
+		//Might need an error handling class to tell the user the return false case is because of which reason.
+		return false;
+	}
 
+	//To Check if Animation exists or not. Returns false for Animation not existing.
+	if(_animations[name] <= 0)
+	{
+		//Might need an error handling class to tell the user the return false case is because of which reason.
+		return false;
+	}
     //check if it is there.
     _currentAnimation = name;
     _animations[name]->play();
