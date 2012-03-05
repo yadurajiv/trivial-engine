@@ -15,7 +15,6 @@
 //#include "mouseDrawing.h"
 // #include "quadTreeTest.h"
 
-
 using namespace std;
 
 class myScene : public Trivial::Scene {
@@ -180,8 +179,23 @@ public:
         add("starfield", starfield,"bgLayer");
 
         /* set a lag for the bgLayer if the camera where to move */
+        /*  0 - no movement(or with the camera)
+            > 0 - faster
+            < 0 - faster in opposite direction
+        */
         setLayerCameraDamp("bgLayer", 0.5, 0.5);
         setLayerCameraDamp("hud", 0, 0);
+
+        /*
+            https://github.com/hashstash/TrivialEngine/issues/2
+            https://github.com/hashstash/TrivialEngine/issues/5
+            - test
+        */
+        myImageManager->add("shuriken","data/shuriken.png");
+        issue_2_test_spr0.image("shuriken",32,32);
+        issue_2_test_spr0.moveBy(400,150);
+        add("shuriken", issue_2_test_spr0);
+
 
     }
 
@@ -392,7 +406,7 @@ public:
         //float mcx = testSprite.X();
         //float mcy = testSprite.Y();
 
-        float ft = myApp->frameTime() / 1000;
+        float ft = myApp->frameTime()/1000;
 
         ossfps.str("");
         ossfps << "FPS: " << myApp->FPS();
@@ -402,7 +416,7 @@ public:
         ossfps << "Cam Center-X: " << floor(defaultCamera.getCenterX()) << "  Cam Center-Y: " << floor(defaultCamera.getCenterY());
         ossfps << "\nEscape key to pause, space to continue";
         ossfps << "\nsmallChild.overlaps(testSprite) is " << (childSmallCol?"True":"False");
-        ossfps << "\nEscape key to pause, space to continue\nZ key to fade and stop music! (5 seconds)\nX key to fade in and start music! (5 seconds)";
+        ossfps << "\nEscape key to pause, 1 key to add animation to shuriken)";
         ossfps << "\nMouse X: " << _mx;
         ossfps << "\nMouse Y: " << _my;
         ossfps << "\nScreen X: " << screenPositionX;
@@ -435,14 +449,13 @@ public:
 
         if(key_1) {
             key_1 = false;
-            //mySceneManager->addScene("mouseDrawing",new mouseDrawing);
-            //mySceneManager->setActiveScene("mouseDrawing");
+            issue_2_test_spr0.addAnimation("idle",0,5,12);
+            issue_2_test_spr0.play("idle");
         }
 
         if(key_2) {
             key_2 = false;
-            //mySceneManager->addScene("quadTreeTest",new quadTreeTest);
-            //mySceneManager->setActiveScene("quadTreeTest");
+            //add stuff to happen on key 2 down
         }
 
         if(key_up || key_down || key_left || key_right) {
@@ -511,8 +524,8 @@ public:
         /*
         map<string, Trivial::SceneObject*>::iterator it;
         for ( it=_objects.begin() ; it != _objects.end(); it++ ) {
-            unsigned int shw = it->second->width();
-            unsigned int shh = it->second->height();
+            int shw = it->second->width();
+            int shh = it->second->height();
             float shx = it->second->X();
             float shy = it->second->Y();
             sf::Shape sh = sf::Shape::Rectangle(shx,shy,shw,shh,sf::Color(255,255,355,50),2,sf::Color(0,255,0,255));
@@ -550,6 +563,9 @@ private:
     Trivial::GUIText msg;
     Trivial::GUIText HUDText;
     Trivial::GUIText moreText;
+
+    // https://github.com/hashstash/TrivialEngine/issues/2
+    Trivial::AnimatedSprite issue_2_test_spr0;
 
     bool childSmallCol;
 
