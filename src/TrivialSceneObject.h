@@ -24,6 +24,7 @@ public:
 
         map<string, GraphicsObject*>::iterator it;
 
+
         for ( it=_items.begin() ; it != _items.end(); it++ ) {
             (*it).second->_update();
         }
@@ -54,7 +55,7 @@ public:
     }
 
     virtual void moveTo( const float &x,  const float &y) {
-        /*
+        
         if(_affectChildren) {
             map<string, GraphicsObject*>::iterator it;
             for ( it=_items.begin() ; it != _items.end(); it++ ) {
@@ -64,7 +65,7 @@ public:
                 cout << "\n this should work X - " << (x+(_x - item_x));
             }
         }
-*/
+
         _x = x;
         _y = y;
 

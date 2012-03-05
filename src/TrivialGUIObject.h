@@ -17,7 +17,11 @@ public:
 
     virtual void update() { };
 
-    virtual void _update() { update(); };
+    virtual void _update() {
+		//To update the update Function of Parent Class.
+		SceneObject::_update();
+		update(); 
+	};
 
 protected:
 
