@@ -1,6 +1,31 @@
 Trivial notes
 
-Getting started is simple, follow the steps and thats it.
+
+
+
+
+INSTALLATION ON UNIX
+--------------------
+
+TODO: Complete this tutorial
+
+1. Make sure you set two environment variables:
+
+CMAKE_INCLUDE_PATH 
+
+CMAKE_LIBRARY_PATH 
+
+Both of these should have at least the SFML include and lib paths. 
+
+
+
+
+
+
+INSTALLATION ON WINDOWS
+-----------------------
+
+Getting started on Windows is simple, follow the steps and thats it.
 
 Compiling SFML2
 
