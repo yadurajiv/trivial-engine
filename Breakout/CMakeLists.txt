@@ -8,6 +8,6 @@ include_directories(${TINYXML_INCLUDE_PATH})
 
 #include_directories(${TINYXML_INCLUDE_PATH})
 
-add_executable(TrivialTest main.cpp)
+add_executable(BreakOut main.cpp)
 
-target_link_libraries(TrivialTest TrivialEngine)
+target_link_libraries(BreakOut TrivialEngine)

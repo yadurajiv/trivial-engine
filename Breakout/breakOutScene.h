@@ -11,7 +11,6 @@
 
 #include "TrivialEngine.h"
 
-#include "pause.h"
 #include "Ball.h"
 #include "Brick.h"
 #include "Paddle.h"
@@ -40,8 +39,6 @@ public:
 		//Adding image resources;
 		myImageManager->add("brick", "data/brick.png");	
 		myImageManager->add("ball", "data/ball.png");
-		myImageManager->add("vegeta", "data/vegeta.png");		
-		myImageManager->add("explosion", "data/explosion.png");
 		myImageManager->add("button", "data/button.png");
 		
 		//To load all the Bricks
@@ -82,17 +79,6 @@ public:
 		add("buttonDisplay", aButton);
 		aButton.moveTo(400,300);
 		
-		explosion.image("explosion",64,64);
-        explosion.addAnimation("boom",0,24,24);
-        explosion.play("boom");
-        explosion.moveTo(300,300);
-        add("explosion", explosion);
-
-		explosion2.image("vegeta", 52, 80);
-		explosion2.addAnimation("boom",0,10,24);
-		cout<<"Prints 0 if Animation doesn't exist here : "<<explosion2.play("boom2");
-		explosion2.moveTo(200,500);
-		add("explosion2",explosion2);
 		
     }
 

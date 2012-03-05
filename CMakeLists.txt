@@ -48,3 +48,5 @@ add_subdirectory(extlibs/tinyxml)
 add_subdirectory(src)
 
 add_subdirectory(test)
+
+add_subdirectory(Breakout)
