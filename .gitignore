@@ -7,10 +7,11 @@ CMakeCache.txt
 *.a	
 test/TrivialTest
 extlibs/tinyxml/libTinyXML.a
-extlib/tinyxml/Makefile
 src/libTrivialEngine.a
 obj/
 bin/
 *.cbp
 *.depend
 *.layout
+extlibs/tinyxml/Makefile
+Breakout/BreakOut

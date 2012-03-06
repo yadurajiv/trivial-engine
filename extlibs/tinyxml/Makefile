@@ -30,14 +30,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
+CMAKE_COMMAND = /usr/local/Cellar/cmake/2.8.6/bin/cmake
 
 # The command to remove a file.
+RM = /usr/local/Cellar/cmake/2.8.6/bin/cmake -E remove -f
 
 # The program to use to edit the cache.
+CMAKE_EDIT_COMMAND = /usr/local/Cellar/cmake/2.8.6/bin/ccmake
 
 # The top-level source directory on which CMake was run.
+CMAKE_SOURCE_DIR = /Users/nandeep/Projects/TrivialEngine
 
 # The top-level build directory on which CMake was run.
+CMAKE_BINARY_DIR = /Users/nandeep/Projects/TrivialEngine
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -45,6 +50,7 @@ SHELL = /bin/sh
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/usr/local/Cellar/cmake/2.8.6/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -54,6 +60,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/local/Cellar/cmake/2.8.6/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -62,10 +69,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
+	cd /Users/nandeep/Projects/TrivialEngine && $(CMAKE_COMMAND) -E cmake_progress_start /Users/nandeep/Projects/TrivialEngine/CMakeFiles /Users/nandeep/Projects/TrivialEngine/extlibs/tinyxml/CMakeFiles/progress.marks
+	cd /Users/nandeep/Projects/TrivialEngine && $(MAKE) -f CMakeFiles/Makefile2 extlibs/tinyxml/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/nandeep/Projects/TrivialEngine/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
+	cd /Users/nandeep/Projects/TrivialEngine && $(MAKE) -f CMakeFiles/Makefile2 extlibs/tinyxml/clean
 .PHONY : clean
 
 # The main clean target
@@ -74,18 +85,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
+	cd /Users/nandeep/Projects/TrivialEngine && $(MAKE) -f CMakeFiles/Makefile2 extlibs/tinyxml/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
+	cd /Users/nandeep/Projects/TrivialEngine && $(MAKE) -f CMakeFiles/Makefile2 extlibs/tinyxml/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
+	cd /Users/nandeep/Projects/TrivialEngine && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 extlibs/tinyxml/CMakeFiles/TinyXML.dir/rule:
+	cd /Users/nandeep/Projects/TrivialEngine && $(MAKE) -f CMakeFiles/Makefile2 extlibs/tinyxml/CMakeFiles/TinyXML.dir/rule
 .PHONY : extlibs/tinyxml/CMakeFiles/TinyXML.dir/rule
 
 # Convenience name for target.
@@ -94,6 +109,7 @@ TinyXML: extlibs/tinyxml/CMakeFiles/TinyXML.dir/rule
 
 # fast build rule for target.
 TinyXML/fast:
+	cd /Users/nandeep/Projects/TrivialEngine && $(MAKE) -f extlibs/tinyxml/CMakeFiles/TinyXML.dir/build.make extlibs/tinyxml/CMakeFiles/TinyXML.dir/build
 .PHONY : TinyXML/fast
 
 tinystr.o: tinystr.cpp.o
@@ -101,6 +117,7 @@ tinystr.o: tinystr.cpp.o
 
 # target to build an object file
 tinystr.cpp.o:
+	cd /Users/nandeep/Projects/TrivialEngine && $(MAKE) -f extlibs/tinyxml/CMakeFiles/TinyXML.dir/build.make extlibs/tinyxml/CMakeFiles/TinyXML.dir/tinystr.cpp.o
 .PHONY : tinystr.cpp.o
 
 tinystr.i: tinystr.cpp.i
@@ -108,6 +125,7 @@ tinystr.i: tinystr.cpp.i
 
 # target to preprocess a source file
 tinystr.cpp.i:
+	cd /Users/nandeep/Projects/TrivialEngine && $(MAKE) -f extlibs/tinyxml/CMakeFiles/TinyXML.dir/build.make extlibs/tinyxml/CMakeFiles/TinyXML.dir/tinystr.cpp.i
 .PHONY : tinystr.cpp.i
 
 tinystr.s: tinystr.cpp.s
@@ -115,6 +133,7 @@ tinystr.s: tinystr.cpp.s
 
 # target to generate assembly for a file
 tinystr.cpp.s:
+	cd /Users/nandeep/Projects/TrivialEngine && $(MAKE) -f extlibs/tinyxml/CMakeFiles/TinyXML.dir/build.make extlibs/tinyxml/CMakeFiles/TinyXML.dir/tinystr.cpp.s
 .PHONY : tinystr.cpp.s
 
 tinyxml.o: tinyxml.cpp.o
@@ -122,6 +141,7 @@ tinyxml.o: tinyxml.cpp.o
 
 # target to build an object file
 tinyxml.cpp.o:
+	cd /Users/nandeep/Projects/TrivialEngine && $(MAKE) -f extlibs/tinyxml/CMakeFiles/TinyXML.dir/build.make extlibs/tinyxml/CMakeFiles/TinyXML.dir/tinyxml.cpp.o
 .PHONY : tinyxml.cpp.o
 
 tinyxml.i: tinyxml.cpp.i
@@ -129,6 +149,7 @@ tinyxml.i: tinyxml.cpp.i
 
 # target to preprocess a source file
 tinyxml.cpp.i:
+	cd /Users/nandeep/Projects/TrivialEngine && $(MAKE) -f extlibs/tinyxml/CMakeFiles/TinyXML.dir/build.make extlibs/tinyxml/CMakeFiles/TinyXML.dir/tinyxml.cpp.i
 .PHONY : tinyxml.cpp.i
 
 tinyxml.s: tinyxml.cpp.s
@@ -136,6 +157,7 @@ tinyxml.s: tinyxml.cpp.s
 
 # target to generate assembly for a file
 tinyxml.cpp.s:
+	cd /Users/nandeep/Projects/TrivialEngine && $(MAKE) -f extlibs/tinyxml/CMakeFiles/TinyXML.dir/build.make extlibs/tinyxml/CMakeFiles/TinyXML.dir/tinyxml.cpp.s
 .PHONY : tinyxml.cpp.s
 
 tinyxmlerror.o: tinyxmlerror.cpp.o
@@ -143,6 +165,7 @@ tinyxmlerror.o: tinyxmlerror.cpp.o
 
 # target to build an object file
 tinyxmlerror.cpp.o:
+	cd /Users/nandeep/Projects/TrivialEngine && $(MAKE) -f extlibs/tinyxml/CMakeFiles/TinyXML.dir/build.make extlibs/tinyxml/CMakeFiles/TinyXML.dir/tinyxmlerror.cpp.o
 .PHONY : tinyxmlerror.cpp.o
 
 tinyxmlerror.i: tinyxmlerror.cpp.i
@@ -150,6 +173,7 @@ tinyxmlerror.i: tinyxmlerror.cpp.i
 
 # target to preprocess a source file
 tinyxmlerror.cpp.i:
+	cd /Users/nandeep/Projects/TrivialEngine && $(MAKE) -f extlibs/tinyxml/CMakeFiles/TinyXML.dir/build.make extlibs/tinyxml/CMakeFiles/TinyXML.dir/tinyxmlerror.cpp.i
 .PHONY : tinyxmlerror.cpp.i
 
 tinyxmlerror.s: tinyxmlerror.cpp.s
@@ -157,6 +181,7 @@ tinyxmlerror.s: tinyxmlerror.cpp.s
 
 # target to generate assembly for a file
 tinyxmlerror.cpp.s:
+	cd /Users/nandeep/Projects/TrivialEngine && $(MAKE) -f extlibs/tinyxml/CMakeFiles/TinyXML.dir/build.make extlibs/tinyxml/CMakeFiles/TinyXML.dir/tinyxmlerror.cpp.s
 .PHONY : tinyxmlerror.cpp.s
 
 tinyxmlparser.o: tinyxmlparser.cpp.o
@@ -164,6 +189,7 @@ tinyxmlparser.o: tinyxmlparser.cpp.o
 
 # target to build an object file
 tinyxmlparser.cpp.o:
+	cd /Users/nandeep/Projects/TrivialEngine && $(MAKE) -f extlibs/tinyxml/CMakeFiles/TinyXML.dir/build.make extlibs/tinyxml/CMakeFiles/TinyXML.dir/tinyxmlparser.cpp.o
 .PHONY : tinyxmlparser.cpp.o
 
 tinyxmlparser.i: tinyxmlparser.cpp.i
@@ -171,6 +197,7 @@ tinyxmlparser.i: tinyxmlparser.cpp.i
 
 # target to preprocess a source file
 tinyxmlparser.cpp.i:
+	cd /Users/nandeep/Projects/TrivialEngine && $(MAKE) -f extlibs/tinyxml/CMakeFiles/TinyXML.dir/build.make extlibs/tinyxml/CMakeFiles/TinyXML.dir/tinyxmlparser.cpp.i
 .PHONY : tinyxmlparser.cpp.i
 
 tinyxmlparser.s: tinyxmlparser.cpp.s
@@ -178,6 +205,7 @@ tinyxmlparser.s: tinyxmlparser.cpp.s
 
 # target to generate assembly for a file
 tinyxmlparser.cpp.s:
+	cd /Users/nandeep/Projects/TrivialEngine && $(MAKE) -f extlibs/tinyxml/CMakeFiles/TinyXML.dir/build.make extlibs/tinyxml/CMakeFiles/TinyXML.dir/tinyxmlparser.cpp.s
 .PHONY : tinyxmlparser.cpp.s
 
 # Help Target
@@ -212,5 +240,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
+	cd /Users/nandeep/Projects/TrivialEngine && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
