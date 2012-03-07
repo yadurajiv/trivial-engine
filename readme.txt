@@ -1,9 +1,6 @@
 Trivial notes
 
 
-
-
-
 INSTALLATION ON UNIX
 --------------------
 
@@ -16,9 +13,6 @@ CMAKE_INCLUDE_PATH
 CMAKE_LIBRARY_PATH 
 
 Both of these should have at least the SFML include and lib paths. 
-
-
-
 
 
 
