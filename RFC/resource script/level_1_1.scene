@@ -1,0 +1,7 @@
+<scene name="titleScreen" section="level_1_1">
+	<obj type="sprite" image="titleBG" attributes="x=0;y=0" />
+	<obj type="guipanel" name="HUD" attributes="x=10;y=10;width=320;height=20;" image="hudPanel" />
+	<obj type="guitext" parent="hudPanel" name="msg" attributes="x=2;y=2;" value="" />
+	<obj type="tilemap" name="levelMap" />
+	<obj type="script" name="level_1_1" autoupdate="true" />
+</scene>

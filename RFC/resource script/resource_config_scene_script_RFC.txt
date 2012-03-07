@@ -1,0 +1,32 @@
+[Resource]
+Resource files are xml files that start and end with a <resource> tag. They load and parse <section>s and <scene>s as and when needed.
+
+[Sections]
+Sections define resources that need to be loaded and managed by managers in Trivial. Sections load first or on request. Sections load raw resources and cache them when needed. 
+
+Resources in a section are designated by a <res> tag. Resources in a section can be of the following types, each of which can have some specific attributes.
+
+image
+font
+audio
+script
+tilemap
+config
+
+eg: <res type="image" src="hudPanel.png" name="hudPanel" />
+
+[Scenes]
+Scenes load on request, loading linked sections before it if they haven't already been loaded. Scenes allow you to add objects onto the scene, creating items as and when needed.
+
+Each item is designated by an <obj> tag. Some possible types are...
+
+sprite
+animatedsprite
+guipanel
+guitext
+guibutton
+tilemap
+script
+
+[Config Files]
+Config files store different types of data as a name value pair. Config is a type of resource.

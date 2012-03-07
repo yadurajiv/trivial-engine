@@ -1,0 +1,32 @@
+<resource>
+	<link src="../data" name="defaultResourceLocation" />
+	<link src="../data/data.wad" name="gameData" />
+	<link src="../data/player/score.sql" name="playerScore" />
+	
+	<section name="default" autoLoad="true">
+		<res type="font" src="defaultFont.ttf" name="fontDefault" />
+		<res type="config" src="config.cfg" name="defaultConfig" />
+	</section>
+	
+	<section name="titleScreen" autoLoad="true">
+		<res type="audio" src="titleMusic.ogg" name="titleMusic" autoLoad="false" />
+		<res type="image" src="titleBG.png" name="titleBG" />
+		<res type="image" src="tinyShip.png" name="tinyShip" />
+		<res type="script" src="titleScreen.py" name="titleScript" />
+	</section>
+
+	<scene name="titleScreen" section="titleScreen">
+		<obj type="sprite" image="titleBG" />
+		<obj type="animatedsprite" image="tinyShip" attributes="x=550;y=380" play="idle">
+			<animation start="1" end="10" fps="10" name="idle" />
+		</obj>
+		<obj type="guipanel" name="titlePane" attributes="x=10;y=10;width=120;height=140;" />
+		<obj type="guibutton" image="btnStart" parent="titlePane" attributes="x=10;y=10" onClick="titleScript.btnStart" />
+		<obj type="guibutton" image="btnCredits" parent="titlePane" attributes="x=10;y=40" onClick="titleScript.btnCredits" />
+		<obj type="guibutton" image="btnOptions" parent="titlePane" attributes="x=10;y=70" onClick="titleScript.btnOptions" />
+		<obj type="guibutton" image="btnQuit" parent="titlePane" attributes="x=10;y=100" onClick="titleScript.btnQuit" />
+	</scene>
+	
+	<section name="level_1_1" src="level_1_1.section">
+	<scene name="level_1_1" src="level_1_1.scene" />
+</resource>

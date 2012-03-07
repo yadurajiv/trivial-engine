@@ -1,0 +1,6 @@
+<section name="level_1_1">
+	<res type="image" src="hudPanel.png" name="hudPanel" />
+	<res type="audio" src="bg.ogg" name="bg" />
+	<res type="script" src="level_1_1.py" name="level_1_1" />
+	<res type="tilemap" src="level_1_1.map" name="levelMap" />
+</section>
