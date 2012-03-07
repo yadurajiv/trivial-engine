@@ -16,6 +16,7 @@ App::App() {
     _autoUpdate = true;
     _quitFlag = false;
     _clearColor = sf::Color(0,0,0,255);
+	getBuffer = false;
 }
 
 App* App::Instance()
@@ -96,6 +97,11 @@ void App::update() {
 
     SceneManager::Instance()->update();
 
+	if(getBuffer) 
+	{ 
+		getBuffer = false; 
+	}
+	
     /* display app */
     _app.Display();
 
