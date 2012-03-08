@@ -40,8 +40,8 @@ public:
 
     sf::FloatRect getWindowRect() const { return sf::FloatRect(0, 0, _width, _height); };
 
-    float GetWidth() const { return _width; };
-    float GetHeight() const { return _height; };
+    float width() const { return _width; };
+    float height() const { return _height; };
 
     void quit() { _quitFlag = true; };
 

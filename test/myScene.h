@@ -196,7 +196,6 @@ public:
         issue_2_test_spr0.moveBy(400,150);
         add("shuriken", issue_2_test_spr0);
 
-
     }
 
     void reset() {

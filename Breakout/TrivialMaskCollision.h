@@ -1,5 +1,5 @@
 #ifndef TRIVIALMASKCOLLISION_H_INCLUDED
-#define TRIVIALMASKCOLLISION_H_INCLUDED 
+#define TRIVIALMASKCOLLISION_H_INCLUDED
 
 #include "TrivialSprite.h"
 #include "TrivialScene.h"
@@ -12,7 +12,7 @@ using namespace std;
 
 namespace Trivial
 {
-	
+
 	struct Color
 	{
 		int r;
@@ -20,62 +20,62 @@ namespace Trivial
 		int b;
 		int a;
 	};
-	
+
 	class MaskScene : public Scene
 	{
 	private:
-		
+
 	public:
 		MaskScene();
 		~MaskScene();
-		
+
 		void preload();
-		
+
 		void reset();
-		
+
 		void update();
-		
+
 		void deactivated();
-		
+
 		void activated();
-		
+
 	};
-	
+
 	MaskScene::MaskScene()
 	{
-		
+
 	}
-	
+
 	MaskScene::~MaskScene()
 	{
-		
+
 	}
-	
+
 	void MaskScene::preload()
 	{
-		
+
 	}
-	
+
 	void MaskScene::reset()
 	{
-		
+
 	}
-	
+
 	void MaskScene::update()
 	{
-		
+
 	}
-	
+
 	void MaskScene::deactivated()
 	{
-	
+
 	}
-	
+
 	void MaskScene::activated()
 	{
-		
+
 	}
-	
+
 	class MaskCollision : public Sprite
 	{
 	private:
@@ -85,34 +85,34 @@ namespace Trivial
 	public:
 		MaskCollision();
 		~MaskCollision();
-		
+
 		virtual void update(){};
 		virtual void _update();
-		
+
 		void image(const string &imageName, const string &maskImageName);
 		void setMaskColor(int red, int green, int blue, int alpha=255);
 		bool isMaskAt(int x, int y);
-		
+
 	};
-	
+
 	MaskCollision::MaskCollision()
 	{
 		color.r = color.g = color.b = color.a = 255;
 	}
-	
+
 	MaskCollision::~MaskCollision()
 	{
-		
+
 	}
-	
+
 	void MaskCollision::_update()
 	{
 		update();
 		maskSprite.moveTo(X(), Y());
 		cout<<"HEERRE";
 	}
-	
-	
+
+
 	void MaskCollision::image(const string &imageName, const string &maskImageName)
 	{
 		Sprite::image(imageName);
@@ -127,7 +127,7 @@ namespace Trivial
 		color.a = c.a;
 		maskScene->add(maskImageName, maskSprite);
 	}
-	
+
 	bool MaskCollision::isMaskAt(int x, int y)
 	{
 		if(Helper::pointInRect(x, y, X(), Y(), width(), height()))
@@ -138,10 +138,10 @@ namespace Trivial
 			cout<< "G:"<<(int)pixel[1]<<endl;
 			cout<< "B:"<<(int)pixel[2]<<endl;
 			cout<< "A:"<<(int)pixel[3]<<endl;
-			
+
 		}
 		return false;
-		
+
 	}
 }
 

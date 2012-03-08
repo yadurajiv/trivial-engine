@@ -125,6 +125,14 @@ public:
 
     bool addAnimation(const string &name, const int &startFrame, const int &endFrame, const int &framerate);
 
+    /*
+        animated sprites return cellHeight and cellWidth, should they be setting
+        cellHeight and cellWidth instead of _width and _height?
+    */
+    /*
+    using Sprite::width;
+    using Sprite::height;
+    */
     virtual float width() const { return _cellWidth; };
     virtual float height() const { return _cellHeight; };
 
