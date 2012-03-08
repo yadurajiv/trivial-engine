@@ -420,7 +420,9 @@ public:
         ossfps << "\nMouse Y: " << _my;
         ossfps << "\nScreen X: " << screenPositionX;
         ossfps << "\nScreen Y: " << screenPositionY;
-        ossfps << "\nZoom : " << defaultCamera.getZoom();
+        ossfps << "\nZoom: " << defaultCamera.getZoom();
+        ossfps << "\nHUDText width: " << HUDText.width();
+        ossfps << "\nHUDText height: " << HUDText.height();
         HUDText.text(ossfps.str());
         flush(ossfps);
 
