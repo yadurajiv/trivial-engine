@@ -65,7 +65,7 @@ Button::~Button()
 
 void Button::mouseEventCallBack(const TrivialMouseEvent &e)
 {
-	if((Helper::pointInRect(e.pos.x, e.pos.y, _button.X(), _button.Y(), _button.width(), _button.height())) || (Helper::pointInRect(e.pos.x, e.pos.y, _animatedButton.X(), _animatedButton.Y(), _animatedButton.width(), _animatedButton.height())))
+	if(_button.pointOverlap(e.pos.x, e.pos.y) || _animatedButton.pointOverlap(e.pos.x, e.pos.y))
 	{
 		if(e.eventName == "buttondown-mouse")
 		{
