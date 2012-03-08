@@ -1,5 +1,5 @@
 #ifndef TRIVIALMASKCOLLISION_H_INCLUDED
-#define TRIVIALMASKCOLLISION_H_INCLUDED 
+#define TRIVIALMASKCOLLISION_H_INCLUDED
 
 #include "TrivialSprite.h"
 #include "TrivialScene.h"
@@ -12,7 +12,7 @@ using namespace std;
 
 namespace Trivial
 {
-	
+
 	struct Color
 	{
 		int r;
@@ -20,62 +20,62 @@ namespace Trivial
 		int b;
 		int a;
 	};
-	
+
 	class MaskScene : public Scene
 	{
 	private:
-		
+
 	public:
 		MaskScene();
 		~MaskScene();
-		
+
 		void preload();
-		
+
 		void reset();
-		
+
 		void update();
-		
+
 		void deactivated();
-		
+
 		void activated();
-		
+
 	};
-	
+
 	MaskScene::MaskScene()
 	{
-		
+
 	}
-	
+
 	MaskScene::~MaskScene()
 	{
-		
+
 	}
-	
+
 	void MaskScene::preload()
 	{
-		
+
 	}
-	
+
 	void MaskScene::reset()
 	{
-		
+
 	}
-	
+
 	void MaskScene::update()
 	{
-		
+
 	}
-	
+
 	void MaskScene::deactivated()
 	{
-	
+
 	}
-	
+
 	void MaskScene::activated()
 	{
-		
+
 	}
-	
+
 	class MaskCollision : public Sprite
 	{
 	private:
@@ -85,32 +85,32 @@ namespace Trivial
 	public:
 		MaskCollision();
 		~MaskCollision();
-		
+
 		virtual void update(){};
 		virtual void _update();
-		
+
 		void image(const string &imageName, const string &maskImageName);
 		bool isMaskAt(int x, int y);
-		
+
 	};
-	
+
 	MaskCollision::MaskCollision()
 	{
 		color.r = color.g = color.b = color.a = 255;
 	}
-	
+
 	MaskCollision::~MaskCollision()
 	{
-		
+
 	}
-	
+
 	void MaskCollision::_update()
 	{
 		update();
 		maskSprite.moveTo(X(), Y());
 	}
-	
-	
+
+
 	void MaskCollision::image(const string &imageName, const string &maskImageName)
 	{
 		Sprite::image(imageName);
@@ -127,7 +127,7 @@ namespace Trivial
 		cout<<"Set Active Scene : "<<mySceneManager->setActiveScene("maskScreen");
 		
 	}
-	
+
 	bool MaskCollision::isMaskAt(int x, int y)
 	{
 		if(pointOverlap(x,y))
@@ -158,10 +158,10 @@ namespace Trivial
 			cout<< "G:"<<(int)pixel[1]<<endl;
 			cout<< "B:"<<(int)pixel[2]<<endl;
 			cout<< "A:"<<(int)pixel[3]<<endl;
-			
+
 		}
 		return false;
-		
+
 	}
 }
 

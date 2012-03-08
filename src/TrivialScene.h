@@ -64,8 +64,8 @@ public:
 
     bool setLayerCameraDamp(const string &name, const float &xFactor, const float &yFactor);
 
-    float width() const { return Trivial::App::Instance()->GetWidth() /* Width changed to GetWidth */; };
-    float height() const { return Trivial::App::Instance()->GetHeight() /* Height changed to GetHeight */; };
+    float width() const { return Trivial::App::Instance()->width(); };
+    float height() const { return Trivial::App::Instance()->height(); };
 
     bool getPersistance() const { return _keepPersistent; }
     void setPersistance(bool p) { _keepPersistent = p; }

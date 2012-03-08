@@ -196,7 +196,6 @@ public:
         issue_2_test_spr0.moveBy(400,150);
         add("shuriken", issue_2_test_spr0);
 
-
     }
 
     void reset() {
@@ -421,7 +420,10 @@ public:
         ossfps << "\nMouse Y: " << _my;
         ossfps << "\nScreen X: " << screenPositionX;
         ossfps << "\nScreen Y: " << screenPositionY;
-        ossfps << "\nZoom : " << defaultCamera.getZoom();
+        ossfps << "\nZoom: " << defaultCamera.getZoom();
+        ossfps << "\nHUDText width: " << HUDText.width();
+        ossfps << "\nHUDText height: " << HUDText.height();
+        ossfps << "\npoint in testSprite while x-w/2=" << testSprite.X() - testSprite.width()/2 << " y-h/2="<< testSprite.Y()-testSprite.height()/2 << " w="<< testSprite.width() << " h="<< testSprite.height() << " and mx=" << _mx << " my=" << _my << " is " << (testSprite.pointOverlap(_mx,_my)?"True":"False");
         HUDText.text(ossfps.str());
         flush(ossfps);
 

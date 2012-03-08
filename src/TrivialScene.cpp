@@ -84,7 +84,7 @@ void Scene::updateObjectsByLayerName(const string &layerName) {
 void Scene::_preload() {
     addLayer("default", 0);
 
-    defaultCamera.init(Trivial::App::Instance()->GetWidth(),Trivial::App::Instance()->GetHeight());
+    defaultCamera.init(Trivial::App::Instance()->width(),Trivial::App::Instance()->height());
     cout << "\ncam x " << defaultCamera.X();
     defaultCamera.lookAt(width()/2,height()/2);
 

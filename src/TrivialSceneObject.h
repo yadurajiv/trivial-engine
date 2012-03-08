@@ -55,7 +55,7 @@ public:
     }
 
     virtual void moveTo( const float &x,  const float &y) {
-        
+
         if(_affectChildren) {
             map<string, GraphicsObject*>::iterator it;
             for ( it=_items.begin() ; it != _items.end(); it++ ) {
@@ -96,6 +96,9 @@ public:
 
     virtual float width() const { return _width; };
     virtual float height() const { return _height; };
+
+    virtual float width(const float &w) { return _width = w;}
+    virtual float height(const float &h) { return _height = h;}
 
     virtual float radius() const { return _radius; };
     virtual float setRadius(const float &r) { return _radius = r; }
