@@ -5,8 +5,17 @@
 #include "TrivialScene.h"
 #include "TrivialHelper.h"
 #include <SFML/Graphics.hpp>
-#include <OpenGL/gl.h>
-#include <OpenGL/glu.h>
+
+#if defined(SFML_SYSTEM_WINDOWS)
+    #include <GL/gl.h>
+    #include <GL/glu.h>
+#elif defined(SFML_SYSTEM_LINUX) || defined(SFML_SYSTEM_FREEBSD)
+    #include <GL/gl.h>
+    #include <GL/glu.h>
+#elif defined(SFML_SYSTEM_MACOS)
+    #include <OpenGL/gl.h>
+    #include <OpenGL/glu.h>
+#endif
 
 using namespace std;
 

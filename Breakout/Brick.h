@@ -5,13 +5,13 @@
 #include "TrivialEngine.h"
 
 class brick : public Trivial::Sprite
-{	
+{
 	private :
 	pos position;
 	public :
 	brick();
 	~brick();
-	
+
 	void image(const string &name);
 	pos getPosition();
 	void setPositionBy(pos aPosition);
@@ -26,7 +26,7 @@ brick::brick()
 
 brick::~brick()
 {
-	
+
 }
 
 void brick::image(const string &name)
