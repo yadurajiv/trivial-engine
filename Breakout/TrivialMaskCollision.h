@@ -90,7 +90,6 @@ namespace Trivial
 		virtual void _update();
 		
 		void image(const string &imageName, const string &maskImageName);
-		void setMaskColor(int red, int green, int blue, int alpha=255);
 		bool isMaskAt(int x, int y);
 		
 	};
@@ -109,7 +108,6 @@ namespace Trivial
 	{
 		update();
 		maskSprite.moveTo(X(), Y());
-		cout<<"HEERRE";
 	}
 	
 	
@@ -118,7 +116,7 @@ namespace Trivial
 		Sprite::image(imageName);
 		mySceneManager = SceneManager::Instance();
 		MaskScene *maskScene = new MaskScene;
-		mySceneManager->addScene("maskScreen", new MaskScene);
+		mySceneManager->addScene("maskScreen", maskScene);
 		maskSprite.image(maskImageName);
 		sf::Color c = maskSprite.SFMLsprite.GetColor();
 		color.r = c.r;
@@ -126,14 +124,36 @@ namespace Trivial
 		color.g = c.g;
 		color.a = c.a;
 		maskScene->add(maskImageName, maskSprite);
+		cout<<"Set Active Scene : "<<mySceneManager->setActiveScene("maskScreen");
+		
 	}
 	
 	bool MaskCollision::isMaskAt(int x, int y)
 	{
-		if(Helper::pointInRect(x, y, X(), Y(), width(), height()))
+		if(pointOverlap(x,y))
 		{
 			GLubyte* pixel = new GLubyte[4];
-			glReadPixels(x, 600-y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, pixel);
+			glReadPixels(x, 600-y, 1, 1, GL_RGBA, GL_UNSIGNED_INT, pixel);
+			cout<<"OR:"<<color.r<<endl;
+			cout<<"OG:"<<color.g<<endl;
+			cout<<"OB:"<<color.b<<endl;
+			cout<<"OA:"<<color.a<<endl;
+			if(color.r == pixel[0])
+			{
+				cout<<"At Red";
+			}
+			if(color.g == pixel[1])
+			{
+				cout<<"At Green";
+			}
+			if(color.b == pixel[2])
+			{
+				cout<<"At blue";
+			}
+			if(color.a == pixel[3])
+			{
+				cout<<"At Alpha";
+			}
 			cout<< "R:"<<(int)pixel[0]<<endl;
 			cout<< "G:"<<(int)pixel[1]<<endl;
 			cout<< "B:"<<(int)pixel[2]<<endl;

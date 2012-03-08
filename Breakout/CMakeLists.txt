@@ -10,4 +10,7 @@ include_directories(${TINYXML_INCLUDE_PATH})
 
 add_executable(BreakOut main.cpp)
 
-target_link_libraries(BreakOut TrivialEngine)
+target_link_libraries(BreakOut TrivialEngine
+	${OpenGL_LIBRARY}
+	
+)

@@ -14,8 +14,8 @@
 #include "Ball.h"
 #include "Brick.h"
 #include "Paddle.h"
-#include "TrivialButton.h"
-#include "TrivialMaskCollision.h"
+//#include "TrivialButton.h"
+//#include "TrivialMaskCollision.h"
 //#include "mouseDrawing.h"
 // #include "quadTreeTest.h"
 
@@ -44,7 +44,7 @@ public:
 		myImageManager->add("buttonPressed", "data/buttonPressed.png");
 		myImageManager->add("buttonHover", "data/buttonHover.png");
 		myImageManager->add("animatedButton", "data/vegeta.png");
-		myImageManager->add("maskedSprite","data/obj1.png");
+		//myImageManager->add("maskedSprite","data/obj1.png");
 		
 		//To load all the Bricks
 		for(int i = 0; i < 4; ++i)
@@ -75,7 +75,7 @@ public:
 		ballPosition.y = 555;
 		ballSprite.setPosition(ballPosition);
 		
-		aButton2.buttonWithAnimatedSprite("animatedButton", 150, 40);
+		/*aButton2.buttonWithAnimatedSprite("animatedButton", 150, 40);
 		aButton2.buttonUpAddAnimation("buttonAnimate", 0, 12, 10);
 		aButton2.buttonDownAddAnimation("buttonAnimate2", 12, 14, 10);
 		aButton2.buttonHoverAddAnimation("buttonAnimate3", 1, 1, 10);
@@ -86,6 +86,10 @@ public:
 		add("vegetaButtonDisplay",aButton2);
 		aButton.moveTo(400,300);
 		aButton2.moveTo(200,300);
+				
+		mc.image("maskedSprite", "maskedSprite");
+		add("mask", mc);
+		cout<<mc.isMaskAt(0,0);*/
 		
 		
     }
@@ -224,10 +228,10 @@ private:
 	paddle paddleSprite;
 	ball ballSprite;
 	pos ballPosition;
-	Button aButton;
+	/*Button aButton;
 	Button aButton2;
 	Trivial::AnimatedSprite explosion, explosion2;
-	
+	MaskCollision mc;*/
 	
 	
 
