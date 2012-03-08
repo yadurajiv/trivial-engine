@@ -15,7 +15,9 @@ private:
 public:
 	paddle();
 	~paddle();
-	
+
+	void update();
+
 	void image(const string &name);
 	void keyBoardEventCallback(const Trivial::TrivialKeyBoardEvent &e);
 	bool getKeyUpState();
@@ -24,7 +26,7 @@ public:
 	void setPosition(pos aPosition);
 	pos getPosition();
 	void setPositionBy(pos aPosition);
-	
+
 };
 
 paddle::paddle()
@@ -32,7 +34,7 @@ paddle::paddle()
 	myEventManager = Trivial::EventManager::Instance();
 	myEventManager->subscribe("up-keydown", this);
     myEventManager->subscribe("up-keyup", this);
-	
+
 	myEventManager->subscribe("left-keydown", this);
     myEventManager->subscribe("left-keyup", this);
 
@@ -42,7 +44,7 @@ paddle::paddle()
 
 paddle::~paddle()
 {
-	
+
 }
 
 void paddle::image(const string &name)
@@ -60,13 +62,6 @@ void paddle::keyBoardEventCallback(const Trivial::TrivialKeyBoardEvent &e)
     }
 
     if (e.eventName == "left-keydown") {
-		if(getPosition().x >= 35)
-		{
-			pos tempPos;
-			tempPos.x = -10;
-			tempPos.y = 0;
-			setPositionBy(tempPos);
-		}
         key_left = true;
     }
     if (e.eventName == "left-keyup") {
@@ -74,13 +69,6 @@ void paddle::keyBoardEventCallback(const Trivial::TrivialKeyBoardEvent &e)
     }
 
     if (e.eventName == "right-keydown") {
-		if(getPosition().x <= 765)
-		{
-			pos tempPos;
-			tempPos.x = 10;
-			tempPos.y = 0;
-			setPositionBy(tempPos);
-		}
         key_right = true;
     }
     if (e.eventName == "right-keyup") {
@@ -119,6 +107,29 @@ void paddle::setPosition(pos aPosition)
 pos paddle::getPosition()
 {
 	return position;
+}
+
+void paddle::update() {
+    if(key_left) {
+        if(getPosition().x >= 35)
+		{
+			pos tempPos;
+			tempPos.x = -10;
+			tempPos.y = 0;
+			setPositionBy(tempPos);
+		}
+    }
+
+    if(key_right) {
+		if(getPosition().x <= 765)
+		{
+			pos tempPos;
+			tempPos.x = 10;
+			tempPos.y = 0;
+			setPositionBy(tempPos);
+		}
+    }
+
 }
 
 #endif

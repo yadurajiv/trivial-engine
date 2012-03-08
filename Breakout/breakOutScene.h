@@ -11,6 +11,7 @@
 
 #include "TrivialEngine.h"
 
+#include "helpers.h"
 #include "Ball.h"
 #include "Brick.h"
 #include "Paddle.h"
@@ -36,16 +37,16 @@ public:
         myApp = Trivial::App::Instance();	//Creating app instance
         mySceneManager = Trivial::SceneManager::Instance();	//Creating Scene Instance
         myImageManager = Trivial::ImageManager::Instance();	//Creating Instance for Trivial Graphic Objects
-        
+
 		//Adding image resources;
-		myImageManager->add("brick", "data/brick.png");	
+		myImageManager->add("brick", "data/brick.png");
 		myImageManager->add("ball", "data/ball.png");
 		myImageManager->add("button", "data/button.png");
 		myImageManager->add("buttonPressed", "data/buttonPressed.png");
 		myImageManager->add("buttonHover", "data/buttonHover.png");
 		myImageManager->add("animatedButton", "data/vegeta.png");
 		//myImageManager->add("maskedSprite","data/obj1.png");
-		
+
 		//To load all the Bricks
 		for(int i = 0; i < 4; ++i)
 		{
@@ -61,37 +62,37 @@ public:
 				brickSprite[i][j].setPositionBy(brickPosition);
 			}
 		}
-		
+
 		paddleSprite.image("brick");
 		add("paddleImage", paddleSprite);
 		pos paddlePosition;
 		paddlePosition.x = 400;
 		paddlePosition.y = 582;
 		paddleSprite.setPosition(paddlePosition);
-		
+
 		ballSprite.image("ball");
 		add("ballImage", ballSprite);
 		ballPosition.x = 400;
 		ballPosition.y = 555;
 		ballSprite.setPosition(ballPosition);
-		
+
 		/*aButton2.buttonWithAnimatedSprite("animatedButton", 150, 40);
 		aButton2.buttonUpAddAnimation("buttonAnimate", 0, 12, 10);
 		aButton2.buttonDownAddAnimation("buttonAnimate2", 12, 14, 10);
 		aButton2.buttonHoverAddAnimation("buttonAnimate3", 1, 1, 10);
-		
+
 		aButton.buttonWithSprite("button", "buttonPressed", "buttonHover");
-		
+
 		add("buttonDisplay", aButton);
 		add("vegetaButtonDisplay",aButton2);
 		aButton.moveTo(400,300);
 		aButton2.moveTo(200,300);
-				
+
 		mc.image("maskedSprite", "maskedSprite");
 		add("mask", mc);
 		cout<<mc.isMaskAt(0,0);*/
-		
-		
+
+
     }
 
     void reset() {
@@ -113,7 +114,7 @@ public:
 
         if(!_activated)
             return;
-		
+
 		if(!isBallMoving)
 		{
 			if(paddleSprite.getKeyUpState())
@@ -126,7 +127,7 @@ public:
 				ballSprite.setPosition(ballPosition);
 			}
 		}
-		
+
 		if(isBallMoving)
 		{
 			//Collision Check for bricks;
@@ -150,7 +151,7 @@ public:
 					}
 				}
 			}
-			
+
 			//Collision check for paddle;
 			if(ballSprite.getPosition().x >= paddleSprite.getPosition().x-35 && ballSprite.getPosition().x <= paddleSprite.getPosition().x+35)
 			{
@@ -164,27 +165,27 @@ public:
 					ballSprite.setRelativeToPaddle(-movFactor);
 				}
 			}
-			
+
 			//Collision check for wall;
 			int movFactor = ballSprite.getRelativeToPaddle();
 			if(ballSprite.getPosition().x >= 800 || ballSprite.getPosition().x <= 0)
 			{
 				movFactor = -movFactor;
 			}
-			
+
 			if(ballSprite.getPosition().y >= 585)
 			{
 				ballSprite.setBallMotionDirection(false);
 			}
-			
+
 			if(ballSprite.getPosition().y <= 5)
 			{
 				reset();
 			}
-			
+
 			//Ball Motion
 			if(ballSprite.getBallMotionDirection())
-			{				
+			{
 				ballPosition.x += movFactor;
 				ballPosition.y -= 2;
 				ballSprite.setPosition(ballPosition);
@@ -232,8 +233,8 @@ private:
 	Button aButton2;
 	Trivial::AnimatedSprite explosion, explosion2;
 	MaskCollision mc;*/
-	
-	
+
+
 
     /**
         moved inside class since sfml has its own global variables and they might

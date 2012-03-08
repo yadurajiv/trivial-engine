@@ -3,11 +3,8 @@
 
 #include "TrivialEngine.h"
 
-struct pos
-{
-	int x;
-	int y;
-};
+#include "helpers.h"
+
 class ball : public Trivial::Sprite
 {
 private:
@@ -15,12 +12,12 @@ private:
 	bool ballMotionDirection; //False for Down, True for Up
 	pos lastCollidePlace;
 	int relativeToPaddle;
-	
+
 public:
 	ball();
 	~ball();
 	void image(const string &name);
-	
+
 	pos getPosition();
 	void setPosition(pos aPosition);
 	void setBallMotionDirection(bool val);
@@ -39,7 +36,7 @@ ball::ball(){
 }
 
 ball::~ball(){
-	
+
 }
 
 void ball::image(const string &name)
