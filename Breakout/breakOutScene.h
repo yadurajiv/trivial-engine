@@ -15,6 +15,7 @@
 #include "Ball.h"
 #include "Brick.h"
 #include "Paddle.h"
+#include <OpenGL/gl.h>
 //#include "TrivialButton.h"
 //#include "TrivialMaskCollision.h"
 //#include "mouseDrawing.h"
@@ -131,6 +132,13 @@ public:
 		if(isBallMoving)
 		{
 			//Collision Check for bricks;
+			GLubyte* pixel = new GLubyte[4];
+			glReadPixels(ballSprite.getPosition().x-20, 600-ballSprite.getPosition().y-50, 1, 1, GL_RGBA, GL_UNSIGNED_INT, pixel);
+			cout<<"RED : "<<(int)pixel[0]<<endl;
+			cout<<"GREEN : "<<(int)pixel[1]<<endl;
+			cout<<"BLUE : "<<(int)pixel[2]<<endl;
+			cout<<"Alpha : "<<(int)pixel[3]<<endl;
+			
 			for(int i = 0; i < 4; ++i)
 			{
 				for(int j = 0; j < 11; ++j)
