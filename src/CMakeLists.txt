@@ -12,6 +12,8 @@ set(SRC
     ${SRCROOT}/TrivialBox2D.h
     ${SRCROOT}/TrivialCamera.cpp
     ${SRCROOT}/TrivialCamera.h
+	${SRCROOT}/TrivialCanvas.cpp
+	${SRCROOT}/TrivialCanvas.h
     ${SRCROOT}/TrivialEngine.h
     ${SRCROOT}/TrivialEventManager.cpp
     ${SRCROOT}/TrivialEventManager.h

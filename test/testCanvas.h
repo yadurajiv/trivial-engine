@@ -1,8 +1,6 @@
 #ifndef TESTCANVAS_H_INCLUDED
 #define TESTCANVAS_H_INCLUDED
 
-#include "TrivialCanvas.h"
-
 
 using namespace std;
 
@@ -211,7 +209,7 @@ public:
 private:
 
     Trivial::GUIText HUDText;
-    TrivialCanvas _canvas;
+    Trivial::Canvas _canvas;
 
     bool childSmallCol;
 

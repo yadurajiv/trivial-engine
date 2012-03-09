@@ -1,22 +1,28 @@
 #ifndef TRIVIALCANVAS_H
 #define TRIVIALCANVAS_H
 
-#include "TrivialEngine.h"
+#include <SFML/Graphics.hpp>
 
-class TrivialCanvas : public Trivial::Sprite {
+#include "TrivialSprite.h"
+
+using namespace std;
+
+namespace Trivial {
+
+class Canvas : public Trivial::Sprite {
     public:
-        TrivialCanvas();
-        virtual ~TrivialCanvas(){};
+        Canvas();
+        virtual ~Canvas(){};
 
         virtual void update() { };
 
         virtual void _update();
 
-        void create(const int &width, const int &height, const Color& color = Color(255, 255, 255));
+        void create(const int &width, const int &height, const sf::Color& color = sf::Color(255, 255, 255));
 
-        void clear(const Color& color = Color(255, 255, 255));
+        void clear(const sf::Color& color = sf::Color(255, 255, 255));
 
-        void setPixel(const int &x, const int &y,const Color& color = Color(0,0,0));
+        void setPixel(const int &x, const int &y,const sf::Color& color = sf::Color(0,0,0));
         void line(const int &x, const int &y, const int &tx, const int &ty);
         void circle(const int &x, const int &y, const int &radius);
         void ellipse(const int &w, const int &h);
@@ -45,5 +51,7 @@ class TrivialCanvas : public Trivial::Sprite {
 
         bool _ready;
 };
+
+}
 
 #endif // TRIVIALCANVAS_H

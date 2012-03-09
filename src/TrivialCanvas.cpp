@@ -1,12 +1,17 @@
 #include "TrivialCanvas.h"
+#include <iostream>
 
-TrivialCanvas::TrivialCanvas() {
+using namespace std;
+
+namespace Trivial {
+
+Canvas::Canvas() {
     //ctor
     _cursorX = 0;
     _cursorY = 0;
 }
 
-void TrivialCanvas::create(const int &w, const int &h,const Color& color) {
+void Canvas::create(const int &w, const int &h,const sf::Color& color) {
     _width = w;
     _height = h;
     _clearColor = color;
@@ -14,11 +19,11 @@ void TrivialCanvas::create(const int &w, const int &h,const Color& color) {
     clear();
 }
 
-void TrivialCanvas::_update() {
-    Trivial::Sprite::_update();
+void Canvas::_update() {
+    Sprite::_update();
 }
 
-void TrivialCanvas::clear(const Color& color) {
+void Canvas::clear(const sf::Color& color) {
     _image.Create(_width, _height,_clearColor);
     _texture.LoadFromImage(_image);
     SFMLsprite.SetTexture(_texture);
@@ -32,7 +37,7 @@ void TrivialCanvas::clear(const Color& color) {
     }
 }
 
-void TrivialCanvas::setPixel(const int &x, const int &y,const Color& color) {
+void Canvas::setPixel(const int &x, const int &y,const sf::Color& color) {
         if(pointOverlap(x,y)) {
             int lx = x - (_x - _width/2);
             int ly = y - (_y - _height/2);
@@ -49,7 +54,7 @@ void TrivialCanvas::setPixel(const int &x, const int &y,const Color& color) {
     Bresenham's line algorithm
     http://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
 **/
-void TrivialCanvas::line(const int &x, const int &y, const int &tx, const int &ty) {
+void Canvas::line(const int &x, const int &y, const int &tx, const int &ty) {
     if(!pointOverlap(x,y) || !pointOverlap(tx,ty))
         return;
 
@@ -95,7 +100,7 @@ void TrivialCanvas::line(const int &x, const int &y, const int &tx, const int &t
     SFMLsprite.SetTexture(_texture);
 }
 
-void TrivialCanvas::circle(const int &x, const int &y, const int &radius) {
+void Canvas::circle(const int &x, const int &y, const int &radius) {
     int f = 1 - radius;
     int ddF_x = 1;
     int ddF_y = -2 * radius;
@@ -137,10 +142,12 @@ void TrivialCanvas::circle(const int &x, const int &y, const int &radius) {
     SFMLsprite.SetTexture(_texture);
 }
 
-void TrivialCanvas::ellipse(const int &w, const int &h) {
+void Canvas::ellipse(const int &w, const int &h) {
 
 }
 
-void TrivialCanvas::rect(const int &rx, const int &ry, const int &rw, const int &rh) {
+void Canvas::rect(const int &rx, const int &ry, const int &rw, const int &rh) {
+
+}
 
 }
