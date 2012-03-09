@@ -17,3 +17,5 @@ extlibs/tinyxml/Makefile
 Breakout/BreakOut
 *.dll
 extlibs/tinyxml/Makefile
+
+data
