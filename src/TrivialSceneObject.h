@@ -177,6 +177,7 @@ public:
 
     void setAngularAcceleration(const float &a) {
         _angularAcceleration = a;
+        _maxAngular = a;
 
         if(_affectChildren) {
             map<string, GraphicsObject*>::iterator it;

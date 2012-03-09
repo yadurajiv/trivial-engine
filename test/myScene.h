@@ -12,6 +12,7 @@
 #include "TrivialEngine.h"
 
 #include "pause.h"
+#include "testCanvas.h"
 //#include "mouseDrawing.h"
 // #include "quadTreeTest.h"
 
@@ -457,7 +458,8 @@ public:
 
         if(key_2) {
             key_2 = false;
-            //add stuff to happen on key 2 down
+            mySceneManager->addScene("testCanvas", new testCanvas);
+            mySceneManager->setActiveScene("testCanvas");
         }
 
         if(key_up || key_down || key_left || key_right) {

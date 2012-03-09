@@ -41,14 +41,35 @@ public:
 
     void text(const string &data);
     void text(const float &x, const float &y, const string &data);
+    virtual void setAlpha(const int alpha = 255) {
+        if(_alpha != alpha) {
+            sf::Color c = _text.GetColor();
+            _alpha = c.a = alpha;
+            _text.SetColor(c);
+        }
+    }
 
-protected:
+    virtual int getAlpha() {
+        sf::Color c = _text.GetColor();
+        _alpha = c.a;
+        return _alpha;
+    }
 
+    virtual void setColor(const int r = 255, const int g = 255, const int b = 255, const int alpha=255) {
+        sf::Color c = _text.GetColor();
+        c.r = r;
+        c.g = g;
+        c.b = b;
+        c.a = alpha;
+        _text.SetColor(c);
+    }
+
+private:
     string _data;
 
     sf::Text _text;
 
-private:
+    int _alpha;
 
 };
 
