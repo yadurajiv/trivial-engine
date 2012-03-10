@@ -53,6 +53,7 @@ public:
 
         setLayerCameraDamp("hud", 0, 0);
 
+        _canvas.moveBy(100,100);
 
     }
 
@@ -62,9 +63,12 @@ public:
 
         _mscroll = 0;
 
+        Trivial::Helper::makePointRectAroundPoint(&_ptrect,0,0,10,10);
+
         defaultCamera.lookAt(0,0);
 
         myApp->setClearColor();
+
     }
 
     /* the event call back is called by the event manager */
@@ -96,8 +100,14 @@ public:
             screenPositionY = e.screenPosition.y;
 
             if(e.lButton) {
-                _canvas.line(0,0,_mx,_my);
-                _canvas.circle(0,0,abs(_mx - int(_canvas.X())));
+                if(_canvas.pointOverlap(_mx,_my)) {
+                    _mrad = Trivial::Helper::distance(0,0,_mx,_my);
+                    Trivial::Helper::makePointRectAroundPoint(&_ptrect,0,0,_mrad,_mrad);
+                    Trivial::Helper::rotatePointRect(&_ptrect,0,0,Trivial::Helper::getAngle(_mx,_my,0,0));
+                    _canvas.line(0,0,_mx,_my);
+                    _canvas.circle(0,0,_mrad);
+                    _canvas.rect(_ptrect);
+                }
             }
 
             if(e.rButton) {
@@ -179,7 +189,9 @@ public:
         ossfps << "FPS: " << myApp->FPS();
         ossfps << "\ncanvasX: " << _canvas.X() << " canvasY: " << _canvas.Y();
         ossfps << "\n_mx: " << _mx << " _my: " << _my;
+        ossfps << "\nscrx: " << screenPositionX << " scry: " << screenPositionY;
         ossfps << "\ndx: " << (_mx - (_canvas.X()-_canvas.width()/2)) << " dy: " << (_my- (_canvas.Y()-_canvas.height()/2));
+        ossfps << "\nmouse overlap canvas: " << ((_canvas.pointOverlap(_mx,_my))?" True":" False");
         HUDText.text(ossfps.str());
         flush(ossfps);
 
@@ -211,6 +223,8 @@ private:
     Trivial::GUIText HUDText;
     Trivial::Canvas _canvas;
 
+    Trivial::TrivialPointRect _ptrect;
+
     bool childSmallCol;
 
     float _lastTime;
@@ -219,6 +233,8 @@ private:
 
     int _mx;
     int _my;
+
+    int _mrad;
 
     int screenPositionX;
     int screenPositionY;

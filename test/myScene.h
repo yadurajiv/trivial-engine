@@ -160,7 +160,7 @@ public:
         msg.text(400,400,"woah!\nTrivial Engine is Trivial.");
         add("msg",msg);
 
-        addLayer("hud", 1);
+        addLayer("hud", 2);
 
         HUDText.font("wendy");
         HUDText.text(10,5,"FPS: 000");
@@ -197,6 +197,11 @@ public:
         issue_2_test_spr0.moveBy(400,150);
         add("shuriken", issue_2_test_spr0);
 
+        addLayer("debug",1);
+        debugDraw.create(800,600);
+        add("debugDraw",debugDraw,"debug");
+        debugDraw.setAlpha(90);
+
     }
 
     void reset() {
@@ -215,9 +220,12 @@ public:
 
 
         // look at object needs to be rewritten or given to scene
-        defaultCamera.lookAt(400, 300);
+        defaultCamera.lookAt(0,0);
 
         myApp->setClearColor();
+
+        cout << "\n\nHIT THE Z KEY TO ROTATE AND DRAW";
+        cout << "\n\nHIT THE 2 KEY TO CHANGE SCENE AND DRAW\n\n";
 
 ////        myAudioManager->earPosition(camera.getCenterX(), camera.getCenterY());
     }
@@ -470,6 +478,43 @@ public:
 
         if(key_z) {
             key_z = false;
+/*
+        float w = testSprite.width();
+        float h = testSprite.height();
+        float rx = testSprite.X();
+        float ry = testSprite.Y();
+        float ax = rx - w/2;
+        float ay = ry - w/2;
+        float bx = rx + w/2;
+        float by = ry - w/2;
+        float cx = rx + w/2;
+        float cy = ry + h/2;
+        float dx = rx - w/2;
+        float dy = ry + h/2;
+
+        testSprite.rotateBy(10);
+        float a = testSprite.getRotation();
+
+        Trivial::TrivialPoint pta = Trivial::Helper::rotatePoint(ax,ay,rx,ry,a);
+        Trivial::TrivialPoint ptb = Trivial::Helper::rotatePoint(bx,by,rx,ry,a);
+        Trivial::TrivialPoint ptc = Trivial::Helper::rotatePoint(cx,cy,rx,ry,a);
+        Trivial::TrivialPoint ptd = Trivial::Helper::rotatePoint(dx,dy,rx,ry,a);
+
+        debugDraw.line(pta.x,pta.y,ptb.x,ptb.y);
+        debugDraw.line(ptb.x,ptb.y,ptc.x,ptc.y);
+        debugDraw.line(ptc.x,ptc.y,ptd.x,ptd.y);
+        debugDraw.line(ptd.x,ptd.y,pta.x,pta.y);
+        */
+        debugDraw.clear();
+        testSprite.rotateBy(10);
+        debugDraw.rect(testSprite.getPointRect());
+
+//debugDraw.line(ax,ay, bx,0);
+        //debugDraw.circle(0,0,100);
+
+        //debugDraw.setAlpha(90);
+        // debugDraw.setBlending("multiply"); // be able to do this!! strings!
+
             std::cout << "\nz key pressed - Audio code commented out";
 //                std::cout << "\nz key pressed - fade to stop!";
 /*
@@ -552,6 +597,7 @@ public:
         cout << "\nmyScene activated!" << endl;
 
         reset();
+
     }
 
     ~myScene() {
@@ -567,6 +613,8 @@ private:
     Trivial::GUIText msg;
     Trivial::GUIText HUDText;
     Trivial::GUIText moreText;
+
+    Trivial::Canvas debugDraw;
 
     // https://github.com/hashstash/TrivialEngine/issues/2
     Trivial::AnimatedSprite issue_2_test_spr0;

@@ -14,7 +14,9 @@ void Sprite::image(const string &name) {
     _width = ImageManager::Instance()->get(name)->GetWidth();
     _height = ImageManager::Instance()->get(name)->GetHeight();
     // SetCenter removed
-    SFMLsprite.SetOrigin(_width/2,_height/2); // SetOrigin to SetCenter back to SetOrigin lol XD
+    _originX = _width/2;
+    _originY = _height/2;
+    SFMLsprite.SetOrigin(_originX,_originY); // SetOrigin to SetCenter back to SetOrigin lol XD
     if(_width > _height) {
         _radius = _width/2;
     } else {

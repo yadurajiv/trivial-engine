@@ -41,6 +41,10 @@ SceneObject::SceneObject() {
     _visible = true;
 
     _affectChildren = true;
+
+    _updateRect();
+
+    _updatePointRect();
 }
 
 SceneObject::~SceneObject() {
@@ -52,6 +56,14 @@ void SceneObject::_updatePhysics() {
     updatePhysics();
 }
 */
+
+float SceneObject::getLocalX(const float& globalX) {
+    return globalX - (_x - _originX);
+}
+
+float SceneObject::getLocalY(const float& globalY) {
+    return globalY - (_y - _originY);
+}
 
 void SceneObject::hide() {
     this->_visible = false;
@@ -117,6 +129,9 @@ float SceneObject::updateMotion() {
     _velocity.y += velocityDelta;
     yDelta = delta;
     this->moveBy(xDelta,yDelta);
+
+    _updateRect();
+    _updatePointRect();
 
     return delta;
 }

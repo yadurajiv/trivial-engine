@@ -24,8 +24,10 @@ class Canvas : public Trivial::Sprite {
 
         void setPixel(const int &x, const int &y,const sf::Color& color = sf::Color(0,0,0));
         void line(const int &x, const int &y, const int &tx, const int &ty);
+        void line(const float& x1, const float& y1, const float& x2, const float& y2);
         void circle(const int &x, const int &y, const int &radius);
         void ellipse(const int &w, const int &h);
+        void rect(const TrivialPointRect& ptrect);
         void rect(const int &rx, const int &ry, const int &rw, const int &rh);
 /*
         line(x,y,tx,ty)

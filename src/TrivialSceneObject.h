@@ -19,7 +19,7 @@ public:
 
     float updateMotion();
 
-    virtual void update() { };
+    virtual void update() { }
     virtual void _update() {
 
         map<string, GraphicsObject*>::iterator it;
@@ -31,7 +31,7 @@ public:
 
         updateMotion();
         update(); // does this need to be called, it wasn't here.. mm..
-    }; // notice that unlike a GraphicsObject it does not check to see if one is active
+    } // notice that unlike a GraphicsObject it does not check to see if one is active
 
     void _initPhysics();
 
@@ -69,7 +69,11 @@ public:
         _x = x;
         _y = y;
 
-    };
+        _updateRect();
+        _updatePointRect();
+
+    }
+
     virtual void moveBy( const float &x,  const float &y) {
 /*
         if(_affectChildren) {
@@ -83,19 +87,46 @@ public:
 */
         _x += x;
         _y += y;
-    };
+
+        _updateRect();
+        _updatePointRect();
+    }
+
     virtual void rotate(const float &angle) {
         _angle = angle;
-    };
+
+        _updatePointRect();
+    }
+
     virtual void rotateBy(const float &angle) {
         _angle += angle;
-    };
 
-    virtual float X() const { return _x; };
-    virtual float Y() const { return _y; };
+        _updatePointRect();
+    }
 
-    virtual float width() const { return _width; };
-    virtual float height() const { return _height; };
+    virtual float getRotation() const {
+        return _angle;
+    }
+
+    virtual float getLocalX(const float& x);
+    virtual float getLocalY(const float& y);
+
+    virtual float X() const { return _x; }
+    virtual float Y() const { return _y; }
+
+    virtual float getOriginX() const { return _originX; }
+    virtual float getOriginY() const { return _originY; }
+
+// still questionable as to how this will affect TrivialCanvas
+/*
+    virtual void setOrigin(const float &x,const float &y) {
+        _originX = x;
+        _originY = y;
+    }
+*/
+
+    virtual float width() const { return _width; }
+    virtual float height() const { return _height; }
 
     virtual float width(const float &w) { return _width = w;}
     virtual float height(const float &h) { return _height = h;}
@@ -199,9 +230,7 @@ public:
     }
 
     bool pointOverlap(float x, float y) {
-        float h = height();
-        float w = width();
-        if(Trivial::Helper::pointInRect(x,y,_x-w/2,_y-h/2,w,h)) {
+        if(Trivial::Helper::pointInRect(x,y,_prect.a.x,_prect.a.y,_prect.b.x,_prect.b.y,_prect.c.x,_prect.c.y,_prect.d.x,_prect.d.y) ) {
             return true;
         }
         return false;
@@ -230,7 +259,27 @@ public:
     virtual bool add(const string &name, GraphicsObject &o);
     virtual bool remove(const string &name);
 
+    TrivialRect getRect() const { return _rect; }
+
+    TrivialPointRect getPointRect() const { return _prect; }
+
 protected:
+
+    void _updateRect() {
+        _rect.x = _x - _originX;
+        _rect.y = _y - _originY;
+        _rect.width = _width;
+        _rect.height = _rect.height;
+    }
+
+    void _updatePointRect() {
+        // should be rotating around _originX and _originY
+        // _originX and _originY should be _x - _width/2
+        _prect.a = Trivial::Helper::rotatePoint(_x - _originX, _y - _originY, _x, _y, _angle);
+        _prect.b = Trivial::Helper::rotatePoint(_x + _originX, _y - _originY, _x, _y, _angle);
+        _prect.c = Trivial::Helper::rotatePoint(_x + _originX, _y + _originY, _x, _y, _angle);
+        _prect.d = Trivial::Helper::rotatePoint(_x - _originX, _y + _originY, _x, _y, _angle);
+    }
 
     std::map<string, GraphicsObject*> _items;
 
@@ -243,6 +292,12 @@ protected:
 
     float _width;
     float _height;
+
+    TrivialRect _rect;
+    TrivialPointRect _prect;
+
+    float _originX;
+    float _originY;
 
     float _radius;
 
