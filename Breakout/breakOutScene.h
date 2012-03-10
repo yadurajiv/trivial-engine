@@ -15,7 +15,19 @@
 #include "Ball.h"
 #include "Brick.h"
 #include "Paddle.h"
-#include <OpenGL/gl.h>
+
+// USE THIS IF YOU REALLY NEED OpenGL!
+#if defined(SFML_SYSTEM_WINDOWS)
+    #include <GL/gl.h>
+    #include <GL/glu.h>
+#elif defined(SFML_SYSTEM_LINUX) || defined(SFML_SYSTEM_FREEBSD)
+    #include <GL/gl.h>
+    #include <GL/glu.h
+#elif defined(SFML_SYSTEM_MACOS)
+    #include <OpenGL/gl.h>
+    #include <OpenGL/glu.h>
+#endif
+
 //#include "TrivialButton.h"
 //#include "TrivialMaskCollision.h"
 //#include "mouseDrawing.h"
@@ -138,7 +150,7 @@ public:
 			cout<<"GREEN : "<<(int)pixel[1]<<endl;
 			cout<<"BLUE : "<<(int)pixel[2]<<endl;
 			cout<<"Alpha : "<<(int)pixel[3]<<endl;
-			
+
 			for(int i = 0; i < 4; ++i)
 			{
 				for(int j = 0; j < 11; ++j)
