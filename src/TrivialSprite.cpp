@@ -67,8 +67,8 @@ void Sprite::scrollImageBy(const float& x, const float& y) {
     if(!_imageReady && !_scrollEnabled)
         return;
 
-    _textureRect.Top += x;
-    _textureRect.Left += y;
+    _textureRect.Left += x;
+    _textureRect.Top += y;
     SFMLsprite.SetTextureRect(_textureRect);
 
 }
