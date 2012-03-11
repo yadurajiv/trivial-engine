@@ -14,7 +14,7 @@ namespace Trivial {
 class Sprite : public SceneObject {
 public:
 
-    Sprite() { };
+    Sprite():_imageReady(false), _scrollEnabled(false) { };
     ~Sprite() { };
 
     virtual void update() { };
@@ -67,11 +67,25 @@ public:
         SFMLsprite.SetColor(c);
     }
 
+    bool scrollEnable(const bool& b = true);
+    void scrollImageBy(const float& x, const float& y);
+    void resetImageRect();
+
     sf::Sprite SFMLsprite;
 
 private:
 
     int _alpha;
+
+    float _imageScrollX;
+    float _imageScrollY;
+    string _imageName;
+
+    bool _imageReady;
+    bool _scrollEnabled;
+
+    sf::IntRect _textureRect;
+    sf::IntRect _textureRectOriginal;
 
 };
 

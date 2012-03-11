@@ -10,9 +10,14 @@ namespace Trivial {
 
 void Sprite::image(const string &name) {
     // SetImage becomes SetTexture
-    SFMLsprite.SetTexture(*(ImageManager::Instance()->get(name))); // second param bool removed
-    _width = ImageManager::Instance()->get(name)->GetWidth();
-    _height = ImageManager::Instance()->get(name)->GetHeight();
+    _imageName = name;
+
+    SFMLsprite.SetTexture(*(ImageManager::Instance()->get(_imageName))); // second param bool removed
+    _width = ImageManager::Instance()->get(_imageName)->GetWidth();
+    _height = ImageManager::Instance()->get(_imageName)->GetHeight();
+    _textureRectOriginal = SFMLsprite.GetTextureRect();
+     _textureRect = _textureRectOriginal;
+
     // SetCenter removed
     _originX = _width/2;
     _originY = _height/2;
@@ -22,6 +27,8 @@ void Sprite::image(const string &name) {
     } else {
         _radius = _height/2;
     }
+
+    _imageReady = true;
 }
 
 void Sprite::_update() {
@@ -49,6 +56,26 @@ void Sprite::rotate(const float &angle) {
 void Sprite::rotateBy(const float &angle) {
     SceneObject::rotateBy(angle);
     this->SFMLsprite.SetRotation(_angle);
+}
+
+bool Sprite::scrollEnable(const bool& b) {
+    ImageManager::Instance()->get(_imageName)->SetRepeated(b);
+    return _scrollEnabled = b;
+}
+
+void Sprite::scrollImageBy(const float& x, const float& y) {
+    if(!_imageReady && !_scrollEnabled)
+        return;
+
+    _textureRect.Top += x;
+    _textureRect.Left += y;
+    SFMLsprite.SetTextureRect(_textureRect);
+
+}
+
+void Sprite::resetImageRect() {
+    _textureRect = _textureRectOriginal;
+    SFMLsprite.SetTextureRect(_textureRect);
 }
 
 }

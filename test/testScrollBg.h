@@ -1,13 +1,12 @@
-#ifndef TESTCANVAS_H_INCLUDED
-#define TESTCANVAS_H_INCLUDED
-
+#ifndef TESTSCROLLBG_H_INCLUDED
+#define TESTSCROLLBG_H_INCLUDED
 
 using namespace std;
 
-class testCanvas : public Trivial::Scene {
+class testScrollBg : public Trivial::Scene {
 public:
 
-    testCanvas() {
+    testScrollBg() {
 
     }
 
@@ -20,6 +19,20 @@ public:
         myFontManager = Trivial::FontManager::Instance();
 //        myAudioManager = Trivial::AudioManager::Instance();
 
+        myEventManager->subscribe("up-keydown", this);
+        myEventManager->subscribe("up-keyup", this);
+
+        myEventManager->subscribe("down-keydown", this);
+        myEventManager->subscribe("down-keyup", this);
+
+        myEventManager->subscribe("left-keydown", this);
+        myEventManager->subscribe("left-keyup", this);
+
+        myEventManager->subscribe("right-keydown", this);
+        myEventManager->subscribe("right-keyup", this);
+
+        myEventManager->subscribe("escape-keydown", this);
+        myEventManager->subscribe("escape-keyup", this);
 
         myEventManager->subscribe("escape-keydown", this);
         myEventManager->subscribe("escape-keyup", this);
@@ -42,8 +55,10 @@ public:
         myEventManager->subscribe("middle-buttonup-mouse", this);
         myEventManager->subscribe("middle-buttondown-mouse", this);
 
-        _canvas.create(640,480);
-        add("canvas",_canvas);
+        _scroll.image("starfield");
+        _scroll.scrollEnable(true);
+
+        add("canvas",_scroll);
 
         addLayer("hud", 1);
         HUDText.font("wendy");
@@ -53,10 +68,15 @@ public:
 
         setLayerCameraDamp("hud", 0, 0);
 
+
     }
 
     void reset() {
         /* key state flags */
+        key_up = false;
+        key_down = false;
+        key_left = false;
+        key_right = false;
         key_escape = false;
 
         _mscroll = 0;
@@ -72,6 +92,34 @@ public:
     /* the event call back is called by the event manager */
     void keyBoardEventCallback(const Trivial::TrivialKeyBoardEvent &e) {
 
+
+        if (e.eventName == "up-keydown") {
+            key_up = true;
+        }
+        if (e.eventName == "up-keyup") {
+            key_up = false;
+        }
+
+        if (e.eventName == "down-keydown") {
+            key_down = true;
+        }
+        if (e.eventName == "down-keyup") {
+            key_down = false;
+        }
+
+        if (e.eventName == "left-keydown") {
+            key_left = true;
+        }
+        if (e.eventName == "left-keyup") {
+            key_left = false;
+        }
+
+        if (e.eventName == "right-keydown") {
+            key_right = true;
+        }
+        if (e.eventName == "right-keyup") {
+            key_right = false;
+        }
         if (e.eventName == "escape-keydown" && _activated) {
             key_escape = true;
         }
@@ -98,14 +146,7 @@ public:
             screenPositionY = e.screenPosition.y;
 
             if(e.lButton) {
-                if(_canvas.pointOverlap(_mx,_my)) {
-                    _mrad = Trivial::Helper::distance(0,0,_mx,_my);
-                    Trivial::Helper::makePointRectAroundPoint(&_ptrect,0,0,_mrad,_mrad);
-                    Trivial::Helper::rotatePointRect(&_ptrect,0,0,Trivial::Helper::getAngle(_mx,_my,0,0));
-                    _canvas.line(0,0,_mx,_my);
-                    _canvas.circle(0,0,_mrad);
-                    _canvas.rect(_ptrect);
-                }
+
             }
 
             if(e.rButton) {
@@ -184,11 +225,10 @@ public:
 
         ossfps.str("");
         ossfps << "FPS: " << myApp->FPS();
-        ossfps << "\ncanvasX: " << _canvas.X() << " canvasY: " << _canvas.Y();
         ossfps << "\n_mx: " << _mx << " _my: " << _my;
         ossfps << "\nscrx: " << screenPositionX << " scry: " << screenPositionY;
-        ossfps << "\ndx: " << (_mx - (_canvas.X()-_canvas.width()/2)) << " dy: " << (_my- (_canvas.Y()-_canvas.height()/2));
-        ossfps << "\nmouse overlap canvas: " << ((_canvas.pointOverlap(_mx,_my))?" True":" False");
+        ossfps << "\n_scrollbgx: " << _scrollbgx << " _scrollbgy: " << _scrollbgy;
+        ossfps << "\nignore trailing numbers.. we love ints";
         HUDText.text(ossfps.str());
         flush(ossfps);
 
@@ -196,6 +236,25 @@ public:
             key_escape = false;
             mySceneManager->setActiveScene("myScene");
         }
+
+        if(key_left) {
+            _scrollbgx = _scrollbgx - 1 * ft;
+        }
+
+        if(key_right) {
+            _scrollbgx = _scrollbgx + 1 * ft;
+        }
+
+        if(key_up) {
+            _scrollbgy = _scrollbgy - 1 * ft;
+        }
+
+        if(key_down) {
+            _scrollbgy = _scrollbgy + 1 * ft;
+        }
+
+        // takes in float, but uses only int.. fix that mmm..
+        _scroll.scrollImageBy(_scrollbgx,_scrollbgy);
 
     }
 
@@ -211,21 +270,26 @@ public:
         reset();
     }
 
-    ~testCanvas() {
+    ~testScrollBg() {
     }
 
 
 private:
 
     Trivial::GUIText HUDText;
-    Trivial::Canvas _canvas;
+    Trivial::Sprite _scroll;
 
     Trivial::TrivialPointRect _ptrect;
 
-    bool childSmallCol;
+    float _scrollbgx;
+    float _scrollbgy;
 
     float _lastTime;
 
+    bool key_up;
+    bool key_down;
+    bool key_left;
+    bool key_right;
     bool key_escape;
 
     int _mx;
@@ -257,4 +321,4 @@ private:
 
 };
 
-#endif // TESTCANVAS_H_INCLUDED
+#endif // TESTSCROLLBG_H_INCLUDED

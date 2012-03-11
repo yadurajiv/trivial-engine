@@ -30,6 +30,36 @@ sf::Texture* ImageManager::get(const string &name) {
     }
 }
 
+bool ImageManager::setSmooth(const string &name, const bool& b) {
+   if(_images.count(name) == 0) {
+        std::cout << "\nERROR: texture resource not found\n";
+        return false;
+   }
+
+    map<string, sf::Texture *>::iterator it = _images.find(name);
+    if (it != _images.end())
+    {
+        (*it).second->SetSmooth(b);
+        return true;
+    }
+    return false;
+}
+
+bool ImageManager::setRepeat(const string &name, const bool& b) {
+   if(_images.count(name) == 0) {
+        std::cout << "\nERROR: texture resource not found\n";
+        return false;
+   }
+
+    map<string, sf::Texture *>::iterator it = _images.find(name);
+    if (it != _images.end())
+    {
+        (*it).second->SetRepeated(b);
+        return true;
+    }
+    return false;
+}
+
 bool ImageManager::add(const string &name, const string &path) {
 // return false if image name exists
    if(_images.count(name) != 0)
@@ -37,8 +67,6 @@ bool ImageManager::add(const string &name, const string &path) {
 
     sf::Texture* img = new sf::Texture();
     if(img->LoadFromFile(path)) {
-        // images remain sharp after zooming if SetSmooth is false(by default)
-        // img->SetSmooth(true);
         _images[name] = img;
     } else {
         delete img;

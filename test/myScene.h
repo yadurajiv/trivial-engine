@@ -13,6 +13,7 @@
 
 #include "pause.h"
 #include "testCanvas.h"
+#include "testScrollBg.h"
 //#include "mouseDrawing.h"
 // #include "quadTreeTest.h"
 
@@ -62,6 +63,9 @@ public:
 
         myEventManager->subscribe("2-keydown", this);
         myEventManager->subscribe("2-keyup", this);
+
+        myEventManager->subscribe("3-keydown", this);
+        myEventManager->subscribe("3-keyup", this);
 
         // General Mouse event test
         myEventManager->subscribe("update-mouse",this);
@@ -214,6 +218,7 @@ public:
         key_z = false;
         key_1 = false;
         key_2 = false;
+        key_3 = false;
 
         _mscroll = 0;
 
@@ -226,6 +231,9 @@ public:
 
         cout << "\n\nHIT THE Z KEY TO ROTATE AND DRAW";
         cout << "\n\nHIT THE 2 KEY TO CHANGE SCENE AND DRAW\n\n";
+
+        cout << "\n\nHIT THE 3 KEY FOR SCROLLING TEXTURE IN SPRITE";
+        cout << "\n\nHIT THE ARROW KEYS TO USE IT :D\n\n";
 
 ////        myAudioManager->earPosition(camera.getCenterX(), camera.getCenterY());
     }
@@ -307,6 +315,14 @@ public:
 
         if (e.eventName == "2-keyup") {
             key_2 = false;
+        }
+
+        if (e.eventName == "3-keydown") {
+            key_3 = true;
+        }
+
+        if (e.eventName == "3-keyup") {
+            key_3 = false;
         }
 
     }
@@ -468,6 +484,12 @@ public:
             key_2 = false;
             mySceneManager->addScene("testCanvas", new testCanvas);
             mySceneManager->setActiveScene("testCanvas");
+        }
+
+        if(key_3) {
+            key_3 = false;
+            mySceneManager->addScene("testScrollBg", new testScrollBg);
+            mySceneManager->setActiveScene("testScrollBg");
         }
 
         if(key_up || key_down || key_left || key_right) {
@@ -632,6 +654,7 @@ private:
     bool key_x;
     bool key_1;
     bool key_2;
+    bool key_3;
 
     int _mx;
     int _my;

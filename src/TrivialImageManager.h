@@ -24,6 +24,10 @@ public:
 
     sf::Texture* get(const string &name);
 
+    bool setSmooth(const string &name, const bool& b);
+
+    bool setRepeat(const string &name, const bool& b);
+
 private:
     ImageManager();  // Private so that it can  not be called
     ~ImageManager();
