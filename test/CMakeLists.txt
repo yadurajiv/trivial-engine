@@ -11,3 +11,4 @@ include_directories(${TINYXML_INCLUDE_PATH})
 add_executable(TrivialTest main.cpp)
 
 target_link_libraries(TrivialTest TrivialEngine)
+
