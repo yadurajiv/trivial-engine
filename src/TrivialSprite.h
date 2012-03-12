@@ -67,6 +67,41 @@ public:
         SFMLsprite.SetColor(c);
     }
 
+    virtual bool pointOverlap(const float& x,const float& y, const bool& pixeltest = false) {
+        if(SceneObject::pointOverlap(x,y)) {
+            if(pixeltest) {
+                if(pixelTest(getLocalX(x),getLocalY(y))) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    // USER MUST DO A POINT OVERLAP TEST BEFORE CALLING THIS!!
+    // IF A WRONG X and Y values are given you will get a segfault!
+    // alpha threshold between 0 and 1 ~_~
+    // fuck this shit! i have lots of memory!
+    bool pixelTest(const float& x, const float& y, const unsigned int& alphaThreshold = 0) {
+        // bheri bheri expensive function
+        sf::Image img = Trivial::ImageManager::Instance()->get(_imageName)->CopyToImage();
+        if(x < 0 || y < 0 || x > _width || y > _height) { // doing this for some morons who will pass x and y not local x and y ~_~
+            return false;
+        } else {
+            sf::Color col = img.GetPixel(x,y);
+            if(col.a == alphaThreshold) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+
     bool scrollEnable(const bool& b = true);
     void scrollImageBy(const float& x, const float& y);
     void resetImageRect();

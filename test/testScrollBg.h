@@ -81,6 +81,9 @@ public:
 
         _mscroll = 0;
 
+        _scrollbgx = 0;
+        _scrollbgy = 0;
+
         Trivial::Helper::makePointRectAroundPoint(&_ptrect,0,0,10,10);
 
         defaultCamera.lookAt(0,0);

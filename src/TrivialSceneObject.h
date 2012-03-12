@@ -229,7 +229,7 @@ public:
         }
     }
 
-    bool pointOverlap(float x, float y) {
+    virtual bool pointOverlap(float x, float y) {
         if(Trivial::Helper::pointInRect(x,y,_prect.a.x,_prect.a.y,_prect.b.x,_prect.b.y,_prect.c.x,_prect.c.y,_prect.d.x,_prect.d.y) ) {
             return true;
         }

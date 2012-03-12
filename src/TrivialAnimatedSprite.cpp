@@ -48,6 +48,7 @@ bool AnimatedSprite::play(const string &name) {
     return true;
 }
 
+//try to use _textureRect instead of a seperate _cell to do animation
 void AnimatedSprite::_update() {
     if(_ready) {
         if(!_currentAnimation.empty()) {

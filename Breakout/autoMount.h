@@ -1,5 +1,5 @@
 #ifndef AUTOMOUNTSCENE_H
-#define AUTOMOUNTSCENE_H 
+#define AUTOMOUNTSCENE_H
 
 #include "TrivialEngine.h"
 #include "cars.h"
@@ -15,19 +15,19 @@ class AutoMountScene : public Trivial::Scene
 public:
 	AutoMountScene()
 	{
-		
+
 	}
-	
+
 	void preload()
 	{
 		myApp = Trivial::App::Instance();
 		mySceneManager = Trivial::SceneManager::Instance();
 		myImageManager = Trivial::ImageManager::Instance();
 		myEventManager = Trivial::EventManager::Instance();
-		
+
 		myImageManager->add("backgroundImage", "data/GAmeBackground1.jpg");
 		myImageManager->add("carImage", "data/Car.png");
-		
+
 		addLayer("bgLayer", -1);
 		backgroundImage.image("backgroundImage");
 		backgroundImage.moveTo(400,300);
@@ -38,11 +38,11 @@ public:
 		backgroundBufferFrontImage.image("backgroundImage");
 		backgroundBufferFrontImage.moveTo(backgroundImage.X()+1366, 300);
 		add("townBuffer2", backgroundBufferFrontImage, "bgLayer");
-		
+
 		backgroundImage.setAcceleration(1,0);
 		backgroundBufferBackImage.setAcceleration(1,0);
 		backgroundBufferFrontImage.setAcceleration(1,0);
-		
+
 		addLayer("FrontLayer",1);
 		for(int i=0;i<3;i++)
 		{
@@ -53,26 +53,26 @@ public:
 			int randomVelocity = rand() % (80-20+1) + 20;
 			car[i].setVelocity(randomVelocity);
 		}
-		
+
 		//Set background velocity to the current vehicle the player is travelling in.
 		setBackgroundVelocity(car[2].getVelocity());
-		
+
 		//Set that vehicles velocity to 0 to make it stay in the screen.
 		car[2].setVelocity(0);
 	}
-	
+
 	void setBackgroundVelocity(int aVelocity)
 	{
 		backgroundImage.setMaxVelocity(aVelocity, 0);
 		backgroundBufferFrontImage.setMaxVelocity(aVelocity, 0);
 		backgroundBufferBackImage.setMaxVelocity(aVelocity, 0);
 	}
-	
+
 	void reset()
 	{
-		
+
 	}
-	
+
 	void update()
 	{
 		if(backgroundBufferFrontImage.X() > 1366+283){
@@ -87,36 +87,35 @@ public:
 		}
 		fflush(stdout);
 	}
-	
+
 	void deactivated()
 	{
-		
+
 	}
-	
+
 	void activated()
 	{
-		
+
 	}
-	
+
 	~AutoMountScene()
 	{
-		
+
 	}
-	
-	
+
 private:
 	Trivial::Sprite backgroundImage;
 	Trivial::Sprite backgroundBufferBackImage;
 	Trivial::Sprite backgroundBufferFrontImage;
-	Car car[3];
-	
+	AutoCab car[3];
+
 	Trivial::App *myApp;
 	Trivial::SceneManager *mySceneManager;
 	Trivial::ImageManager *myImageManager;
 	Trivial::EventManager *myEventManager;
-	
+
 };
-	
+
 
 
 #endif
