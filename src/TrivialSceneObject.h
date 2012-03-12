@@ -62,7 +62,7 @@ public:
                 float item_x = static_cast<SceneObject*>((*it).second)->X();
                 float item_y = static_cast<SceneObject*>((*it).second)->Y();
                 static_cast<SceneObject*>((*it).second)->moveTo( (x+(_x - item_x)), (y+(_y - item_y)));
-                cout << "\n this should work X - " << (x+(_x - item_x));
+                // cout << "\n this should work X - " << (x+(_x - item_x));
             }
         }
 

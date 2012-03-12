@@ -49,7 +49,7 @@ void Vehicle::image(const string &name, int X, int lane)
 			Y = 450;
 		else
 			Y = 350;
-	cout<<"X:Y::"<<X<<":"<<Y<<endl;
+
 	moveTo(X, Y);
 	setAcceleration(-1,0);
 	setMaxVelocity(velocity,0);

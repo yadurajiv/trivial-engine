@@ -7,6 +7,8 @@
 
 #include "TrivialSceneObject.h"
 
+#include "TrivialImageManager.h"
+
 using namespace std;
 
 namespace Trivial {
