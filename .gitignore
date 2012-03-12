@@ -18,5 +18,5 @@ Breakout/BreakOut
 *.dll
 extlibs/tinyxml/Makefile
 
-data
+#data
 docs/html/
