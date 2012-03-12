@@ -19,3 +19,4 @@ Breakout/BreakOut
 extlibs/tinyxml/Makefile
 
 data
+docs/html/
