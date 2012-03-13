@@ -16,7 +16,7 @@ namespace Trivial {
 class Sprite : public SceneObject {
 public:
 
-    Sprite():_imageReady(false), _scrollEnabled(false) { };
+    Sprite():_imageReady(false), _scrollEnabled(false), _scaleX(1), _scaleY(1) { };
     ~Sprite() { };
 
     virtual void update() { };
@@ -95,7 +95,7 @@ public:
         if(x < 0 || y < 0 || x > _width || y > _height) { // doing this for some morons who will pass x and y not local x and y ~_~
             return false;
         } else {
-            sf::Color col = img.GetPixel(x,y);
+            sf::Color col = img.GetPixel(x/_scaleX,y/_scaleY);
             if(col.a == alphaThreshold) {
                 return false;
             } else {
@@ -108,11 +108,24 @@ public:
     void scrollImageBy(const float& x, const float& y);
     void resetImageRect();
 
+	void setScale(const float& x = 1, const float& y = 1) {
+		_scaleX = x;
+		_scaleY = y;
+		SFMLsprite.SetScale(x,y);
+		_width *= x;
+		_height *= y;
+		_originX = _width/2;
+		_originY = _height/2;
+	}
+
     sf::Sprite SFMLsprite;
 
 private:
 
     int _alpha;
+
+	float _scaleX;
+	float _scaleY;
 
     float _imageScrollX;
     float _imageScrollY;

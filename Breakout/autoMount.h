@@ -85,6 +85,7 @@ public:
 		car[2].setAttackPeace(AUTOPEACE1);
 		car[2].add("playerObject", aPlayer);
 		car[2].affectChildren();
+		car[2].setScale(2,1);
 		playerAtCar = 2;
 		// aPlayer.moveBy(0, 100);
 		// add("playerObject", aPlayer, "FrontLayer");
