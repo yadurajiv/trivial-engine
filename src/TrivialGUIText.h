@@ -19,6 +19,8 @@ public:
         _text.SetCharacterSize(20);
         _text.SetStyle(sf::Text::Regular);
         _text.SetOrigin(0,0);
+        _textSize = 20;
+        _textStyle = "regular";
     };
     ~GUIText() { };
 
@@ -64,12 +66,53 @@ public:
         _text.SetColor(c);
     }
 
+    unsigned int size(const unsigned int& s = 20) {
+        _textSize = s;
+        _text.SetCharacterSize(_textSize);
+        return _textSize;
+    }
+
+    unsigned int getSize() {
+        return _textSize;
+    }
+
+
+    /*
+        maybe we should to a search on the string passed into the function
+        and decide what needs to be done on that, so the user can pass in
+        "boldItalic" or "bold-italic" or "bold italics" or "BOLDITALICS"
+        and still work
+        - @yadurajiv
+    */
+    void style(const string& s = "regular") {
+        if(s == "regular" || s == "normal") {
+            _textStyle = s;
+            _text.SetStyle(sf::Text::Regular);
+        } else if(s == "bold") {
+            _textStyle = s;
+            _text.SetStyle(sf::Text::Bold);
+        } else if(s == "bold-italic") {
+            _textStyle = s;
+            _text.SetStyle(sf::Text::Bold | sf::Text::Italic);
+        } else if(s == "italic") {
+            _textStyle = s;
+            _text.SetStyle(sf::Text::Italic);
+        }
+    }
+
+    string getStyle() {
+        return _textStyle;
+    }
+
 private:
     string _data;
 
     sf::Text _text;
 
     int _alpha;
+
+    unsigned int _textSize;
+    string _textStyle;
 
 };
 

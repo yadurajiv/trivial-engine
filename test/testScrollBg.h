@@ -66,6 +66,9 @@ public:
         HUDText.setColor(255,0,0,255);
         add("hudtext", HUDText, "hud");
 
+        HUDText.size(30);
+        HUDText.style("bold-italic");
+
         setLayerCameraDamp("hud", 0, 0);
 
 
