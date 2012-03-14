@@ -39,6 +39,7 @@ public:
 		myImageManager = Trivial::ImageManager::Instance();
 		myEventManager = Trivial::EventManager::Instance();
         myFontManager = Trivial::FontManager::Instance();
+		myAudioManager = Trivial::AudioManager::Instance();
 
 		myImageManager->add("backgroundImage", "data/GAmeBackground1.jpg");
 		myImageManager->add("carImage", "data/Car.png");
@@ -47,6 +48,13 @@ public:
 		myImageManager->add("progressRepeat", "data/progressBarRepeat.png");
 		
 		myFontManager->add("dejavu","data/DEJAVUSANS.TTF");
+		
+		myAudioManager->setVolume(100);
+		myAudioManager->add("bgmusic","data/test.ogg", true);
+		myAudioManager->setSoundPosition("bgmusic",300,300); // positioned with the explosion sprite
+        myAudioManager->setSoundAttenuation("bgmusic",10); // fall off
+        myAudioManager->setSoundDistance("bgmusic",100); // minimum distance till the sound is heard
+        cout <<"Audio Manager"<< myAudioManager->play("bgmusic") << "\n"; // play loaded music
 
 		addLayer("bgLayer", -1);
 		backgroundImage.image("backgroundImage");
@@ -71,7 +79,7 @@ public:
 			car[i].setAttackPeace(AUTOPEACE3);
 			stringstream append;
 			append<<"car"<<i;
-			cout<<"WHAT ADDS : "<<add(append.str().c_str(), car[i], "FrontLayer");
+			add(append.str().c_str(), car[i], "FrontLayer");
 			int randomVelocity = rand() % (80-20+1) + 20;
 			car[i].setVelocity(randomVelocity);
 		}
@@ -85,7 +93,7 @@ public:
 		car[2].setAttackPeace(AUTOPEACE1);
 		car[2].add("playerObject", aPlayer);
 		car[2].affectChildren();
-		car[2].setScale(2,1);
+		//car[2].setScale(2,1);
 		playerAtCar = 2;
 		// aPlayer.moveBy(0, 100);
 		// add("playerObject", aPlayer, "FrontLayer");
@@ -233,6 +241,7 @@ private:
 	Trivial::ImageManager *myImageManager;
 	Trivial::EventManager *myEventManager;
 	Trivial::FontManager *myFontManager;
+	Trivial::AudioManager *myAudioManager;
 
 };
 
