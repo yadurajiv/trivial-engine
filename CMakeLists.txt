@@ -52,3 +52,5 @@ add_subdirectory(src)
 add_subdirectory(test)
 
 add_subdirectory(Breakout)
+
+add_subdirectory(Asteroid)
