@@ -34,7 +34,7 @@ public:
         myEventManager = Trivial::EventManager::Instance();
         myImageManager = Trivial::ImageManager::Instance();
         myFontManager = Trivial::FontManager::Instance();
-//        myAudioManager = Trivial::AudioManager::Instance();
+        myAudioManager = Trivial::AudioManager::Instance();
 
         // subscribing to keyboard events
         myEventManager->subscribe("up-keydown", this);
@@ -104,7 +104,7 @@ public:
         cout << "Loading a font! >> " << myFontManager->add("wendy","data/WENDY.TTF") << "\n";
         cout << "Loading a font! >> " << myFontManager->add("dejavu","data/DEJAVUSANS.TTF") << "\n";
 
-/*
+
         cout << "Initializing Audio!\n";
         myAudioManager->setVolume(100); // set the volume to 50
         cout << "Done!\n";
@@ -113,12 +113,12 @@ public:
         // Sound still has issues, look in the TrivialAudio class
 
         cout << "Loading music file >> ";
-        myAudioManager->add("bgmusic","data/test.ogg", true); // Spatialization only works on mono sounds!!
+        myAudioManager->add("bgmusic","data/maenamMono.ogg", true); // Spatialization only works on mono sounds!!
         myAudioManager->setSoundPosition("bgmusic",300,300); // positioned with the explosion sprite
         myAudioManager->setSoundAttenuation("bgmusic",10); // fall off
         myAudioManager->setSoundDistance("bgmusic",100); // minimum distance till the sound is heard
         cout << myAudioManager->play("bgmusic") << "\n"; // play loaded music
-*/
+
 
         /** adding explosion **/
         // add the image to the sprite, pass in single cell width and height
@@ -679,7 +679,7 @@ private:
     Trivial::EventManager *myEventManager;
     Trivial::ImageManager *myImageManager;
     Trivial::FontManager *myFontManager;
-    //Trivial::AudioManager *myAudioManager;
+    Trivial::AudioManager *myAudioManager;
 
 };
 

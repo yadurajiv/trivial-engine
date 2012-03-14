@@ -24,6 +24,13 @@ public:
 
     sf::Font* get(const string &name);
 
+    void releaseResources() {
+        map<string, sf::Font*>::iterator it;
+        for ( it=_fonts.begin() ; it != _fonts.end(); it++ ) {
+            delete (*it).second;
+        }
+    }
+
 private:
     FontManager();  // Private so that it can  not be called
     ~FontManager();

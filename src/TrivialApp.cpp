@@ -2,6 +2,8 @@
 #include "TrivialSceneManager.h"
 #include "TrivialEventManager.h"
 #include "TrivialAudioManager.h"
+#include "TrivialFontManager.h"
+#include "TrivialImageManager.h"
 
 namespace Trivial {
 
@@ -44,6 +46,12 @@ int App::run() {
         _app.Create(_handle);
     }
 
+    /*
+    Exit crash fix
+
+    sf::Font fnt(sf::Font::GetDefaultFont());
+    sf::Text txt("Test", fnt);
+*/
     // set app frame rate limit here! customizable later on if need be.
     _app.SetFramerateLimit(60);
 
@@ -63,8 +71,11 @@ void App::update() {
     // freeeeedom!!
     if(_quitFlag) {
         Trivial::EventManager::Instance()->releaseResource();
+        Trivial::FontManager::Instance()->releaseResources();
+        Trivial::ImageManager::Instance()->releaseResources();
         Trivial::AudioManager::Instance()->releaseResources();
         _app.Close();
+        return;
     }
 
     // NOTE: PollEvent will remove all items that are in the event queue!
@@ -97,11 +108,11 @@ void App::update() {
 
     SceneManager::Instance()->update();
 
-	if(getBuffer) 
-	{ 
-		getBuffer = false; 
+	if(getBuffer)
+	{
+		getBuffer = false;
 	}
-	
+
     /* display app */
     _app.Display();
 
