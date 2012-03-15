@@ -20,3 +20,7 @@ extlibs/tinyxml/Makefile
 
 #data
 docs/html/
+
+Asteroid/Asteroid
+
+extlibs/tinyxml/Makefile
