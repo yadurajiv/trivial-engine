@@ -10,7 +10,7 @@ include_directories(${TINYXML_INCLUDE_PATH})
 
 add_executable(Asteroid main.cpp)
 
-target_link_libraries(AsteroidTrivialEngine
+target_link_libraries(Asteroid TrivialEngine
 	${OpenGL_LIBRARY}
 	
 )
