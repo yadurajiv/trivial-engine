@@ -40,6 +40,8 @@
     /* tell the event manager which the current active scene is */
     mySceneManager->setActiveScene("myScene");
 
+    //mySceneManager->addScene("thousandBooms", new thousandBooms);
+    //mySceneManager->setActiveScene("thousandBooms");
 
     /* configure your app, get it ready */
     myApp->configure(NULL, 800, 600, 32, "myApp");

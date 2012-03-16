@@ -27,10 +27,12 @@ namespace Trivial {
         _height = _text.GetGlobalBounds().Height;
     }
 
-    void GUIText::_update() {
+    void GUIText::_update(const bool& render) {
         update();
 
-        App::Instance()->render(_text);
+        if(render) {
+            App::Instance()->render(_text);
+        }
     }
 
 }

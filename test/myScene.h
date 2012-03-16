@@ -9,11 +9,14 @@
 
 #include <string>
 
+#include <list>
+
 #include "TrivialEngine.h"
 
 #include "pause.h"
 #include "testCanvas.h"
 #include "testScrollBg.h"
+#include "thousandBooms.h"
 //#include "mouseDrawing.h"
 // #include "quadTreeTest.h"
 
@@ -34,7 +37,7 @@ public:
         myEventManager = Trivial::EventManager::Instance();
         myImageManager = Trivial::ImageManager::Instance();
         myFontManager = Trivial::FontManager::Instance();
-        myAudioManager = Trivial::AudioManager::Instance();
+        //myAudioManager = Trivial::AudioManager::Instance();
 
         // subscribing to keyboard events
         myEventManager->subscribe("up-keydown", this);
@@ -52,6 +55,9 @@ public:
         myEventManager->subscribe("escape-keydown", this);
         myEventManager->subscribe("escape-keyup", this);
 
+        myEventManager->subscribe("spacebar-keydown", this);
+        myEventManager->subscribe("spacebar-keyup", this);
+
         myEventManager->subscribe("z-keydown", this);
         myEventManager->subscribe("z-keyup", this);
 
@@ -66,6 +72,9 @@ public:
 
         myEventManager->subscribe("3-keydown", this);
         myEventManager->subscribe("3-keyup", this);
+
+        myEventManager->subscribe("4-keydown", this);
+        myEventManager->subscribe("4-keyup", this);
 
         // General Mouse event test
         myEventManager->subscribe("update-mouse",this);
@@ -104,7 +113,7 @@ public:
         cout << "Loading a font! >> " << myFontManager->add("wendy","data/WENDY.TTF") << "\n";
         cout << "Loading a font! >> " << myFontManager->add("dejavu","data/DEJAVUSANS.TTF") << "\n";
 
-
+/*
         cout << "Initializing Audio!\n";
         myAudioManager->setVolume(100); // set the volume to 50
         cout << "Done!\n";
@@ -118,7 +127,7 @@ public:
         myAudioManager->setSoundAttenuation("bgmusic",10); // fall off
         myAudioManager->setSoundDistance("bgmusic",100); // minimum distance till the sound is heard
         cout << myAudioManager->play("bgmusic") << "\n"; // play loaded music
-
+*/
 
         /** adding explosion **/
         // add the image to the sprite, pass in single cell width and height
@@ -219,6 +228,8 @@ public:
         key_1 = false;
         key_2 = false;
         key_3 = false;
+        key_4 = false;
+        key_space = false;
 
         _mscroll = 0;
 
@@ -285,6 +296,14 @@ public:
             key_escape = false;
         }
 
+        if (e.eventName == "spacebar-keydown") {
+            key_space = true;
+        }
+
+        if (e.eventName == "spacebar-keyup") {
+            key_space = false;
+        }
+
         if (e.eventName == "z-keydown") {
             key_z = true;
         }
@@ -323,6 +342,14 @@ public:
 
         if (e.eventName == "3-keyup") {
             key_3 = false;
+        }
+
+        if (e.eventName == "4-keydown") {
+            key_4 = true;
+        }
+
+        if (e.eventName == "4-keyup") {
+            key_4 = false;
         }
 
     }
@@ -492,10 +519,30 @@ public:
             mySceneManager->setActiveScene("testScrollBg");
         }
 
+        if(key_4) {
+            key_4 = false;
+            mySceneManager->addScene("thousandBooms", new thousandBooms);
+            mySceneManager->setActiveScene("thousandBooms");
+        }
+
         if(key_up || key_down || key_left || key_right) {
             defaultCamera.moveTo(mcx, mcy);
             //testSprite.moveTo(mcx,mcy);
 //            myAudioManager->earPosition(defaultCamera.getCenterX(), defaultCamera.getCenterY());
+        }
+
+        if(key_space) {
+            key_space = false;
+            /*
+            _items.clear();
+            getObjectsInRect(&_items,defaultCamera.X(),defaultCamera.Y(),defaultCamera.width(),defaultCamera.height());
+            std::list<string>::iterator it;
+            cout << "\n\nItems in the camera view are...\n";
+            for ( it=_items.begin() ; it != _items.end(); it++ ) {
+                cout << *it << "\n";
+            }
+            cout << "\n-----\n";
+            */
         }
 
         if(key_z) {
@@ -638,6 +685,8 @@ private:
 
     Trivial::Canvas debugDraw;
 
+    std::list<string> _items;
+
     // https://github.com/hashstash/TrivialEngine/issues/2
     Trivial::AnimatedSprite issue_2_test_spr0;
 
@@ -655,6 +704,8 @@ private:
     bool key_1;
     bool key_2;
     bool key_3;
+    bool key_4;
+    bool key_space;
 
     int _mx;
     int _my;
@@ -679,7 +730,7 @@ private:
     Trivial::EventManager *myEventManager;
     Trivial::ImageManager *myImageManager;
     Trivial::FontManager *myFontManager;
-    Trivial::AudioManager *myAudioManager;
+    //Trivial::AudioManager *myAudioManager;
 
 };
 

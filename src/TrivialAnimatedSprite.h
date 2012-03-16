@@ -119,7 +119,7 @@ public:
 
     virtual void update() { };
 
-    virtual void _update();
+    virtual void _update(const bool& render = false);
 
     void image(const string &name, const float &cellWidth, const float &cellHeight);
 

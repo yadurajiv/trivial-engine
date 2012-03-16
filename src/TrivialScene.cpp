@@ -18,13 +18,6 @@ Scene::~Scene() {
 }
 
 void Scene::_update() {
-    // Box2D for removal
-    /*
-    if (_hasBox2DPhysics) {
-        _world->_update();
-    }
-    */
-
     // updating default camera; replaced later with a list of active cameras
     defaultCamera._update();
 
@@ -68,14 +61,12 @@ void Scene::updateObjectsByLayerName(const string &layerName) {
 
     for ( it=_objects.begin() ; it != _objects.end(); it++ ) {
         if (it->second->getLayer() == layerName) {
-            it->second->_update();
-
-            // Box2D for removal
-            /*
-            if (_hasBox2DPhysics && it->second->getPhysicsObject()->hasInit()) {
-                it->second->_updatePhysics();
+            if(Trivial::Helper::AABBAABB(defaultCamera._x,defaultCamera._y,defaultCamera._x+defaultCamera._width,defaultCamera._y+defaultCamera._height,it->second->_x-it->second->_width/2,it->second->_y-it->second->_height/2,it->second->_x+it->second->_width/2,it->second->_y+it->second->_height/2)) {
+                it->second->_update(true);
+            } else {
+                // objects off the screen are not updated!!
+                // it->second->_update();
             }
-            */
         }
     }
 
@@ -85,7 +76,6 @@ void Scene::_preload() {
     addLayer("default", 0);
 
     defaultCamera.init(Trivial::App::Instance()->width(),Trivial::App::Instance()->height());
-    cout << "\ncam x " << defaultCamera.X();
     defaultCamera.lookAt(width()/2,height()/2);
 
     _cameraMoveX = 0;
@@ -152,6 +142,7 @@ bool Scene::add(const string &objectName,  SceneObject &object, const string &la
 
     object.setLayer(layer);
     object.setName(objectName);
+    object._parentScene = _name;
 
     _objects[objectName] = &object;
 

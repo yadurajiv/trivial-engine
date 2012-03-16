@@ -21,7 +21,7 @@ public:
 
     virtual void update() { };
 
-    virtual void _update();
+    virtual void _update(const bool& render = false);
 
 // Box2D for removal
 /*

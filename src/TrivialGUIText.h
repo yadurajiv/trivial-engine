@@ -26,7 +26,7 @@ public:
 
     virtual void update() { };
 
-    virtual void _update();
+    virtual void _update(const bool& render = false);
 
     virtual void moveTo( const float &x,  const float &y) {
         _text.SetOrigin(0,0);

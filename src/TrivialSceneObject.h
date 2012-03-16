@@ -20,7 +20,7 @@ public:
     float updateMotion();
 
     virtual void update() { }
-    virtual void _update() {
+    virtual void _update(const bool& render = false) {
 
         map<string, GraphicsObject*>::iterator it;
 
@@ -68,10 +68,6 @@ public:
 
         _x = x;
         _y = y;
-
-        _updateRect();
-        _updatePointRect();
-
     }
 
     virtual void moveBy( const float &x,  const float &y) {
@@ -87,9 +83,6 @@ public:
 */
         _x += x;
         _y += y;
-
-        _updateRect();
-        _updatePointRect();
     }
 
     virtual void rotate(const float &angle) {
@@ -259,9 +252,16 @@ public:
     virtual bool add(const string &name, GraphicsObject &o);
     virtual bool remove(const string &name);
 
-    TrivialRect getRect() const { return _rect; }
+    TrivialRect getRect() {
+        _updateRect();
+        return _rect;
+    }
 
     TrivialPointRect getPointRect() const { return _prect; }
+
+    string getParentScene() const {
+        return _parentScene;
+    }
 
 protected:
 
@@ -269,7 +269,7 @@ protected:
         _rect.x = _x - _originX;
         _rect.y = _y - _originY;
         _rect.width = _width;
-        _rect.height = _rect.height;
+        _rect.height = _height;
     }
 
     void _updatePointRect() {
@@ -328,6 +328,10 @@ protected:
     //TrivialBox2DObject _physics;
 
     bool _affectChildren;
+
+    string _parentScene;
+
+    friend class Scene;
 
 };
 

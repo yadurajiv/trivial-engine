@@ -42,6 +42,8 @@ bool SceneManager::addScene(const string &sceneName, Scene* scene, bool keepPers
 
     _scenes[sceneName] = scene;
 
+    scene->_name = sceneName;
+
     scene->setPersistance(keepPersistent);
     //scene->shouldForceInit(forceInitOnSetActive);
     scene->_preload();

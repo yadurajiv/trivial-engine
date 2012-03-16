@@ -28,14 +28,19 @@ void Sprite::image(const string &name) {
         _radius = _height/2;
     }
 
+    _updateRect();
+    _updatePointRect();
+
     _imageReady = true;
 }
 
-void Sprite::_update() {
+void Sprite::_update(const bool& render) {
 
     SceneObject::_update();
 
-    App::Instance()->render(SFMLsprite);
+    if(render) {
+        App::Instance()->render(SFMLsprite);
+    }
 }
 
 void Sprite::moveTo( const float &x, const float &y) {

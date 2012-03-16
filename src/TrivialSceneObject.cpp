@@ -50,13 +50,6 @@ SceneObject::SceneObject() {
 SceneObject::~SceneObject() {
 }
 
-// Box2D for removal
-/*
-void SceneObject::_updatePhysics() {
-    updatePhysics();
-}
-*/
-
 float SceneObject::getLocalX(const float& globalX) {
     return globalX - (_x - _originX);
 }

@@ -17,10 +17,10 @@ public:
 
     virtual void update() { };
 
-    virtual void _update() {
+    virtual void _update(const bool& render = false) {
 		//To update the update Function of Parent Class.
-		SceneObject::_update();
-		update(); 
+		SceneObject::_update(render);
+		update();
 	};
 
 protected:

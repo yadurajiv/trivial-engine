@@ -49,7 +49,7 @@ bool AnimatedSprite::play(const string &name) {
 }
 
 //try to use _textureRect instead of a seperate _cell to do animation
-void AnimatedSprite::_update() {
+void AnimatedSprite::_update(const bool& render) {
     if(_ready) {
         if(!_currentAnimation.empty()) {
             _animations[_currentAnimation]->update();
@@ -65,7 +65,7 @@ void AnimatedSprite::_update() {
         SFMLsprite.SetTextureRect(_cell);
     }
 
-    Sprite::_update();
+    Sprite::_update(render);
 }
 
 }

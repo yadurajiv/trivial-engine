@@ -2,9 +2,11 @@
 #define TRIVIALSCENE_H_INCLUDED
 
 #include <map>
+#include <list>
 #include <string>
 #include <vector>
 #include <utility>
+#include <sstream>
 
 #include <SFML/Graphics.hpp>
 
@@ -20,7 +22,7 @@ namespace Trivial {
 class Scene : public GraphicsObject {
 
 public:
-    Scene(): _defaultCameraZoom(1), _doZoom(false) { };
+    Scene(): _defaultCameraZoom(1), _doZoom(false), _cellSize(128) { };
     ~Scene();
 
     virtual void update() {};
@@ -70,15 +72,13 @@ public:
     bool getPersistance() const { return _keepPersistent; }
     void setPersistance(bool p) { _keepPersistent = p; }
 
-/*
-    int shouldForceInit(int i = -1) {
-        if(i != -1) {
-            _forceInit = i;
-        }
-
-        return _forceInit;
+    void setCellSize(const unsigned int& size = 128) {
+        _cellSize = size;
     }
-*/
+
+    unsigned int getCellSize() const {
+        return _cellSize;
+    }
 
     Camera* getCamera(const string &name = "default") {
         return &defaultCamera;
@@ -92,23 +92,9 @@ public:
         */
     }
 
-    //bool ready() const { return _hasInited; }
-    //void setReady(bool b) { _hasInited = b; }
-/*
-    bool glueLayerToCamera(string name);
-    bool unglueLayerFromCamera(string name);*/
-
-    // Box2D for removal
-    /*
-    void enableBox2DPhysics() {
-        _hasBox2DPhysics = true;
-        _world = new TrivialBox2DWorld();
-        _world->_init();
-    };
-    void disableBox2DPhysics() { _hasBox2DPhysics = false; };
-    */
-
 protected:
+    string _name;
+
     std::map<string, SceneObject*> _objects;
 
     std::map<string, sf::View *> _layers;
@@ -116,6 +102,8 @@ protected:
     std::map<int, string> _layerIndexes;
 
     std::map<string, pair<float, float> > _cameraDamps;
+
+    unsigned int _cellSize;
 
     //Camera* _camera;
 
@@ -132,9 +120,13 @@ protected:
     float _defaultCameraZoom;
     bool _doZoom;
 
+    ostringstream _sink;
+
     // Box2D for removal
     // bool _hasBox2DPhysics;
     // TrivialBox2DWorld* _world;
+
+    friend class SceneManager;
 };
 
 }

@@ -18,7 +18,6 @@ App::App() {
     _autoUpdate = true;
     _quitFlag = false;
     _clearColor = sf::Color(0,0,0,255);
-	getBuffer = false;
 }
 
 App* App::Instance()
@@ -73,7 +72,7 @@ void App::update() {
         Trivial::EventManager::Instance()->releaseResource();
         Trivial::FontManager::Instance()->releaseResources();
         Trivial::ImageManager::Instance()->releaseResources();
-        Trivial::AudioManager::Instance()->releaseResources();
+        //Trivial::AudioManager::Instance()->releaseResources();
         _app.Close();
         return;
     }
@@ -107,11 +106,6 @@ void App::update() {
     _app.Clear(_clearColor);
 
     SceneManager::Instance()->update();
-
-	if(getBuffer)
-	{
-		getBuffer = false;
-	}
 
     /* display app */
     _app.Display();

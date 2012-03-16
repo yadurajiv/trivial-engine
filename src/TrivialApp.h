@@ -80,8 +80,6 @@ private:
     float _fps;
 
     bool _quitFlag;
-
-	bool getBuffer;
 };
 
 
