@@ -17,6 +17,7 @@
 #include "TrivialEngine.h"
 
 #include "pause.h"
+#include "asteroids.h"
 //#include "mouseDrawing.h"
 // #include "quadTreeTest.h"
 
@@ -75,41 +76,31 @@ public:
         myEventManager->subscribe("right-buttonup-mouse", this);
         myEventManager->subscribe("right-buttondown-mouse", this);
 
-        //
-        // // Just for lulz
-        // myEventManager->subscribe("foo-bar-okey-middle-buttondown-mouse", this);
+        //Adding image resources
+        myImageManager->add("tankImage","data/tank.png");
+        myImageManager->add("asteroid","data/asteroid.png");
+        myImageManager->add("fireImage","data/fire.png");
+        myImageManager->add("explosion","data/explosion.png");
 
-
-        /* add a couple of images to the image manager */
-
-        cout << "Loading tank >> " << myImageManager->add("tankImage","data/tank.png") << "\n";
-
-       // cout << "Loading starfield>> " << myImageManager->add("starfield","data/starfield.jpg") << "\n";
-        cout << "Loading asteroid>> " << myImageManager->add("asteroid","data/asteroid.png") << "\n";
-        cout << "Loading fire >> " << myImageManager->add("fireImage","data/fire.png") << "\n";
-
-        cout << "Loading Spitesheet explosion.png >> " << myImageManager->add("explosion","data/explosion.png") << "\n";
-
-        /** adding explosion **/
-        // add the image to the sprite, pass in single cell width and height
-        //explosion.image("explosion",64,64);
-        // add animation, name, start frame, end frame, framerate
-        //explosion.addAnimation("boom",0,24,24);
-        // play is set to false by default so play!
-      //  explosion.play("boom");
-        // regular stuff
-        //explosion.moveTo(300,300);
-      //  cout << "\nadding explosion - " << add("explosion", explosion);
-
+        //Loading tank Image
         tankSprite.image("tankImage");
         tankSprite.moveTo(x,y);
         add("tank", tankSprite);
 
+        //Loading Ansteroid Image
+        for(int n=0;n<20;n++){
 
-
+           // cout<<"hdasjdsjahdjkasdkjsahjkdhasjk";
+            stringstream s2;
+            s2<<"ast"<<n;
+            astSprite[n].image("asteroid", n%4);
+            add(s2.str().c_str(), astSprite[n]);
+        }
+     //
     }
 
     void reset() {
+
         /* key state flags */
         key_up = false;
         key_down = false;
@@ -117,16 +108,10 @@ public:
         key_right = false;
         key_escape = false;
 
-        _mscroll = 0;
-
-
-
         // look at object needs to be rewritten or given to scene
         defaultCamera.lookAt(400,300);
 
         myApp->setClearColor();
-
-////        myAudioManager->earPosition(camera.getCenterX(), camera.getCenterY());
     }
 
     /* the event call back is called by the event manager */
@@ -205,42 +190,30 @@ public:
 
             if(e.lButton) {
 
-
-               // fireSprite.setVelocity(dist_x[i], dist_y);
             }
 
             if(e.rButton) {
-                cout << "\nRight Button is Down!";
+
             }
         }
 
-       // if (e.eventName == "scroll-mouse") {
-         //   cout << "\nDead Sea Scrolls! - " << 100 * (1 - float(e.scroll)/2);
-          //  defaultCamera.setZoom(100 * (1 - float(e.scroll)/2));
-        //}
-
         if (e.eventName == "buttondown-mouse") {
-            // This is when the mouse button goes down. This is called once
-            // for that button. Motivation behind this was so I get an event
-            // only for the click. The mouse event struct will anyway have
-            // all the details about the mouse position etc.
-          //  cout << "\nSup mawn";
+
         }
 
         if (e.eventName == "buttonup-mouse") {
-            // Same as the button down
-            //cout << "\nBai mawn";
+
         }
 
         if (e.eventName == "left-buttondown-mouse") {
-            cout << "\nLeft button down lol ";
-            i++;
 
+                cout << "\nLeft button down lol ";
+                i++;
                 cout<<"ayesss"<<i;
                 cout << "\nLeft Button is Down!";
-                dist_x[i] = 250 * sin(rot1);
+                dist_x[i] = 300 * sin(rot1);
                 //cout<<"aaaaa"<<dist_x[i];
-                dist_y[i] = -250 * cos(rot1);
+                dist_y[i] = -300 * cos(rot1);
                 stringstream s1;
                 s1<<"fire"<<i;
                 fireSprite[i].image("fireImage");
@@ -250,23 +223,17 @@ public:
                     i =0;
                 }
 
-
         }
 
         if (e.eventName == "left-buttonup-mouse") {
-            //cout << "\nLeft button up lol - SHAKE!!";
-            //defaultCamera.shake();
-
 
         }
 
         if (e.eventName == "right-buttondown-mouse") {
-            //cout << "\nRight button down lol ";
 
         }
 
         if (e.eventName == "right-buttonup-mouse") {
-           // cout << "\nRight button up lol ";
 
         }
 
@@ -278,38 +245,29 @@ public:
         if(!_activated)
             return;
 
-        // cout << "\nMAISCENE cam x " << defaultCamera.X()
-
-        //float mcx = testSprite.X();
-        //float mcy = testSprite.Y();
-
         float ft = myApp->frameTime()/1000;
 
-
+        //Adding movements to tank
         if(key_left) {
-           // mcx = mcx - 60 * ft;
-           x = x - 60 * ft;
+
+            x = x - 60 * ft;
             tankSprite.moveTo(x,y);
-
-
         }
 
         if(key_right) {
-            //mcx = mcx + 60 * ft;
 
              x = x + 100 * ft;
-              tankSprite.moveTo(x,y);
-
+             tankSprite.moveTo(x,y);
         }
 
         if(key_up) {
-            //mcy = mcy - 60 * ft;
+
              y = y - 60 * ft;
-              tankSprite.moveTo(x,y);
+            tankSprite.moveTo(x,y);
         }
 
         if(key_down) {
-            //mcy = mcy + 60 * ft;
+
               y = y + 100 * ft;
               tankSprite.moveTo(x,y);
         }
@@ -320,34 +278,40 @@ public:
             mySceneManager->setActiveScene("pause");
         }
 
-        for(int y1=0;y1<=30;y1++){
+        //For loop for bullet
+            //For loop for astSprite
+
+        for(int y1=0;y1<30;y1++){
+            for(int x1=0; x1<20; x1++)
+            {
+                if(astSprite[x1].pointOverlap(fireSprite[y1].X(), fireSprite[y1].Y(), true))
+                {
+                    astSprite[x1].setIsActive(false);
+                }
+            }
             if(fireSprite[y1].Y() > 0) {
-            //out <<"1111"<<i;
+
                 fireSprite[y1].setVelocity(dist_x[y1],dist_y[y1]);
+
             }
         }
 
-        rx = rand() % (100 );
-        cout<< "dddddddddddddddddddddddd"<<rx;
+        /*for(int a1=0;a1<10;a1++){
 
-        if (explosion.pointOverlap(_mx,_my)) {
-            explosion.setColor(100,12,10,255);
-        } else {
-            //explosion.setAlpha();
-            explosion.setColor(255,255,255,255);
-        }
+            if(astSprite[a1].X() > 0) {
+
+                astSprite[a1].setVelocity(dist_ax[a1],dist_ay[a1]);
+            }
+        }*/
 
     }
 
     void deactivated() {
         _activated = false;
-        cout << "\nmyScene deactivated" << endl;
     }
 
     void activated() {
         _activated = true;
-        cout << "\nmyScene activated!" << endl;
-
         reset();
     }
 
@@ -364,6 +328,7 @@ private:
     Trivial::GUIText msg;
     Trivial::GUIText HUDText;
     Trivial::GUIText moreText;
+    asteroids astSprite[20];
 
     bool childSmallCol;
 
@@ -377,13 +342,6 @@ private:
 
     int _mx;
     int _my;
-
-    int ax;
-    int amx;
-    int rx;
-    int ay;
-    int amy;
-    int ry;
     int i;
     int x;
     int y;
@@ -395,6 +353,7 @@ private:
     float rot1;
     float fx;
     float  fy;
+    int n;
     float dist_x[30];
     float dist_y[30];
     int screenPositionX;
