@@ -3,13 +3,82 @@
 
 import os
 import sys
+import subprocess
 import argparse
 from argparse import RawTextHelpFormatter
 
 
 class TrivialBuilder:
+    main_path = ""
+    
+    def move_to_project(self, path):
+        self.main_path = os.getcwd()
+        
+        if path == "all":
+            return True
+        
+        project_path = os.path.join(self.main_path, path)
+        
+        if os.path.exists(project_path):
+            os.chdir(project_path)
+            return True
+        else:
+            print
+            print red("Quitting cowardly. Project does not exist: " + path)
+            return False
+        
+    
+    def exit_from_project(self):
+        os.chdir(self.main_path)
+    
+    def cmake(self, projectname):
+        if os.path.exists('CMakeLists.txt'):
+            print yellow("Found Cmake file... Running cmake...")
+            cmake_return = subprocess.call(["cmake", "."])
+        
+            if cmake_return:
+                print
+                print red("CMake failed.")
+            else:
+                print
+                print green("CMake Complete. OK.")
+                self.build(projectname)
+        else:
+            print
+            print red("No CMakeLists.txt found. Quitting very cowardly.")
+            
+            
     def build(self, projectname):
-        print GREEN("build action called on ") + projectname
+        print blue("build action called on " + projectname) 
+        
+        run_cmake = False
+        
+        if not self.move_to_project(projectname):
+            return
+        
+        if os.path.exists('Makefile'):
+            print yellow("Found makefile. Building directly...")
+            print
+            
+            make_return = subprocess.call("make")
+            
+            if make_return:
+                print
+                print red("Build failed.")
+            else:
+                print
+                print green("Build Complete. OK.")
+        else:
+            print
+            print red("No makefile found. Will attempt to run CMake...")
+            
+            run_cmake = True
+                    
+        self.exit_from_project()
+        
+        if run_cmake:
+            self.cmake(projectname) 
+    
     
     def buildrun(self, projectname):
         print "buildrun action called on " + projectname
@@ -18,6 +87,9 @@ class TrivialBuilder:
         print "rebuild action called on " + projectname
 
     def clean(self, projectname):
+        print "clean action called on " + projectname
+
+    def superclean(self, projectname):
         print "clean action called on " + projectname
 
     def execute(self, projectname):
@@ -41,6 +113,7 @@ COLORS = (
     'BLUE', 'MAGENTA', 'CYAN', 'WHITE'
 )
 
+
 def color_text(text, color_name, bold=False):
     if color_name in COLORS:
         return '\033[{0};{1}m{2}\033[0m'.format(
@@ -50,11 +123,17 @@ def color_text(text, color_name, bold=False):
 
 
 def create_text_functions():
+    '''Automatically generates text coloring function based on the COLORS array. 
+    For each color a method with the same name in lower case is generated. So
+    instead of calling color_text with parameters you can now call, say, 
+    green("some text") directly. Bold version is currently not supported.
+    '''
+    
     def create_text_function(i):
         def template_text_function(text):
             return color_text(text, COLORS[i])
             
-        template_text_function.__name__ = COLORS[i]
+        template_text_function.__name__ = COLORS[i].lower()
         
         return template_text_function
             
@@ -94,8 +173,13 @@ def main():
         },
         
         'clean' : {
-            'help' : 'Clean the project',
+            'help' : 'Clean the project. Run make clean everywhere.',
             'optional' : True
+        },
+        
+        'superclean' : {
+            'help': 'Clean everything, even the cmake files.',
+            'optional': True
         },
         
         'execute' : {
