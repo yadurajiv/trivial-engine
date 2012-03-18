@@ -11,6 +11,7 @@ from argparse import RawTextHelpFormatter
 class TrivialBuilder:
     main_path = ""
     
+        
     def move_to_project(self, path):
         self.main_path = os.getcwd()
         
@@ -198,7 +199,7 @@ def main():
         },
             
         'setup' : {
-            'help' : 'Setup a project',
+            'help' : 'Setup trivial',
             'optional' : True
         },
         
@@ -208,8 +209,8 @@ def main():
     }
     
     help_text = ["One of the following actions:"]
-    help_text = ''.join(help_text + ['\n    ' + c + '\t - ' + commands[c]['help'] for c in commands])        
-        
+    help_text = ''.join(help_text + ['\n    ' + c + '\t - ' + commands[c]['help'] for c in commands])
+            
     parser.add_argument('action',
         metavar='action',
         type=str,
