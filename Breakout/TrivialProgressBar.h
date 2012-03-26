@@ -21,11 +21,11 @@ private:
 	float _percentValue;
 public:
 	ProgressBar();
-	void init(const string &bgSprite, const string &repeatSprite, bool repeatX, bool direction);
+	void init(const string &bgSprite, const string &repeatSprite, bool repeatX = true, bool direction = true);
 	~ProgressBar();
 	void setPercentValue(float aValue);
 	virtual void update(){}
-	virtual void _update();
+	virtual void _update(const bool& render = true);
 	
 	
 };
@@ -36,7 +36,7 @@ ProgressBar::ProgressBar()
 	_percentValue = 100;
 }
 
-void ProgressBar::init(const string &bgSprite, const string &repeatSprite, bool repeatX = true, bool positiveDirection = true)
+void ProgressBar::init(const string &bgSprite, const string &repeatSprite, bool repeatX, bool positiveDirection)
 {
 	_backgroundSprite.image(bgSprite);
 	_aRepeatSprite.image(repeatSprite);
@@ -92,7 +92,7 @@ void ProgressBar::init(const string &bgSprite, const string &repeatSprite, bool 
 
 }
 
-void ProgressBar::_update()
+void ProgressBar::_update(const bool& render)
 {
 	float floatSize = ((_maxSpriteSize-1) * _percentValue) / 100;
 	int intSize = (int)floatSize + 1;
@@ -118,7 +118,7 @@ void ProgressBar::_update()
 		}
 	}
 	
-	GUIObject::_update();
+	GUIObject::_update(render);
 	update();
 }
 

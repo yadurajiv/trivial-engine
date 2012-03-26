@@ -104,14 +104,13 @@ public:
 		//Set that vehicles velocity to 0 to make it stay in the screen.
 		car[2].setVelocity(0);
 		
-		addLayer("HUDProgress",2);
 		costBar.moveTo(230,50);
 		costBar.init("progressBack", "progressRepeat");
-		cout<<endl<<"cost Bar"<<add("costBar", costBar, "HUDProgress");
+		add("costBar", costBar, "FrontLayer");
 		
 		peaceBar.moveTo(230,100);
 		peaceBar.init("progressBack", "progressRepeat");
-		cout<<"peace Bar"<<add("peaceBar", peaceBar, "HUDTextCost");
+		add("peaceBar", peaceBar, "FrontLayer");
 		
 		
 		HUDTextCost.font("dejavu");
@@ -128,16 +127,7 @@ public:
 	{
 		backgroundImage.setMaxVelocity(aVelocity, 0);
 		backgroundBufferFrontImage.setMaxVelocity(aVelocity, 0);
-		backgroundBufferBackImage.setMaxVelocity(aVelocity, 0);
-		
-		// backgroundImage.setVelocity(aVelocity, 0);
-		// backgroundBufferFrontImage.setVelocity(aVelocity, 0);
-		// backgroundBufferBackImage.setVelocity(aVelocity, 0);
-		// 
-		// backgroundImage.setDrag(aVelocity, 0);
-		// backgroundBufferFrontImage.setDrag(aVelocity, 0);
-		// backgroundBufferBackImage.setDrag(aVelocity, 0);
-		
+		backgroundBufferBackImage.setMaxVelocity(aVelocity, 0);		
 		
 	}
 	

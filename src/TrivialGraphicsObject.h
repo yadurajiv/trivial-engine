@@ -13,7 +13,7 @@ public:
 
     virtual void update() {};
 
-    virtual void _update() { if(_isActive) { update(); } };
+    virtual void _update(const bool& render = false) { if(_isActive) { update(); } };
 
     bool getActive() const { return _isActive; }
     void setActive(bool b) { _isActive = b; }
