@@ -24,7 +24,6 @@ public:
 
         map<string, GraphicsObject*>::iterator it;
 
-
         for ( it=_items.begin() ; it != _items.end(); it++ ) {
             (*it).second->_update();
         }

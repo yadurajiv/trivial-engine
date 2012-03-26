@@ -65,7 +65,7 @@ void Scene::updateObjectsByLayerName(const string &layerName) {
                 it->second->_update(true);
             } else {
                 // objects off the screen are not updated!!
-                // it->second->_update();
+                it->second->_update();
             }
         }
     }
