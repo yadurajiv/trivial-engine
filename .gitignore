@@ -20,11 +20,9 @@ extlibs/tinyxml/Makefile
 gmon.out
 #data
 docs/html/
-
 Asteroid/Asteroid
-
-extlibs/tinyxml/Makefile
-
-extlibs/tinyxml/Makefile
+*.so
+*.o
+*.exe
 
 *.exe

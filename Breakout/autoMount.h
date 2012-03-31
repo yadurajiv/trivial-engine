@@ -61,10 +61,10 @@ public:
 		backgroundImage.moveTo(400,300);
 		add("town", backgroundImage, "bgLayer");
 		backgroundBufferBackImage.image("backgroundImage");
-		backgroundBufferBackImage.moveTo(backgroundImage.X()-1366,300);
+		backgroundBufferBackImage.moveTo(backgroundImage.X()-backgroundImage.width(),300);
 		add("townBuffer", backgroundBufferBackImage, "bgLayer");
 		backgroundBufferFrontImage.image("backgroundImage");
-		backgroundBufferFrontImage.moveTo(backgroundImage.X()+1366, 300);
+		backgroundBufferFrontImage.moveTo(backgroundImage.X()+backgroundImage.width(), 300);
 		add("townBuffer2", backgroundBufferFrontImage, "bgLayer");
 
 		backgroundImage.setAcceleration(1,0);
@@ -95,8 +95,8 @@ public:
 		car[2].affectChildren();
 		//car[2].setScale(2,1);
 		playerAtCar = 2;
-		// aPlayer.moveBy(0, 100);
-		// add("playerObject", aPlayer, "FrontLayer");
+		aPlayer.moveBy(0, 100);
+		add("playerObject", aPlayer, "FrontLayer");
 
 		//Set background velocity to the current vehicle the player is travelling in.
 		setBackgroundVelocity(car[2].getVelocity());
@@ -120,15 +120,17 @@ public:
 		HUDTextPeace.font("dejavu");
         HUDTextPeace.text(10,90,"V(*_*)V Meter");
         add("hudtextPeace", HUDTextPeace, "FrontLayer");
+
 	}
 
 	void setBackgroundVelocity(int aVelocity)
 	{
 		backgroundImage.setMaxVelocity(aVelocity, 0);
 		backgroundBufferFrontImage.setMaxVelocity(aVelocity, 0);
-		backgroundBufferBackImage.setMaxVelocity(aVelocity, 0);
+		backgroundBufferBackImage.setMaxVelocity(aVelocity, 0);		
+		
 	}
-
+	
 	void reset()
 	{
 
@@ -136,14 +138,18 @@ public:
 
 	void update()
 	{
+
 		if(backgroundBufferFrontImage.X() > 1366+283){
+			cout<<"Moved Front IMage";
 			backgroundBufferFrontImage.moveTo(backgroundBufferBackImage.X()-1366, 300);
 		}
 		if(backgroundImage.X() > 1366+283){
+			cout<<"Moved Background Image";
 			backgroundImage.moveTo(backgroundBufferFrontImage.X()-1366, 300);
 		}
 		if(backgroundBufferBackImage.X() > 1366+283)
 		{
+			cout<<"Moved Back Image";
 			backgroundBufferBackImage.moveTo(backgroundImage.X()-1366, 300);
 		}
 		fflush(stdout);
@@ -169,7 +175,7 @@ public:
 			{
 				//Set background velocity to the current vehicle the player is travelling in.
 				setBackgroundVelocity(car[i].getVelocity());
-
+		
 				//Set that vehicles velocity to 0 to make it stay in the screen.
 				car[i].setVelocity(0);
 				aPlayer.setTotalCost(aPlayer.getTotalCost() - car[playerAtCar].getTotalAttackCost());

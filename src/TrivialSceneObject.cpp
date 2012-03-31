@@ -122,7 +122,6 @@ float SceneObject::updateMotion() {
     _velocity.y += velocityDelta;
     yDelta = delta;
     this->moveBy(xDelta,yDelta);
-
     _updateRect();
     _updatePointRect();
 

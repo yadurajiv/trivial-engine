@@ -21,14 +21,16 @@ public:
 
     virtual void update() { }
     virtual void _update(const bool& render = false) {
+	
+		//Calling update of all Child objects of the SceneObject
+		if(render){
+			map<string, GraphicsObject*>::iterator it;
 
-        map<string, GraphicsObject*>::iterator it;
-
-
-        for ( it=_items.begin() ; it != _items.end(); it++ ) {
-            (*it).second->_update();
-        }
-
+	        for ( it=_items.begin() ; it != _items.end(); it++ ) {
+	            (*it).second->_update(render);
+	        }
+		}
+        
         updateMotion();
         update(); // does this need to be called, it wasn't here.. mm..
     } // notice that unlike a GraphicsObject it does not check to see if one is active
