@@ -26,3 +26,5 @@ Asteroid/Asteroid
 extlibs/tinyxml/Makefile
 
 extlibs/tinyxml/Makefile
+
+*.exe

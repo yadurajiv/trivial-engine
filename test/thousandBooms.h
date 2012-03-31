@@ -80,8 +80,8 @@ public:
             a << "thousandBooms_" << i;
             spr = new Trivial::AnimatedSprite();
             spr->image("explosion",64,64);
-            spr->addAnimation("boom",0,24,24);
-            spr->play("boom");
+            spr->addAnimation("leBoom",0,24,24);
+            spr->play("leBoom");
             spr->moveTo(xx,yy);
             //spr->setAngularAcceleration(15);
             //spr->setAcceleration(10,10);
