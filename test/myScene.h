@@ -533,6 +533,8 @@ public:
 
         if(key_space) {
             key_space = false;
+            //starfield.image("shuriken");
+            testSprite.image("starfield");
             /*
             _items.clear();
             getObjectsInRect(&_items,defaultCamera.X(),defaultCamera.Y(),defaultCamera.width(),defaultCamera.height());

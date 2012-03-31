@@ -12,7 +12,7 @@ void Sprite::image(const string &name) {
     // SetImage becomes SetTexture
     _imageName = name;
 
-    SFMLsprite.SetTexture(*(ImageManager::Instance()->get(_imageName))); // second param bool removed
+    SFMLsprite.SetTexture(*(ImageManager::Instance()->get(_imageName)), true); // second param bool removed
     _width = ImageManager::Instance()->get(_imageName)->GetWidth();
     _height = ImageManager::Instance()->get(_imageName)->GetHeight();
     _textureRectOriginal = SFMLsprite.GetTextureRect();
