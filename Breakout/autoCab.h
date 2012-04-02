@@ -19,6 +19,9 @@ private:
 	int _distanceTravelled;
 	int _dropAt;
 	bool _occupied;
+	int _type;
+	bool _moveToCenter;
+	int _moveToCenterDistance;
 
 public:
 	bool isHit;
@@ -33,6 +36,8 @@ public:
 	bool getOccupiedState();
 	void update();
 	void mouseEventCallBack(const Trivial::TrivialMouseEvent &e);
+	void resetDistance();
+	void setMoveToCenter(bool aValue = true);
 };
 
 AutoCab::AutoCab()
@@ -44,6 +49,14 @@ AutoCab::AutoCab()
 	_distanceTravelled = 0;
 	_dropAt = -1;
 	_occupied = false;
+	_moveToCenter = false;
+}
+
+void AutoCab::resetDistance()
+{
+	_distanceTravelled = 0;
+	_occupied = false;
+	isHit = false;
 }
 
 void AutoCab::image(const string &name, int X, int lane)
@@ -89,6 +102,26 @@ void AutoCab::update()
 		}
 	}
 	
+	//Move object to center
+	if(_moveToCenter)
+	{
+		if(X() >= 450 || X() <= 350)
+		{
+			if(X() > 450)
+			{
+				moveTo(X()-1, Y());
+			}
+			else
+			{
+				moveTo(X()+1, Y());
+			}
+		}
+		else
+		{
+			_moveToCenter = false;
+		}
+	}
+	
 	_distanceTravelled++;
 }
 
@@ -107,6 +140,11 @@ void AutoCab::mouseEventCallBack(const Trivial::TrivialMouseEvent &e)
         	}
 		}
 	}
+}
+
+void AutoCab::setMoveToCenter(bool aValue)
+{
+	_moveToCenter = aValue;
 }
 
 AutoCab::~AutoCab()

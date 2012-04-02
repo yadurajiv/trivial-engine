@@ -22,6 +22,16 @@
 #define TOTALPLAYERMONEY 500
 #define TOTALPLAYERPEACE 500
 
+#define AUTOSPEEDMAX 160
+#define AUTOSPEEDMIN 80 
+
+#define AUTODROPMAX 2500
+#define AUTODROPMIN 500
+
+#define DISTANCELEFT 5000
+
+#define HIDEPOSITION -100,-100
+
 using namespace std;
 
 class AutoMountScene : public Trivial::Scene
@@ -30,6 +40,7 @@ public:
 	AutoMountScene()
 	{
 		playerAtCar = -1;
+		score = 0;
 	}
 
 	void preload()
@@ -42,19 +53,24 @@ public:
 		myAudioManager = Trivial::AudioManager::Instance();
 
 		myImageManager->add("backgroundImage", "data/GAmeBackground1.jpg");
-		myImageManager->add("carImage", "data/Car.png");
+		// myImageManager->add("carImage", "data/Car.png");
 		myImageManager->add("playerImage", "data/player.png");
 		myImageManager->add("progressBack", "data/progressBarBackground.png");
 		myImageManager->add("progressRepeat", "data/progressBarRepeat.png");
+		myImageManager->add("auto0", "data/black_auto.png");
+		myImageManager->add("auto1", "data/blue_auto.png");
+		myImageManager->add("auto2", "data/yellow_auto.png");
+		myImageManager->add("playerStanding", "data/playerStanding.png");
 		
 		myFontManager->add("dejavu","data/DEJAVUSANS.TTF");
 		
 		myAudioManager->setVolume(100);
-		myAudioManager->add("bgmusic","data/test.ogg", true);
+		myAudioManager->add("bgmusic","data/AutoMount.ogg", true);
 		myAudioManager->setSoundPosition("bgmusic",300,300); // positioned with the explosion sprite
         myAudioManager->setSoundAttenuation("bgmusic",10); // fall off
         myAudioManager->setSoundDistance("bgmusic",100); // minimum distance till the sound is heard
         cout <<"Audio Manager"<< myAudioManager->play("bgmusic") << "\n"; // play loaded music
+		myAudioManager->loop("bgmusic", true);
 
 		addLayer("bgLayer", -1);
 		backgroundImage.image("backgroundImage");
@@ -74,14 +90,21 @@ public:
 		addLayer("FrontLayer",1);
 		for(int i=0;i<3;i++)
 		{
-			car[i].image("carImage",500,i);
+			stringstream autoImageString;
+			autoImageString<<"auto"<<i;
+			car[i].image(autoImageString.str().c_str(),500,i);
 			car[i].setAttackCost(AUTOCOST3);
 			car[i].setAttackPeace(AUTOPEACE3);
 			stringstream append;
 			append<<"car"<<i;
 			add(append.str().c_str(), car[i], "FrontLayer");
-			int randomVelocity = rand() % (80-20+1) + 20;
+			int randomVelocity = rand() % (AUTOSPEEDMAX-AUTOSPEEDMIN+1) + AUTOSPEEDMIN;
 			car[i].setVelocity(randomVelocity);
+			if(!i%3)
+			{
+				int randomDistance = rand() % (AUTODROPMAX - AUTODROPMIN+1) + AUTODROPMIN;
+				car[i].setDropAt(randomDistance);
+			}
 		}
 		
 		aPlayer.image("playerImage");
@@ -92,10 +115,10 @@ public:
 		car[2].setAttackCost(AUTOCOST1);
 		car[2].setAttackPeace(AUTOPEACE1);
 		car[2].add("playerObject", aPlayer);
-		car[2].affectChildren();
-		//car[2].setScale(2,1);
+		//car[2].affectChildren();
+		
+
 		playerAtCar = 2;
-		aPlayer.moveBy(0, 100);
 		add("playerObject", aPlayer, "FrontLayer");
 
 		//Set background velocity to the current vehicle the player is travelling in.
@@ -121,6 +144,10 @@ public:
         HUDTextPeace.text(10,90,"V(*_*)V Meter");
         add("hudtextPeace", HUDTextPeace, "FrontLayer");
 
+		HUDTextScore.font("dejavu");
+		HUDTextScore.text(350, 65, "Distance Left : ");
+		add("hudtextScore", HUDTextScore, "FrontLayer");
+
 	}
 
 	void setBackgroundVelocity(int aVelocity)
@@ -138,18 +165,14 @@ public:
 
 	void update()
 	{
-
 		if(backgroundBufferFrontImage.X() > 1366+283){
-			cout<<"Moved Front IMage";
 			backgroundBufferFrontImage.moveTo(backgroundBufferBackImage.X()-1366, 300);
 		}
 		if(backgroundImage.X() > 1366+283){
-			cout<<"Moved Background Image";
 			backgroundImage.moveTo(backgroundBufferFrontImage.X()-1366, 300);
 		}
 		if(backgroundBufferBackImage.X() > 1366+283)
 		{
-			cout<<"Moved Back Image";
 			backgroundBufferBackImage.moveTo(backgroundImage.X()-1366, 300);
 		}
 		fflush(stdout);
@@ -171,24 +194,33 @@ public:
 		//Assigning Player to the specific Child Class..
 		for(int i=0; i<3; i++)
 		{
-			if(car[i].isHit && i!=playerAtCar)
+//			cout<<"Player X "<<aPlayer.X()<<" : "<<"car X "<<car[i].X()<<endl;
+			if(car[i].isHit && i!=playerAtCar && aPlayer.X()+100 >= car[i].X() && aPlayer.X()-100 <= car[i].X() && car[i].X() > 50 && car[i].X() < 750)
 			{
+				if(playerAtCar != -1)
+				{
+					aPlayer.setTotalCost(aPlayer.getTotalCost() - car[playerAtCar].getTotalAttackCost());
+					aPlayer.setTotalPeace(aPlayer.getTotalPeace() - car[playerAtCar].getTotalAttackPeace());
+					car[playerAtCar].remove("playerObject");
+					int randomVelocity = rand() % (AUTOSPEEDMAX-AUTOSPEEDMIN+1) + AUTOSPEEDMIN;
+					car[playerAtCar].setVelocity(randomVelocity);
+					
+				}
 				//Set background velocity to the current vehicle the player is travelling in.
 				setBackgroundVelocity(car[i].getVelocity());
-		
+
 				//Set that vehicles velocity to 0 to make it stay in the screen.
 				car[i].setVelocity(0);
-				aPlayer.setTotalCost(aPlayer.getTotalCost() - car[playerAtCar].getTotalAttackCost());
-				aPlayer.setTotalPeace(aPlayer.getTotalPeace() - car[playerAtCar].getTotalAttackPeace());
-				car[playerAtCar].remove("playerObject");
-				int randomVelocity = rand() % (80-20+1) + 20;
-				car[playerAtCar].setVelocity(randomVelocity);
+				
 				car[i].add("playerObject", aPlayer);
+				car[i].affectChildren();
 				playerAtCar = i;
 				car[i].isHit = false;
 				
 				aPlayer.moveTo(car[i].X(), car[i].Y());
 				aPlayer.moveBy(0, -100);
+				// car[playerAtCar].setMoveToCenter();
+				
 			}
 			else
 			{
@@ -199,20 +231,55 @@ public:
 			}
 		}
 		
-		//Create New Objects If Previous one are removed
 		for(int i=0; i<3; i++)
 		{
+			//Create New Objects If Previous one are removed			
 			if(car[i].X() < -200)
 			{
 				car[i].setAttackCost(AUTOCOST2);
 				car[i].setAttackPeace(AUTOPEACE2);
-				int randomVelocity = rand() % (80-20+1) + 20;
+				int randomVelocity = rand() % (AUTOSPEEDMAX-AUTOSPEEDMIN+1) + AUTOSPEEDMIN;
 				car[i].setVelocity(randomVelocity);
 				
 				car[i].moveTo(1000,car[i].Y());
+				if(!i%3)
+				{
+					int randomDistance = rand() % (AUTODROPMAX - AUTODROPMIN+1) + AUTODROPMIN;
+					car[i].setDropAt(randomDistance);
+				}
+				car[i].resetDistance();
 			}
+			
 		}
 				
+		//Check for occupied state
+		if(playerAtCar != -1)
+		{
+			if(car[playerAtCar].getOccupiedState())
+			{
+				aPlayer.setTotalCost(aPlayer.getTotalCost() - car[playerAtCar].getTotalAttackCost());
+				aPlayer.setTotalPeace(aPlayer.getTotalPeace() - car[playerAtCar].getTotalAttackPeace());
+				car[playerAtCar].remove("playerObject");
+				int randomVelocity = rand() % (AUTOSPEEDMAX-AUTOSPEEDMIN+1) + AUTOSPEEDMIN;
+				car[playerAtCar].setVelocity(randomVelocity);
+
+				add("playerObject", aPlayer);
+				aPlayer.moveTo(aPlayer.X(), 550);
+				setBackgroundVelocity(0);
+				playerAtCar = -1;
+				aPlayer.image("playerStanding");
+			}
+			else
+			{
+				aPlayer.image("playerImage");
+			}
+			//Update Score
+			score++;
+			stringstream scoreString;
+			scoreString<<"Distance Left : "<<DISTANCELEFT - (int)score/10;
+			HUDTextScore.text(scoreString.str());
+		}
+		
 	}
 
 	void deactivated()
@@ -241,6 +308,8 @@ private:
 	int playerAtCar;
 	Trivial::GUIText HUDTextCost;
 	Trivial::GUIText HUDTextPeace;
+	int score;
+	Trivial::GUIText HUDTextScore;
 
 	Trivial::App *myApp;
 	Trivial::SceneManager *mySceneManager;

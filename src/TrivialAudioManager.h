@@ -115,6 +115,12 @@ public:
         }
     }
 
+	void loop(const string &name, bool value){
+		if(_sounds.count(name) != 0){
+			_sounds[name]->loop(value);
+		}
+	}
+
     void releaseResources();
 
 private:

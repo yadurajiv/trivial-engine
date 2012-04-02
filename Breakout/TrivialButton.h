@@ -11,7 +11,7 @@ struct mouseState
 	bool down;
 	bool up;
 	bool hover;
-}mState;
+};
 
 class Button : public GUIObject
 {
@@ -23,6 +23,7 @@ private:
 	AnimatedSprite _animatedButton;
 	EventManager *myEventManager;
 public:
+	mouseState _state;
 	Button();
 	~Button();
 	
@@ -37,9 +38,9 @@ public:
 	
 	void mouseEventCallBack(const TrivialMouseEvent &e);
 	
-	virtual void buttonDown();
-	virtual void buttonUp();
-	virtual void buttonHover();
+	void buttonDown();
+	void buttonUp();
+	void buttonHover();
 	
 };
 
@@ -48,14 +49,14 @@ Button::Button()
 	isMaskAvailable = false;
 	isAnimated = false;
 	
-	mState.up = true;
-	mState.down = false;
-	mState.hover = false;
+	_state.up = true;
+	_state.down = false;
+	_state.hover = false;
 	
 	myEventManager = EventManager::Instance();
 	myEventManager->subscribe("update-mouse", this);
-	myEventManager->subscribe("buttondown-mouse", this);
-    myEventManager->subscribe("buttonup-mouse", this);
+	myEventManager->subscribe("left-buttondown-mouse", this);
+	myEventManager->subscribe("left-buttonup-mouse", this);
 }
 
 Button::~Button()
@@ -65,26 +66,32 @@ Button::~Button()
 
 void Button::mouseEventCallBack(const TrivialMouseEvent &e)
 {
-	if(_button.pointOverlap(e.pos.x, e.pos.y) || _animatedButton.pointOverlap(e.pos.x, e.pos.y))
+	if((!isAnimated && _button.pointOverlap(e.pos.x, e.pos.y, isMaskAvailable)) || (isAnimated && _animatedButton.pointOverlap(e.pos.x, e.pos.y, isMaskAvailable)))
 	{
-		if(e.eventName == "buttondown-mouse")
+		if(e.eventName == "left-buttondown-mouse")
 		{
-			mState.up = false;
-			mState.down = true;
+			_state.up = false;
+			_state.down = true;
+			_state.hover = false;
 		}
-		if(e.eventName == "buttonup-mouse")
+		else
+		if(e.eventName == "left-buttonup-mouse")
 		{
-			mState.down = false;
-			mState.up = true;
+			_state.down = false;
+			_state.up = true;
+			_state.hover = false;
 		}
+		else
 		if(e.eventName == "update-mouse")
 		{
-			mState.hover = true;
+			if(!e.lButton){
+				_state.hover = true;
+			}
 		}
 	}
 	else
 	{
-		mState.hover = false;
+		_state.hover = false;
 	}
 }
 
@@ -96,14 +103,14 @@ void Button::_update()
 void Button::update()
 {
 	GUIObject::update();
-	if(mState.down)
+	if(_state.down)
 	{
 		buttonDown();
 	}
-	if(mState.up){
+	if(_state.up){
 		buttonUp();
 	}
-	if(mState.hover)
+	if(_state.hover)
 	{
 		buttonHover();
 	}

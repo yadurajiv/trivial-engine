@@ -16,6 +16,7 @@
 //#include "myScene.h"
 //#include "breakOutScene.h"
 #include "autoMount.h"
+#include "autoMountMenu.h"
 
 #ifdef WIN32
     #ifndef _CONSOLE
@@ -39,11 +40,12 @@
     /* add scene to scene manager */
     	//mySceneManager->addScene("myScene", new myScene, true);
 	//mySceneManager->addScene("breakOutScene", new breakOutScene, true);
+	mySceneManager->addScene("autoMountMenuScene", new Menu, true);
 	mySceneManager->addScene("autoMountScene", new AutoMountScene, true);
     /* tell the event manager which the current active scene is */
     //mySceneManager->setActiveScene("myScene");
 	//mySceneManager->setActiveScene("breakOutScene");
-	mySceneManager->setActiveScene("autoMountScene");
+	mySceneManager->setActiveScene("autoMountMenuScene");
     /* configure your app, get it ready */
     myApp->configure(NULL, 800, 600, 32, "myApp");
     /* run it! */
