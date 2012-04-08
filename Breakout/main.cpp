@@ -17,6 +17,8 @@
 //#include "breakOutScene.h"
 #include "autoMount.h"
 #include "autoMountMenu.h"
+#include "autoMountGameOverScene.h"
+#include "autoMountGameWinScene.h"
 
 #ifdef WIN32
     #ifndef _CONSOLE
@@ -42,6 +44,8 @@
 	//mySceneManager->addScene("breakOutScene", new breakOutScene, true);
 	mySceneManager->addScene("autoMountMenuScene", new Menu, true);
 	mySceneManager->addScene("autoMountScene", new AutoMountScene, true);
+	mySceneManager->addScene("autoMountGameOverScene", new gameOverScene, true);
+	mySceneManager->addScene("autoMountGameWinScene", new gameWinScene, true);
     /* tell the event manager which the current active scene is */
     //mySceneManager->setActiveScene("myScene");
 	//mySceneManager->setActiveScene("breakOutScene");

@@ -186,9 +186,10 @@ public:
 		peaceBar.setPercentValue(attackPeacePercentage);
 		
 		//Check Game Over state
-		if(attackCostPercentage == 0 || attackPeacePercentage == 0)
+		if(attackCostPercentage <= 0 || attackPeacePercentage <= 0)
 		{
 			//Game's Over bitches
+			mySceneManager->setActiveScene("autoMountGameOverScene");
 		}
 		
 		//Assigning Player to the specific Child Class..
@@ -278,6 +279,11 @@ public:
 			stringstream scoreString;
 			scoreString<<"Distance Left : "<<DISTANCELEFT - (int)score/10;
 			HUDTextScore.text(scoreString.str());
+			if(DISTANCELEFT - (int)score/10 <= 0)
+			{
+				//Game Won
+				mySceneManager->setActiveScene("autoMountGameWinScene");				
+			}
 		}
 		
 	}
