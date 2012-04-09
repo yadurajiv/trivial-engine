@@ -20,6 +20,7 @@ extlibs/tinyxml/Makefile
 gmon.out
 #data
 docs/html/
+docs/latex/
 Asteroid/Asteroid
 *.so
 *.o

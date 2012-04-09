@@ -42,7 +42,7 @@ public :
 	
 	void update()
 	{
-		if(playButton._state.down)
+		if(playButton.state.down)
 		{
 			mySceneManager->setActiveScene("autoMountScene");
 		}
@@ -70,7 +70,7 @@ public :
 	
 private :
 	Trivial::Sprite backgroundSprite;
-	Button playButton;
+	Trivial::Button playButton;
 	Trivial::GUIText playText;
 
 	Trivial::App *myApp;
