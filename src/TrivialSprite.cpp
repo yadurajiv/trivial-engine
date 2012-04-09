@@ -38,7 +38,7 @@ void Sprite::_update(const bool& render) {
 
     SceneObject::_update();
 
-    if(render) {
+    if(render && _visible) {
         App::Instance()->render(SFMLsprite);
     }
 }

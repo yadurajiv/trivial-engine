@@ -30,7 +30,7 @@ namespace Trivial {
     void GUIText::_update(const bool& render) {
         update();
 
-        if(render) {
+        if(render && _visible) {
             App::Instance()->render(_text);
         }
     }
