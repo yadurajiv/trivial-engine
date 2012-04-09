@@ -29,7 +29,8 @@ public:
 
     ~Animation();
 
-    void play(const bool &looped = true) {
+    void play(const bool &looped = true,int frame = 0) {
+        _frameCurrent = frame;
         _looped = looped;
         _paused = false;
         _frameTimeTotal = 0.0f;
@@ -141,7 +142,11 @@ public:
 
     //bool removeAnimation(string name);
 
-    bool play(const string &name);
+    bool play(const string& name = "", const bool& looped = true);
+    bool gotoAndPlay(const string& name = "", const int& frame = 0, const bool& looped = true);
+    bool stop(const string &name = "");
+    bool gotoAndStop(const string& name = "", const int& frame = 0);
+
 
     //void pause(string name);
 

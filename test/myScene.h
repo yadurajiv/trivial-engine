@@ -135,7 +135,7 @@ public:
         // add animation, name, start frame, end frame, framerate
         explosion.addAnimation("boom",0,24,24);
         // play is set to false by default so play!
-        explosion.play("boom");
+        cout << "\nboom is playing? - " << explosion.play("boom");
         // regular stuff
         explosion.moveTo(300,300);
         cout << "\nadding explosion - " << add("explosion", explosion);

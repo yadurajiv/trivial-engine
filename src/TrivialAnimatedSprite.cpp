@@ -26,7 +26,11 @@ bool AnimatedSprite::addAnimation(const string &name, const int &startFrame, con
     return true;
 }
 
-bool AnimatedSprite::play(const string &name) {
+bool AnimatedSprite::play(const string& name,const bool& looped) {
+    return gotoAndPlay(name, 0, looped);
+}
+
+bool AnimatedSprite::gotoAndPlay(const string& name, const int& frame, const bool& looped) {
     //To Check if the Animation is loaded or Not. Returns false for Animation not loaded.
 	//Try using addAnimation or There is a problem with your spriteSheet.
 	if(!_ready)
@@ -38,12 +42,52 @@ bool AnimatedSprite::play(const string &name) {
 	//To Check if Animation exists or not. Returns false for Animation not existing.
 	if(_animations[name] <= 0)
 	{
+        if(name == "") {
+            if(_animations[_currentAnimation] > 0) {
+                _animations[_currentAnimation]->play(looped, frame);
+                return true;
+            }
+        }
+
+		//Might need an error handling class to tell the user the return false case is because of which reason.
+		return false;
+	} else {
+	    _animations[name]->play(looped, frame);
+	    _currentAnimation = name;
+	}
+
+    return true;
+}
+
+bool AnimatedSprite::stop(const string &name) {
+    return gotoAndStop(name, 0);
+}
+
+bool AnimatedSprite::gotoAndStop(const string &name, const int& frame) {
+    //To Check if the Animation is loaded or Not. Returns false for Animation not loaded.
+	//Try using addAnimation or There is a problem with your spriteSheet.
+	if(!_ready)
+	{
 		//Might need an error handling class to tell the user the return false case is because of which reason.
 		return false;
 	}
-    //check if it is there.
-    _currentAnimation = name;
-    _animations[name]->play();
+
+	//To Check if Animation exists or not. Returns false for Animation not existing.
+	if(_animations[name] <= 0)
+	{
+        if(name == "") {
+            if(_animations[_currentAnimation] > 0) {
+                _animations[_currentAnimation]->stop(frame);
+                return true;
+            }
+        }
+
+		//Might need an error handling class to tell the user the return false case is because of which reason.
+		return false;
+	} else {
+	    _animations[name]->stop(frame);
+	}
+
 
     return true;
 }
