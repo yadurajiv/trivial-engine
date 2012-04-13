@@ -28,6 +28,8 @@ public:
 
     bool setRepeat(const string &name, const bool& b);
 
+    bool createTexture(const string &name, const int &width, const int &height, const sf::Color fill = sf::Color(255,255,255,255));
+
     void releaseResources() {
         map<string, sf::Texture*>::iterator it;
         for ( it=_images.begin() ; it != _images.end(); it++ ) {

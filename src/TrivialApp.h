@@ -22,7 +22,7 @@ public:
     int run();
 
     // TODO: Do config shite here
-    bool configure(sf::WindowHandle windowHandle = NULL, const unsigned int &width = 800, const unsigned int &height = 600, const int &colorDepth = 32, const string &windowTitle = "Trivial App", bool autoUpdate = true);
+    bool configure(sf::WindowHandle windowHandle = NULL, const unsigned int &width = 800, const unsigned int &height = 600, const int &colorDepth = 32, const string &windowTitle = "Trivial App", bool fullscreen = false, bool autoUpdate = true);
 
     void render(sf::Drawable& sprite);
 
@@ -70,6 +70,11 @@ private:
     sf::RenderWindow _app;
     sf::Event _appEvent;
     sf::WindowHandle _handle;
+
+    unsigned long _windowStyle;
+
+    // read information on ContextSettings.hpp for more on why this is not used.
+    sf::ContextSettings _contextSettings;
 
     sf::Color _clearColor;
 

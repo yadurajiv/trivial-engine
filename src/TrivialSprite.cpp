@@ -34,9 +34,71 @@ void Sprite::image(const string &name) {
     _imageReady = true;
 }
 
+void Sprite::fadeOut(float t) {
+    if(!_fadeOut && !_fadeIn && _alpha > 0 && t > 0) {
+
+        _fadeOut = true;
+        _fadeIn = false;
+
+        _timeEnd = t*1000; // convert to milliseconds
+        _timeStep = (_timeEnd/_alpha);
+        _timeChanged = 0;
+
+        cout << "\nFade out started!";
+    }
+}
+
+void Sprite::fadeIn(float t, int alpha) {
+    if(!_fadeOut && !_fadeIn && t > 0) {
+
+        setAlpha(alpha);
+
+        show();
+
+        _fadeIn = true;
+        _fadeOut = false;
+
+        _timeEnd = t*1000; // convert to milliseconds
+        _timeStep = (_timeEnd/255);
+        _timeChanged = 0;
+
+        cout << "\nFade in started!";
+    }
+}
+
 void Sprite::_update(const bool& render) {
 
     SceneObject::_update();
+
+    if(_fadeOut) {
+        if(_alpha <= 0) {
+            _fadeOut = false;
+            hide();
+            cout << "\nFade out complete!";
+        } else {
+            _timeChanged += _app->frameTime();
+            cout << "\ntimeChanged: " << (_timeChanged >= _timeStep);
+            if(_alpha > 0 && _timeChanged >= _timeStep) {
+                setAlpha(_alpha - (_timeChanged/_timeStep));
+                _timeChanged = 0;
+            }
+        }
+    }
+
+    //cout << "\nfadein is " << _fadeIn;
+    if(_fadeIn) {
+        if(_alpha >= 255) {
+            _fadeIn = false;
+            cout << "\nFade In complete!";
+        } else {
+            cout << "\nalpha: " << _alpha;
+            _timeChanged += _app->frameTime();
+            if(_alpha < 255 && _timeChanged >= _timeStep) {
+                setAlpha(_alpha + (_timeChanged/_timeStep));
+                _timeChanged = 0;
+            }
+        }
+    }
 
     if(render && _visible) {
         App::Instance()->render(SFMLsprite);

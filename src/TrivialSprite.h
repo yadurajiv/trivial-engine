@@ -16,28 +16,19 @@ namespace Trivial {
 class Sprite : public SceneObject {
 public:
 
-    Sprite():_imageReady(false), _scrollEnabled(false), _scaleX(1), _scaleY(1) { };
+    Sprite():_imageReady(false), _scrollEnabled(false), _scaleX(1), _scaleY(1), _fadeOut(false), _fadeIn(false) {
+        // setColor(255,255,255,255);
+        _alpha = getAlpha();
+        _app = Trivial::App::Instance();
+
+        _timeChanged = 0;
+    };
+
     ~Sprite() { };
 
     virtual void update() { };
 
     virtual void _update(const bool& render = false);
-
-// Box2D for removal
-/*
-    void updatePhysics() {
-        cout << "Hmmm" << endl;
-        fflush(stdout);
-
-        // Now print the position and angle of the body.
-        b2Vec2 position = _physics.getBody()->GetPosition();
-        float32 angle = _physics.getBody()->GetAngle();
-
-        cout << position.y << endl;// position.y, angle);
-
-        moveTo(_x, position.y*PHYSICS_RATIO);
-    }
-*/
 
     /** loads images from the image manager and updates sprite **/
     void image(const string &name);
@@ -46,6 +37,10 @@ public:
     virtual void moveBy( const float &x, const float &y);
     virtual void rotate(const float &angle);
     virtual void rotateBy(const float &angle);
+
+    void fadeOut(float t);
+    void fadeIn(float t, int alpha = 0);
+
     virtual void setAlpha(const int alpha = 255) {
         if(_alpha != alpha) {
             sf::Color c = SFMLsprite.GetColor();
@@ -133,6 +128,16 @@ private:
 
     bool _imageReady;
     bool _scrollEnabled;
+
+    bool _fadeOut;
+    bool _fadeIn;
+
+    float _timeStep;
+    float _alphaStep;
+    float _timeEnd;
+    float _timeChanged;
+
+    Trivial::App* _app;
 
     sf::IntRect _textureRect;
     sf::IntRect _textureRectOriginal;

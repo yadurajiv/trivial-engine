@@ -241,7 +241,7 @@ public:
                 _fadeOut = true;
 
                 _timeEnd = t;
-                _timeStep = 1/(_timeEnd/_volume); // ~_~ john carmack can divide by zer0
+                _timeStep = (_timeEnd/_volume); // ~_~ john carmack can divide by zer0
                 _timeChanged = 0;
 
                 cout << "\nFade out started! ";
@@ -263,7 +263,7 @@ public:
                 _fadeIn = true;
 
                 _timeEnd = t;
-                _timeStep = 1/(_timeEnd/100);
+                _timeStep = (_timeEnd/100);
                 _timeChanged = 0;
 
                 cout << "\nFade in started! ";
@@ -292,7 +292,7 @@ public:
                 cout << "\nVol: " << _volume;
                 _timeChanged += _app->frameTime();
                 if(_volume > 0 && _timeChanged >= _timeStep) {
-                    setVolume(_volume-1);
+                    setVolume(_volume - (_timeChanged/_timeStep));
                     _timeChanged = 0;
                 }
             }
@@ -308,7 +308,7 @@ public:
                 cout << "\nVol: " << _volume;
                 _timeChanged += _app->frameTime();
                 if(_volume < 100 && _timeChanged >= _timeStep) {
-                    setVolume(_volume+1);
+                    setVolume(_volume + (_timeChanged/_timeStep));
                     _timeChanged = 0;
                 }
             }

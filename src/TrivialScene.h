@@ -122,10 +122,6 @@ protected:
 
     ostringstream _sink;
 
-    // Box2D for removal
-    // bool _hasBox2DPhysics;
-    // TrivialBox2DWorld* _world;
-
     friend class SceneManager;
 };
 

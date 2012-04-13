@@ -18,6 +18,9 @@ App::App() {
     _autoUpdate = true;
     _quitFlag = false;
     _clearColor = sf::Color(0,0,0,255);
+    _windowStyle = sf::Style::Default;
+    // explicit ContextSettings(unsigned int depth = 0, unsigned int stencil = 0, unsigned int antialiasing = 0, unsigned int major = 2, unsigned int minor = 0) :
+    // _contextSettings = sf::ContextSettings(_colorDepth, _colorDepth, 6, 3, 2);
 }
 
 App* App::Instance()
@@ -39,7 +42,7 @@ void App::renderView(sf::View& view) {
 int App::run() {
 
     if(_handle == NULL) {
-        _app.Create(sf::VideoMode(_width, _height, _colorDepth), _windowTitle);
+        _app.Create(sf::VideoMode(_width, _height, _colorDepth), _windowTitle, _windowStyle);
     } else {
         _autoUpdate = false;
         _app.Create(_handle);
@@ -135,13 +138,19 @@ sf::Style::
         Fullscreen = 1 << 3  ///< Fullscreen mode (this flag and all others are mutually exclusive)
 */
 
-bool App::configure(sf::WindowHandle windowHandle, const unsigned int &width, const unsigned int &height, const int &colorDepth, const string &windowTitle, bool autoUpdate) {
+bool App::configure(sf::WindowHandle windowHandle, const unsigned int &width, const unsigned int &height, const int &colorDepth, const string &windowTitle, bool fullscreen, bool autoUpdate) {
     _handle = windowHandle;
     _width = width;
     _height = height;
     _colorDepth = colorDepth;
     _windowTitle = windowTitle;
     _autoUpdate = autoUpdate;
+
+    if(fullscreen) {
+        _windowStyle = sf::Style::Fullscreen;
+    } else {
+        _windowStyle = sf::Style::Default;
+    }
 
     return true;
 }

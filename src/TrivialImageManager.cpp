@@ -60,6 +60,25 @@ bool ImageManager::setRepeat(const string &name, const bool& b) {
     return false;
 }
 
+bool ImageManager::createTexture(const string &name, const int &width, const int &height, const sf::Color fill) {
+
+    sf::Image* image = new sf::Image();
+    image->Create(width, height,fill);
+
+    sf::Texture* img = new sf::Texture();
+    if(img->LoadFromImage(*image)) {
+        _images[name] = img;
+    } else {
+        delete img;
+        delete image;
+        return false;
+        // throw exception, log image failed to load.
+    }
+
+    delete image;
+    return true;
+}
+
 bool ImageManager::add(const string &name, const string &path) {
 // return false if image name exists
    if(_images.count(name) != 0)
