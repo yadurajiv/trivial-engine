@@ -35,14 +35,14 @@ void Scene::_update() {
     for ( it=_layerIndexes.begin() ; it != _layerIndexes.end(); it++ ) {
         float moveFactorX = (_cameraMoveX * _cameraDamps[it->second].first) + width()/2;
         float moveFactorY = (_cameraMoveY * _cameraDamps[it->second].second) + height()/2;
-        _layers[it->second]->SetCenter(moveFactorX,moveFactorY);
+        _layers[it->second]->setCenter(moveFactorX,moveFactorY);
 
         // zoom can be a factor for each layer, but ignored here
         // zoom layers which has no damping!(eg. Hud dam x and y are 0)
         if(_doZoom && (_cameraDamps[it->second].first != 0 && _cameraDamps[it->second].second !=0)) {
             // reset view to 100% otherwise, your zoom is going to be relative!
-            _layers[it->second]->SetSize(width(),height());
-            _layers[it->second]->Zoom(_defaultCameraZoom);
+            _layers[it->second]->setSize(width(),height());
+            _layers[it->second]->zoom(_defaultCameraZoom);
         }
 
         App::Instance()->renderView(*(_layers[it->second]));

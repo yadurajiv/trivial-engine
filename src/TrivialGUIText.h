@@ -16,9 +16,9 @@ class GUIText : public GUIObject {
 public:
 
     GUIText(): _data("") {
-        _text.SetCharacterSize(20);
-        _text.SetStyle(sf::Text::Regular);
-        _text.SetOrigin(0,0);
+        _text.setCharacterSize(20);
+        _text.setStyle(sf::Text::Regular);
+        _text.setOrigin(0,0);
         _textSize = 20;
         _textStyle = "regular";
     };
@@ -29,14 +29,14 @@ public:
     virtual void _update(const bool& render = false);
 
     virtual void moveTo( const float &x,  const float &y) {
-        _text.SetOrigin(0,0);
+        _text.setOrigin(0,0);
         _x = x;
         _y = y;
-        _text.SetPosition(_x,_y);
+        _text.setPosition(_x,_y);
     };
     virtual void rotate(const float &angle) {
         _angle = angle;
-        _text.Rotate(_angle);
+        _text.rotate(_angle);
     };
 
     void font(const string &name);
@@ -45,30 +45,30 @@ public:
     void text(const float &x, const float &y, const string &data);
     virtual void setAlpha(const int alpha = 255) {
         if(_alpha != alpha) {
-            sf::Color c = _text.GetColor();
+            sf::Color c = _text.getColor();
             _alpha = c.a = alpha;
-            _text.SetColor(c);
+            _text.setColor(c);
         }
     }
 
     virtual int getAlpha() {
-        sf::Color c = _text.GetColor();
+        sf::Color c = _text.getColor();
         _alpha = c.a;
         return _alpha;
     }
 
     virtual void setColor(const int r = 255, const int g = 255, const int b = 255, const int alpha=255) {
-        sf::Color c = _text.GetColor();
+        sf::Color c = _text.getColor();
         c.r = r;
         c.g = g;
         c.b = b;
         c.a = alpha;
-        _text.SetColor(c);
+        _text.setColor(c);
     }
 
     unsigned int size(const unsigned int& s = 20) {
         _textSize = s;
-        _text.SetCharacterSize(_textSize);
+        _text.setCharacterSize(_textSize);
         return _textSize;
     }
 
@@ -87,16 +87,16 @@ public:
     void style(const string& s = "regular") {
         if(s == "regular" || s == "normal") {
             _textStyle = s;
-            _text.SetStyle(sf::Text::Regular);
+            _text.setStyle(sf::Text::Regular);
         } else if(s == "bold") {
             _textStyle = s;
-            _text.SetStyle(sf::Text::Bold);
+            _text.setStyle(sf::Text::Bold);
         } else if(s == "bold-italic") {
             _textStyle = s;
-            _text.SetStyle(sf::Text::Bold | sf::Text::Italic);
+            _text.setStyle(sf::Text::Bold | sf::Text::Italic);
         } else if(s == "italic") {
             _textStyle = s;
-            _text.SetStyle(sf::Text::Italic);
+            _text.setStyle(sf::Text::Italic);
         }
     }
 

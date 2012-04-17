@@ -32,20 +32,20 @@ App* App::Instance()
 }
 
 void App::render(sf::Drawable& drawable) {
-    _app.Draw(drawable);
+    _app.draw(drawable);
 }
 
 void App::renderView(sf::View& view) {
-    _app.SetView(view);
+    _app.setView(view);
 }
 
 int App::run() {
 
     if(_handle == NULL) {
-        _app.Create(sf::VideoMode(_width, _height, _colorDepth), _windowTitle, _windowStyle);
+        _app.create(sf::VideoMode(_width, _height, _colorDepth), _windowTitle, _windowStyle);
     } else {
         _autoUpdate = false;
-        _app.Create(_handle);
+        _app.create(_handle);
     }
 
     /*
@@ -55,10 +55,10 @@ int App::run() {
     sf::Text txt("Test", fnt);
 */
     // set app frame rate limit here! customizable later on if need be.
-    _app.SetFramerateLimit(60);
+    _app.setFramerateLimit(60);
 
     if(_autoUpdate) {
-        while(_app.IsOpen()) {
+        while(_app.isOpen()) {
             update();
         }
     }
@@ -67,7 +67,7 @@ int App::run() {
 }
 
 void App::update() {
-    _ftimer.GetElapsedTime();
+    _ftimer.getElapsedTime();
     _fps++;
 
     // freeeeedom!!
@@ -75,17 +75,17 @@ void App::update() {
         Trivial::EventManager::Instance()->releaseResource();
         Trivial::FontManager::Instance()->releaseResources();
         Trivial::ImageManager::Instance()->releaseResources();
-        //Trivial::AudioManager::Instance()->releaseResources();
-        _app.Close();
+        Trivial::AudioManager::Instance()->releaseResources();
+        _app.close();
         return;
     }
 
     // NOTE: PollEvent will remove all items that are in the event queue!
     // calling PollEvent elsewhere like the event manager will not work!
-    while (_app.PollEvent(_appEvent))
+    while (_app.pollEvent(_appEvent))
     {
          // Close window : exit
-        if (_appEvent.Type == sf::Event::Closed) {
+        if (_appEvent.type == sf::Event::Closed) {
             this->quit();
         }
 
@@ -93,11 +93,11 @@ void App::update() {
         // Funny how we have to tell the eventmanager about an event.
         // Can't do this inside the eventmanager as all the events get
         // eaten up here. Tried it before doing this.
-        if (_appEvent.Type == sf::Event::GainedFocus) {
+        if (_appEvent.type == sf::Event::GainedFocus) {
             EventManager::Instance()->gainedWindowFocus();
         }
 
-        if (_appEvent.Type == sf::Event::LostFocus) {
+        if (_appEvent.type == sf::Event::LostFocus) {
             EventManager::Instance()->lostWindowFocus();
         }
 
@@ -106,16 +106,16 @@ void App::update() {
 
     EventManager::Instance()->update();
 
-    _app.Clear(_clearColor);
+    _app.clear(_clearColor);
 
     SceneManager::Instance()->update();
 
     /* display app */
-    _app.Display();
+    _app.display();
 
-    _time = _ftimer.Restart();
+    _time = _ftimer.restart();
 
-    _frameTime = _time.AsMilliseconds();
+    _frameTime = _time.asMilliseconds();
 
     _fps = (1/_frameTime)*1000;
 }
@@ -157,8 +157,8 @@ bool App::configure(sf::WindowHandle windowHandle, const unsigned int &width, co
 
 /** Segmentation fault **/
 float App::totalTimeElapsed() const {
-    if(_app.IsOpen()) {
-        return _clock.GetElapsedTime().AsSeconds();
+    if(_app.isOpen()) {
+        return _clock.getElapsedTime().asSeconds();
     }
     return -1;
 }

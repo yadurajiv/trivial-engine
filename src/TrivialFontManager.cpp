@@ -38,7 +38,7 @@ bool FontManager::add(const string &name, const string &path) {
         return false;
 
     sf::Font* fnt = new sf::Font();
-    if(fnt->LoadFromFile(path)) {
+    if(fnt->loadFromFile(path)) {
         _fonts[name] = fnt;
     } else {
         delete fnt;

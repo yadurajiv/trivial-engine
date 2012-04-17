@@ -39,7 +39,7 @@ bool ImageManager::setSmooth(const string &name, const bool& b) {
     map<string, sf::Texture *>::iterator it = _images.find(name);
     if (it != _images.end())
     {
-        (*it).second->SetSmooth(b);
+        (*it).second->setSmooth(b);
         return true;
     }
     return false;
@@ -54,7 +54,7 @@ bool ImageManager::setRepeat(const string &name, const bool& b) {
     map<string, sf::Texture *>::iterator it = _images.find(name);
     if (it != _images.end())
     {
-        (*it).second->SetRepeated(b);
+        (*it).second->setRepeated(b);
         return true;
     }
     return false;
@@ -63,10 +63,10 @@ bool ImageManager::setRepeat(const string &name, const bool& b) {
 bool ImageManager::createTexture(const string &name, const int &width, const int &height, const sf::Color fill) {
 
     sf::Image* image = new sf::Image();
-    image->Create(width, height,fill);
+    image->create(width, height,fill);
 
     sf::Texture* img = new sf::Texture();
-    if(img->LoadFromImage(*image)) {
+    if(img->loadFromImage(*image)) {
         _images[name] = img;
     } else {
         delete img;
@@ -85,7 +85,7 @@ bool ImageManager::add(const string &name, const string &path) {
         return false;
 
     sf::Texture* img = new sf::Texture();
-    if(img->LoadFromFile(path)) {
+    if(img->loadFromFile(path)) {
         _images[name] = img;
     } else {
         delete img;

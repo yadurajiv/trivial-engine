@@ -182,7 +182,7 @@ void EventManager::update() {
         raiseKeyboardEvent = false;
 
         //isKeyDown = _SFMLInput->IsKeyDown(_keyBoardKeyCodeMap[keyIt->first.first]);
-        isKeyDown = sf::Keyboard::IsKeyPressed(_keyBoardKeyCodeMap[keyIt->first.first]);
+        isKeyDown = sf::Keyboard::isKeyPressed(_keyBoardKeyCodeMap[keyIt->first.first]);
 
         if (keyIt->first.second == "keyup" && isKeyDown == false && _keyStates[keyIt->first.first] == 1) {
             raiseKeyboardEvent = true;
@@ -223,15 +223,15 @@ void EventManager::update() {
             tme.pos.y = 0;
         }
 
-        tme.lButton = sf::Mouse::IsButtonPressed(sf::Mouse::Left);
-        tme.mButton = sf::Mouse::IsButtonPressed(sf::Mouse::Middle);
-        tme.rButton = sf::Mouse::IsButtonPressed(sf::Mouse::Right);
-        tme.x1Button = sf::Mouse::IsButtonPressed(sf::Mouse::XButton1);
-        tme.x2Button = sf::Mouse::IsButtonPressed(sf::Mouse::XButton2);
-        tme.pos = sf::Mouse::GetPosition(*(Trivial::App::Instance()->getSFMLRenderWindow()));
+        tme.lButton = sf::Mouse::isButtonPressed(sf::Mouse::Left);
+        tme.mButton = sf::Mouse::isButtonPressed(sf::Mouse::Middle);
+        tme.rButton = sf::Mouse::isButtonPressed(sf::Mouse::Right);
+        tme.x1Button = sf::Mouse::isButtonPressed(sf::Mouse::XButton1);
+        tme.x2Button = sf::Mouse::isButtonPressed(sf::Mouse::XButton2);
+        tme.pos = sf::Mouse::getPosition(*(Trivial::App::Instance()->getSFMLRenderWindow()));
         tme.screenPosition = tme.pos;
 
-        tme.scroll = _event.MouseWheel.Delta;
+        tme.scroll = _event.mouseWheel.delta;
         // _event filled with data from RenderWindow.PollEvent(event);
     }
 
@@ -252,7 +252,7 @@ void EventManager::update() {
 
         // Scroll or not? NOTE: cannot scroll while moving since mouse move and
         // mouse scroll are two events
-        if (tme.eventCode == "scroll" && _event.Type == sf::Event::MouseWheelMoved) {
+        if (tme.eventCode == "scroll" && _event.type == sf::Event::MouseWheelMoved) {
             for (i = 0; i < mouseIt->second.size(); i++) {
                  (*(mouseIt->second[i])).mouseEventCallBack(tme);
             }
@@ -274,7 +274,7 @@ void EventManager::update() {
                 bool raiseMouseButtonEvent = false;
 
                 // Check for a specific button
-                isMouseButtonDown = sf::Mouse::IsButtonPressed(_mouseButtonMap[tme.subEventCodes.front()]);
+                isMouseButtonDown = sf::Mouse::isButtonPressed(_mouseButtonMap[tme.subEventCodes.front()]);
 
                 if (tme.eventCode == "buttonup" && isMouseButtonDown == false && _mouseButtonStatesSub[tme.subEventCodes.front()] == 1) {
                     raiseMouseButtonEvent = true;
@@ -301,7 +301,7 @@ void EventManager::update() {
                 map<string, sf::Mouse::Button>::iterator mouseButtonIt;
 
                 for (mouseButtonIt = _mouseButtonMap.begin(); mouseButtonIt != _mouseButtonMap.end(); mouseButtonIt++) {
-                    isMouseButtonDown = sf::Mouse::IsButtonPressed(mouseButtonIt->second);
+                    isMouseButtonDown = sf::Mouse::isButtonPressed(mouseButtonIt->second);
 
                     if (tme.eventCode == "buttonup" && isMouseButtonDown == false && _mouseButtonStatesMain[mouseButtonIt->first] == 1) {
                         raiseMouseButtonEvent = true;

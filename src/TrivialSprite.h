@@ -43,25 +43,25 @@ public:
 
     virtual void setAlpha(const int alpha = 255) {
         if(_alpha != alpha) {
-            sf::Color c = SFMLsprite.GetColor();
+            sf::Color c = SFMLsprite.getColor();
             _alpha = c.a = alpha;
-            SFMLsprite.SetColor(c);
+            SFMLsprite.setColor(c);
         }
     }
 
     virtual int getAlpha() {
-        sf::Color c = SFMLsprite.GetColor();
+        sf::Color c = SFMLsprite.getColor();
         _alpha = c.a;
         return _alpha;
     }
 
     virtual void setColor(const int r = 255, const int g = 255, const int b = 255, const int alpha=255) {
-        sf::Color c = SFMLsprite.GetColor();
+        sf::Color c = SFMLsprite.getColor();
         c.r = r;
         c.g = g;
         c.b = b;
         c.a = alpha;
-        SFMLsprite.SetColor(c);
+        SFMLsprite.setColor(c);
     }
 
     virtual bool pointOverlap(const float& x,const float& y, const bool& pixeltest = false) {
@@ -86,11 +86,11 @@ public:
     // fuck this shit! i have lots of memory!
     bool pixelTest(const float& x, const float& y, const unsigned int& alphaThreshold = 0) {
         // bheri bheri expensive function
-        sf::Image img = Trivial::ImageManager::Instance()->get(_imageName)->CopyToImage();
+        sf::Image img = Trivial::ImageManager::Instance()->get(_imageName)->copyToImage();
         if(x < 0 || y < 0 || x > _width || y > _height) { // doing this for some morons who will pass x and y not local x and y ~_~
             return false;
         } else {
-            sf::Color col = img.GetPixel(x/_scaleX,y/_scaleY);
+            sf::Color col = img.getPixel(x/_scaleX,y/_scaleY);
             if(col.a == alphaThreshold) {
                 return false;
             } else {
@@ -106,7 +106,7 @@ public:
 	void setScale(const float& x = 1, const float& y = 1) {
 		_scaleX = x;
 		_scaleY = y;
-		SFMLsprite.SetScale(x,y);
+		SFMLsprite.setScale(x,y);
 		_width *= x;
 		_height *= y;
 		_originX = _width/2;

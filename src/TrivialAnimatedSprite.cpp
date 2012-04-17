@@ -7,11 +7,11 @@ namespace Trivial {
 
 void AnimatedSprite::image(const string &name, const float &cellWidth, const float &cellHeight) {
     Sprite::image(name);
-    SFMLsprite.SetTextureRect(sf::IntRect(0, 0, cellWidth, cellHeight));
+    SFMLsprite.setTextureRect(sf::IntRect(0, 0, cellWidth, cellHeight));
     _cellWidth = cellWidth;
     _cellHeight = cellHeight;
-    SFMLsprite.SetOrigin(cellWidth/2,cellHeight/2); // SetOrigin removed and now its SetOrigin again..
-    _cell = SFMLsprite.GetTextureRect();
+    SFMLsprite.setOrigin(cellWidth/2,cellHeight/2); // SetOrigin removed and now its SetOrigin again..
+    _cell = SFMLsprite.getTextureRect();
 
     _ready = true;
 }
@@ -97,8 +97,8 @@ void AnimatedSprite::_update(const bool& render) {
     if(_ready) {
         if(!_currentAnimation.empty()) {
             _animations[_currentAnimation]->update();
-            _cell.Left = _animations[_currentAnimation]->getRow();
-            _cell.Top = _animations[_currentAnimation]->getCol();
+            _cell.left = _animations[_currentAnimation]->getRow();
+            _cell.top = _animations[_currentAnimation]->getCol();
         /*
             cout << "\nfor animation: " << _currentAnimation;
             cout << "\ncell left: "<< _cell.Left;
@@ -106,7 +106,7 @@ void AnimatedSprite::_update(const bool& render) {
             cout << "\n";
             */
         }
-        SFMLsprite.SetTextureRect(_cell);
+        SFMLsprite.setTextureRect(_cell);
     }
 
     Sprite::_update(render);

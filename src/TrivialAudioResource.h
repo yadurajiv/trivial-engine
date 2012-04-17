@@ -21,7 +21,7 @@ public:
 
             _music = new sf::Music();
 
-            if(_music->OpenFromFile(path)) {
+            if(_music->openFromFile(path)) {
                 _ready = true;
                 _stopped = true;
                 setVolume(100);
@@ -33,8 +33,8 @@ public:
             _sound = new sf::Sound();
             _soundBuffer = new sf::SoundBuffer();
 
-            if(_soundBuffer->LoadFromFile(path)) {
-                _sound->SetBuffer(*_soundBuffer);
+            if(_soundBuffer->loadFromFile(path)) {
+                _sound->setBuffer(*_soundBuffer);
                 _ready = true;
                 _stopped = true;
                 setVolume(100);
@@ -47,9 +47,9 @@ public:
     void play() {
         if(_ready) {
             if(_streaming) {
-                _music->Play();
+                _music->play();
             } else {
-                _sound->Play();
+                _sound->play();
             }
 
             _playing = true;
@@ -61,9 +61,9 @@ public:
     void pause() {
         if(_ready) {
             if(_streaming) {
-                _music->Pause();
+                _music->pause();
             } else {
-                _sound->Pause();
+                _sound->pause();
             }
 
             _playing = false;
@@ -75,9 +75,9 @@ public:
     void stop() {
         if(_ready) {
             if(_streaming) {
-                _music->Stop();
+                _music->stop();
             } else {
-                _sound->Stop();
+                _sound->stop();
             }
 
             _playing = false;
@@ -90,9 +90,9 @@ public:
     void setPosition(float x, float y, float z) {
         if(_ready) {
             if(_streaming) {
-                _music->SetPosition(x, y, z);
+                _music->setPosition(x, y, z);
             } else {
-                _sound->SetPosition(x, y, z);
+                _sound->setPosition(x, y, z);
             }
         }
     }
@@ -100,9 +100,9 @@ public:
     void positionRelative(bool b = false) {
         if(_ready) {
             if(_streaming) {
-                _music->SetRelativeToListener(b);
+                _music->setRelativeToListener(b);
             } else {
-                _sound->SetRelativeToListener(b);
+                _sound->setRelativeToListener(b);
             }
         }
     }
@@ -110,9 +110,9 @@ public:
     void attenuation(float a = 1.0) {
         if(_ready) {
             if(_streaming) {
-                _music->SetAttenuation(a);
+                _music->setAttenuation(a);
             } else {
-                _sound->SetAttenuation(a);
+                _sound->setAttenuation(a);
             }
         }
     }
@@ -120,9 +120,9 @@ public:
     void distance(float d = 1.0) {
         if(_ready) {
             if(_streaming) {
-                _music->SetMinDistance(d);
+                _music->setMinDistance(d);
             } else {
-                _sound->SetMinDistance(d);
+                _sound->setMinDistance(d);
             }
         }
     }
@@ -130,9 +130,9 @@ public:
     void loop(bool b) {
         if(_ready) {
             if(_streaming) {
-                _music->SetLoop(b);
+                _music->setLoop(b);
             } else {
-                _sound->SetLoop(b);
+                _sound->setLoop(b);
             }
             _looped = b;
         }
@@ -141,9 +141,9 @@ public:
     unsigned int channels() const {
         if(_ready) {
             if(_streaming) {
-                return _music->GetChannelCount();
+                return _music->getChannelCount();
             } else {
-                return _soundBuffer->GetChannelCount();
+                return _soundBuffer->getChannelCount();
             }
         }
     }
@@ -151,9 +151,9 @@ public:
     unsigned int sampleRate() const {
         if(_ready) {
             if(_streaming) {
-                return _music->GetSampleRate();
+                return _music->getSampleRate();
             } else {
-                return _soundBuffer->GetSampleRate();
+                return _soundBuffer->getSampleRate();
             }
         }
     }
@@ -161,9 +161,9 @@ public:
     sf::Time getSlider() {
         if(_ready) {
             if(_streaming) {
-                return _music->GetPlayingOffset();
+                return _music->getPlayingOffset();
             } else {
-                return _sound->GetPlayingOffset();
+                return _sound->getPlayingOffset();
             }
         }
     }
@@ -171,12 +171,12 @@ public:
     void setSlider(sf::Time pos) {
         if(_ready) {
             if(_streaming) {
-                _music->SetPlayingOffset(pos);
+                _music->setPlayingOffset(pos);
                 // no way in getting offset in sfml 1.7 for the music class
                 // i wonder what will happen if we use the soundstream class
                 // ref: http://www.sfml-dev.org/forum/viewtopic.php?t=154&view=next&sid=b338a5541f001982eaec04b7c4cf812e
             } else {
-                _sound->SetPlayingOffset(pos);
+                _sound->setPlayingOffset(pos);
             }
         }
     }
@@ -184,9 +184,9 @@ public:
     float getPitch() {
         if(_ready) {
             if(_streaming) {
-                return _music->GetPitch();
+                return _music->getPitch();
             } else {
-                return _sound->GetPitch();
+                return _sound->getPitch();
             }
         }
     }
@@ -194,9 +194,9 @@ public:
     void setPitch(float p) {
         if(_ready) {
             if(_streaming) {
-                _music->SetPitch(p);
+                _music->setPitch(p);
             } else {
-                _sound->SetPitch(p);
+                _sound->setPitch(p);
             }
         }
     }
@@ -204,9 +204,9 @@ public:
     float getVolume() {
         if(_ready) {
             if(_streaming) {
-                _volume = _music->GetVolume();
+                _volume = _music->getVolume();
             } else {
-                _volume = _sound->GetVolume();
+                _volume = _sound->getVolume();
             }
 
             return _volume;
@@ -217,9 +217,9 @@ public:
         if(_ready) {
             _volume = v;
             if(_streaming) {
-                _music->SetVolume(_volume);
+                _music->setVolume(_volume);
             } else {
-                _sound->SetVolume(_volume);
+                _sound->setVolume(_volume);
             }
         }
     }
@@ -320,10 +320,10 @@ public:
 
         if(_ready) {
             if(_streaming) {
-                _music->Stop();
+                _music->stop();
                 delete _music;
             } else {
-                _sound->Stop();
+                _sound->stop();
                 delete _sound;
                 delete _soundBuffer;
             }

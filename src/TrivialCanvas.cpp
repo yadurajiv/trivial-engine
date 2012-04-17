@@ -27,12 +27,13 @@ void Canvas::_update() {
 }
 
 void Canvas::clear(const sf::Color& color) {
-    _image.Create(_width, _height,_clearColor);
-    _texture.LoadFromImage(_image);
-    SFMLsprite.SetTexture(_texture);
-    _width = _texture.GetWidth();
-    _height = _texture.GetHeight();
-    SFMLsprite.SetOrigin(_width/2,_height/2); // SetOrigin to SetCenter back to SetOrigin lol XD
+    _image.create(_width, _height,_clearColor);
+    _texture.loadFromImage(_image);
+    SFMLsprite.setTexture(_texture);
+    sf::Vector2u s = _texture.getSize();
+    _width = s.x;
+    _height = s.y;
+    SFMLsprite.setOrigin(_width/2,_height/2); // SetOrigin to SetCenter back to SetOrigin lol XD
     if(_width > _height) {
         _radius = _width/2;
     } else {
@@ -44,9 +45,9 @@ void Canvas::setPixel(const int &x, const int &y,const sf::Color& color) {
         if(pointOverlap(x,y)) {
             int lx = getLocalX(x);
             int ly = getLocalY(y);
-            _image.SetPixel(lx,ly,color);
-            _texture.LoadFromImage(_image);
-            SFMLsprite.SetTexture(_texture);
+            _image.setPixel(lx,ly,color);
+            _texture.loadFromImage(_image);
+            SFMLsprite.setTexture(_texture);
         } else {
             cout << "\noutside the zone biatch!";
         }
@@ -89,7 +90,7 @@ void Canvas::line(const int &x, const int &y, const int &tx, const int &ty) {
     int e2;
 
     while(lx != tlx || ly != tly) {
-        _image.SetPixel(lx,ly,sf::Color::Black);
+        _image.setPixel(lx,ly,sf::Color::Black);
         e2 = 2*err;
         if(e2 > -dy) {
             err -= dy;
@@ -104,8 +105,8 @@ void Canvas::line(const int &x, const int &y, const int &tx, const int &ty) {
             break;
     }
 
-    _texture.LoadFromImage(_image);
-    SFMLsprite.SetTexture(_texture);
+    _texture.loadFromImage(_image);
+    SFMLsprite.setTexture(_texture);
 }
 
 // get the safest point inside the drawable area and draw to it than crash
@@ -124,7 +125,7 @@ void Canvas::line(const float& lx1, const float& ly1, const float& lx2, const fl
 	float ydiff = (y2 - y1);
 
 	if(xdiff == 0.0f && ydiff == 0.0f) {
-		_image.SetPixel(x1,y1,sf::Color::Black);
+		_image.setPixel(x1,y1,sf::Color::Black);
 		return;
 	}
 
@@ -146,7 +147,7 @@ void Canvas::line(const float& lx1, const float& ly1, const float& lx2, const fl
 		for(float x = xmin; x <= xmax; x += 1.0f) {
 			float y = y1 + ((x - x1) * slope);
 			//Color color = color1 + ((color2 - color1) * ((x - x1) / xdiff));
-			_image.SetPixel(x,y,sf::Color::Black);
+			_image.setPixel(x,y,sf::Color::Black);
 		}
 	} else {
 		float ymin, ymax;
@@ -166,12 +167,12 @@ void Canvas::line(const float& lx1, const float& ly1, const float& lx2, const fl
 		for(float y = ymin; y <= ymax; y += 1.0f) {
 			float x = x1 + ((y - y1) * slope);
 			//Color color = color1 + ((color2 - color1) * ((y - y1) / ydiff));
-			_image.SetPixel(x,y,sf::Color::Black);
+			_image.setPixel(x,y,sf::Color::Black);
 		}
 	}
 
-    _texture.LoadFromImage(_image);
-    SFMLsprite.SetTexture(_texture);
+    _texture.loadFromImage(_image);
+    SFMLsprite.setTexture(_texture);
 
 }
 
@@ -190,10 +191,10 @@ void Canvas::circle(const int &x, const int &y, const int &radius) {
     int x0 = getLocalX(x);
     int y0 = getLocalY(y);
 
-    _image.SetPixel(x0, y0 + radius,sf::Color::Black);
-    _image.SetPixel(x0, y0 - radius,sf::Color::Black);
-    _image.SetPixel(x0 + radius, y0,sf::Color::Black);
-    _image.SetPixel(x0 - radius, y0,sf::Color::Black);
+    _image.setPixel(x0, y0 + radius,sf::Color::Black);
+    _image.setPixel(x0, y0 - radius,sf::Color::Black);
+    _image.setPixel(x0 + radius, y0,sf::Color::Black);
+    _image.setPixel(x0 - radius, y0,sf::Color::Black);
 
     while(cx < cy) {
         if(f >= 0) {
@@ -204,18 +205,18 @@ void Canvas::circle(const int &x, const int &y, const int &radius) {
         cx++;
         ddF_x += 2;
         f += ddF_x;
-        _image.SetPixel(x0 + cx, y0 + cy,sf::Color::Black);
-        _image.SetPixel(x0 - cx, y0 + cy,sf::Color::Black);
-        _image.SetPixel(x0 + cx, y0 - cy,sf::Color::Black);
-        _image.SetPixel(x0 - cx, y0 - cy,sf::Color::Black);
-        _image.SetPixel(x0 + cy, y0 + cx,sf::Color::Black);
-        _image.SetPixel(x0 - cy, y0 + cx,sf::Color::Black);
-        _image.SetPixel(x0 + cy, y0 - cx,sf::Color::Black);
-        _image.SetPixel(x0 - cy, y0 - cx,sf::Color::Black);
+        _image.setPixel(x0 + cx, y0 + cy,sf::Color::Black);
+        _image.setPixel(x0 - cx, y0 + cy,sf::Color::Black);
+        _image.setPixel(x0 + cx, y0 - cy,sf::Color::Black);
+        _image.setPixel(x0 - cx, y0 - cy,sf::Color::Black);
+        _image.setPixel(x0 + cy, y0 + cx,sf::Color::Black);
+        _image.setPixel(x0 - cy, y0 + cx,sf::Color::Black);
+        _image.setPixel(x0 + cy, y0 - cx,sf::Color::Black);
+        _image.setPixel(x0 - cy, y0 - cx,sf::Color::Black);
     }
 
-    _texture.LoadFromImage(_image);
-    SFMLsprite.SetTexture(_texture);
+    _texture.loadFromImage(_image);
+    SFMLsprite.setTexture(_texture);
 }
 
 void Canvas::ellipse(const int &w, const int &h) {

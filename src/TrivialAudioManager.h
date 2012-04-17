@@ -57,20 +57,20 @@ public:
     }
 
     void earPosition(float x, float y) {
-        sf::Listener::SetPosition(x, 0, y);
+        sf::Listener::setPosition(x, 0, y);
     };
 
     void earDirection(float x, float y) {
-        sf::Listener::SetDirection(x, 0, y); // changed to setTarget
+        sf::Listener::setDirection(x, 0, y); // changed to setTarget
 //        sf::Listener::SetTarget(x, 0, y); // changed back to SetDirection!
     }
 
     void setVolume(float v) {
-        sf::Listener::SetGlobalVolume(v);
+        sf::Listener::setGlobalVolume(v);
     }
 
     float getVolume() const {
-        return sf::Listener::GetGlobalVolume();
+        return sf::Listener::getGlobalVolume();
     }
 
     void setSoundPosition(const string &name, float x, float y) {
