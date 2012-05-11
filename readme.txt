@@ -1,4 +1,4 @@
-Trivial notes
+Trivial notes for TrivialEngine
 
 
 INSTALLATION ON UNIX
