@@ -1,4 +1,4 @@
-Trivial notes
+Trivial notes for 1.0 and 1.x
 
 
 INSTALLATION ON UNIX
