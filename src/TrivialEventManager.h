@@ -34,6 +34,7 @@ public:
     void lostWindowFocus();
 
     void setEvent(Event &event);
+    sf::Event* getLastEvent() { return &_lastEvent; } // no real gaurantee of what its going to return right no ~.~
 
     //class EventManager : public Object, public b2ContactListener {
     // Callbacks for physics
@@ -77,6 +78,7 @@ private:
     bool _quitFlag;
 
     Event _event;
+    Event _lastEvent;
     Event _emptyEvent;
 };
 

@@ -387,6 +387,9 @@ void EventManager::releaseResource() {
 
 void EventManager::setEvent(Event &event) {
     _event = event;
+
+    // we save it if someone else would need it
+    _lastEvent = _event;
 }
 
 // Box2D for removal

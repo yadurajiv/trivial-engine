@@ -41,6 +41,7 @@ public:
         pauseText.image("pauseText");
         pauseText.moveTo(width()/2, height()/2);
         add("pauseText", pauseText);
+
     }
 
     void reset() {
@@ -59,7 +60,6 @@ public:
     void keyBoardEventCallback(const Trivial::TrivialKeyBoardEvent &e) {
         if(!_activated)
             return;
-
         /* un/setting flags to be used later */
 
         if (e.eventName == "escape-keydown") {
@@ -74,7 +74,6 @@ public:
     void update() {
         if(!_activated)
             return;
-
 
         cout << "\nPAUSE SCENE cam x " << defaultCamera.X();
 
@@ -119,7 +118,6 @@ private:
     Trivial::ImageManager *myImageManager;
 
     bool _activated;
-
 
 };
 

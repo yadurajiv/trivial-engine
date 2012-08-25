@@ -37,7 +37,7 @@ public:
         myEventManager = Trivial::EventManager::Instance();
         myImageManager = Trivial::ImageManager::Instance();
         myFontManager = Trivial::FontManager::Instance();
-        //myAudioManager = Trivial::AudioManager::Instance();
+        myAudioManager = Trivial::AudioManager::Instance();
 
         // subscribing to keyboard events
         myEventManager->subscribe("up-keydown", this);
@@ -113,7 +113,7 @@ public:
         cout << "Loading a font! >> " << myFontManager->add("wendy","data/WENDY.TTF") << "\n";
         cout << "Loading a font! >> " << myFontManager->add("dejavu","data/DEJAVUSANS.TTF") << "\n";
 
-/*
+
         cout << "Initializing Audio!\n";
         myAudioManager->setVolume(100); // set the volume to 50
         cout << "Done!\n";
@@ -125,9 +125,9 @@ public:
         myAudioManager->add("bgmusic","data/maenamMono.ogg", true); // Spatialization only works on mono sounds!!
         myAudioManager->setSoundPosition("bgmusic",300,300); // positioned with the explosion sprite
         myAudioManager->setSoundAttenuation("bgmusic",10); // fall off
-        myAudioManager->setSoundDistance("bgmusic",100); // minimum distance till the sound is heard
+        myAudioManager->setSoundDistance("bgmusic",600); // minimum distance till the sound is heard
         cout << myAudioManager->play("bgmusic") << "\n"; // play loaded music
-*/
+
 
         /** adding explosion **/
         // add the image to the sprite, pass in single cell width and height
@@ -246,7 +246,7 @@ public:
         cout << "\n\nHIT THE 3 KEY FOR SCROLLING TEXTURE IN SPRITE";
         cout << "\n\nHIT THE ARROW KEYS TO USE IT :D\n\n";
 
-////        myAudioManager->earPosition(camera.getCenterX(), camera.getCenterY());
+//        myAudioManager->earPosition(camera.getCenterX(), camera.getCenterY());
     }
 
     /* the event call back is called by the event manager */
@@ -528,7 +528,7 @@ public:
         if(key_up || key_down || key_left || key_right) {
             defaultCamera.moveTo(mcx, mcy);
             //testSprite.moveTo(mcx,mcy);
-//            myAudioManager->earPosition(defaultCamera.getCenterX(), defaultCamera.getCenterY());
+            myAudioManager->earPosition(defaultCamera.getCenterX(), defaultCamera.getCenterY());
         }
 
         if(key_space) {
@@ -588,24 +588,24 @@ public:
 
             std::cout << "\nz key pressed - Audio code commented out";
 //                std::cout << "\nz key pressed - fade to stop!";
-/*
+
             if(myAudioManager->playing("bgmusic")) {
                 std::cout << "\nsound is playing, trying to fadeOut in 5000ms";
                 myAudioManager->fadeOut("bgmusic",5);
             }
-*/
+
         }
 
         if(key_x) {
             key_x = false;
             std::cout << "\nx key pressed - Audio code commented out";
 //            std::cout << "\nx key pressed - fade to start";
-/*
+
             if(myAudioManager->playing("bgmusic") == false) {
                 std::cout << "\nsound is *NOT* playing, trying to fadeIn and play in 5000ms";
                 myAudioManager->fadeIn("bgmusic",5);
             }
-*/
+
         }
 
 /*
@@ -732,7 +732,7 @@ private:
     Trivial::EventManager *myEventManager;
     Trivial::ImageManager *myImageManager;
     Trivial::FontManager *myFontManager;
-    //Trivial::AudioManager *myAudioManager;
+    Trivial::AudioManager *myAudioManager;
 
 };
 

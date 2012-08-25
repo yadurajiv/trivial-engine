@@ -18,9 +18,11 @@ public:
 
     void add(const string &name, const string &path, bool streamAudio) {
 
+/*
         cout << "\n\n--[ Warning | AudioManager ]--";
         cout << "\n> SFML Audio Quits with a SEGFAULT, Do not use till a fix is found";
         cout << "\n> Refer: https://github.com/LaurentGomila/SFML/issues/30\n\n";
+*/
 
         if(streamAudio) {
             addMusic(name,path);
