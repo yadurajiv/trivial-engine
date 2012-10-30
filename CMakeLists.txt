@@ -54,3 +54,5 @@ add_subdirectory(test)
 add_subdirectory(Breakout)
 
 add_subdirectory(Asteroid)
+
+add_subdirectory(byog12)

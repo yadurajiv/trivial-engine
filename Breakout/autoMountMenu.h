@@ -3,6 +3,7 @@
 
 #include "TrivialEngine.h"
 #include "TrivialButton.h"
+#include "score.h"
 
 class Menu : public Trivial::Scene
 {
