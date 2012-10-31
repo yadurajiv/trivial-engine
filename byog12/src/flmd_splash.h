@@ -340,15 +340,19 @@ public:
         flush(ossfps);
 
         if(key_left) {
+			defaultCamera.lookAt(defaultCamera.X() - 5, defaultCamera.Y());
         }
 
         if(key_right) {
+			defaultCamera.lookAt(defaultCamera.X() + 5, defaultCamera.Y());
         }
 
         if(key_up) {
+			defaultCamera.lookAt(defaultCamera.X(), defaultCamera.Y() - 5);
         }
 
         if(key_down) {
+			defaultCamera.lookAt(defaultCamera.X(), defaultCamera.Y() + 5);
         }
 
         if(key_escape) {
