@@ -35,7 +35,6 @@ public:
         myImageManager = Trivial::ImageManager::Instance();
         myFontManager = Trivial::FontManager::Instance();
         myAudioManager = Trivial::AudioManager::Instance();
-		
 
         // subscribing to keyboard events
         myEventManager->subscribe("up-keydown", this);
@@ -113,6 +112,7 @@ public:
 		
 		//aMap.moveTo(400,300);
 
+		//add("Map", aMap);
 
         /* loading a font */
         cout << "Loading a font! >> " << myFontManager->add("wendy","data/WENDY.TTF") << "\n";
@@ -121,6 +121,12 @@ public:
         HUDText.text(10,5,"FPS: 000");
         add("hudtext", HUDText);
 
+        cout << "testing - " << mySettings->get("test");
+
+        mySettings->set("nuke","boom");
+        cout << "\ntesting - " << mySettings->get("nuke");
+
+        mySettings->save();
 
     }
 
@@ -444,6 +450,7 @@ private:
     Trivial::ImageManager *myImageManager;
     Trivial::FontManager *myFontManager;
     Trivial::AudioManager *myAudioManager;
+    Trivial::Settings *mySettings;
 
 };
 
