@@ -35,10 +35,18 @@ public:
 	}
 	
 	void loadMapImage(const char *imageName) {
-        
-		_levelBackground.image(imageName);
+		_imageName = imageName;
+		_levelBackground.image(_imageName);
 		
 
+	}
+	
+	virtual void update() {
+		Trivial::SceneObject::update();
+	}
+	
+	virtual void _update(const bool &render=false) {
+		Trivial::SceneObject::_update(true);
 	}
 	
 	
@@ -59,7 +67,7 @@ public:
 		temp.r = r;
 		temp.g = g;
 		temp.b = b;
-		temp.a = 1;
+		temp.a = 255;
 		temp.image.image(imageName);
 		
 		_mapColorArray.push_back(temp);
@@ -67,12 +75,13 @@ public:
 	}
 	
 	void loadMap() {
+		cout<<"loading start"<<endl;
 		for (int i=0; i<_levelBackground.width(); i++) {
-			for (int j=0; i<_levelBackground.height(); j++) {
+			for (int j=0; j<_levelBackground.height(); j++) {
 				sf::Image img = Trivial::ImageManager::Instance()->get(_imageName)->copyToImage();
 
 		        sf::Color col = img.getPixel(i,j);
-		        
+				//cout<<"COLOR "<<col.r<<":"<<col.g<<":"<<col.b<<":"<<col.a<<endl;
 				// Traverse Map Color Array to find images
 				for(std::vector<rgbaToImage>::iterator it = _mapColorArray.begin(); it != _mapColorArray.end(); it++) {
 				//for(int ctr=0; ctr<_mapColorIndex; ctr++) {
@@ -83,10 +92,12 @@ public:
 						int X = it->image.width()*i;
 						int Y = it->image.height()*j;
 						it->image.moveTo(X,Y);
+						
 					}
 				}
 			}
 		}
+		cout<<"loading end"<<endl;
 	}
 	
 	

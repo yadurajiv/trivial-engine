@@ -101,10 +101,11 @@ public:
 
 		aMap.replaceRGBWithImage(221, 219, 72, "forest");
 		aMap.replaceRGBWithImage(4, 183, 57, "dirt");
-		
+				
 		aMap.loadMap();
 		
 		add("Map", aMap);
+		//aMap.moveTo(400,300);
 
 
         /* loading a font */
