@@ -13,6 +13,7 @@
 
 #include "TrivialEngine.h"
 
+#include "Map.h"
 /**
 
 **/
@@ -34,6 +35,10 @@ public:
         myImageManager = Trivial::ImageManager::Instance();
         myFontManager = Trivial::FontManager::Instance();
         myAudioManager = Trivial::AudioManager::Instance();
+		
+		myImageManager->add("testmap", "../sprites/test.jpg");
+
+		aMap.loadMapImage("testmap");
 
         // subscribing to keyboard events
         myEventManager->subscribe("up-keydown", this);
@@ -89,6 +94,16 @@ public:
         myEventManager->subscribe("right-buttondown-mouse", this);
         myEventManager->subscribe("middle-buttonup-mouse", this);
         myEventManager->subscribe("middle-buttondown-mouse", this);
+
+		myImageManager->add("forest", "../sprites/forest.png");
+		myImageManager->add("dirt", "../sprites/dirt.png");
+
+		aMap.replaceRGBWithImage(221, 219, 72, "forest");
+		aMap.replaceRGBWithImage(4, 183, 57, "dirt");
+		
+		aMap.loadMap();
+		
+		add("Map", aMap);
 
 
         /* loading a font */
@@ -377,6 +392,8 @@ public:
 
 private:
     Trivial::GUIText HUDText;
+
+	Map aMap;
 
     bool key_up;
     bool key_down;
