@@ -36,16 +36,16 @@ FIND_LIBRARY(SFML_WINDOW_LIB
 
    FIND_LIBRARY(OpenGL_LIBRARY OpenGL )
 
-set(TINYXML_INCLUDE_PATH ${PROJECT_SOURCE_DIR}/extlibs/tinyxml)
+set(TINYXML_INCLUDE_PATH ${PROJECT_SOURCE_DIR}/extlibs/tinyxml2)
+# 
+# FIND_LIBRARY(TINYXML_LIB
+#     NAMES tinyxml
+#     PATHS
+#     ${PROJECT_SOURCE_DIR}/extlibs/tinyxml
+#     DOC "TinyXML Library"
+# )
 
-FIND_LIBRARY(TINYXML_LIB
-    NAMES tinyxml
-    PATHS
-    ${PROJECT_SOURCE_DIR}/extlibs/tinyxml
-    DOC "TinyXML Library"
-)
-
-add_subdirectory(extlibs/tinyxml)
+add_subdirectory(extlibs/tinyxml2)
 
 add_subdirectory(src)
 

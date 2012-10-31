@@ -10,6 +10,7 @@ set(SRC
     ${SRCROOT}/TrivialAudioResource.h
     ${SRCROOT}/TrivialBox2D.cpp
     ${SRCROOT}/TrivialBox2D.h
+	${SRCROOT}/TrivialButton.h
     ${SRCROOT}/TrivialCamera.cpp
     ${SRCROOT}/TrivialCamera.h
 	${SRCROOT}/TrivialCanvas.cpp
@@ -38,6 +39,8 @@ set(SRC
     ${SRCROOT}/TrivialSceneObject.h
     ${SRCROOT}/TrivialSprite.cpp
     ${SRCROOT}/TrivialSprite.h
+	${SRCROOT}/TrivialSettings.cpp
+	${SRCROOT}/TrivialSettings.h
 #    ${SRCROOT}/TrivialShapes.cpp
 #    ${SRCROOT}/TrivialShapes.h
 #    ${SRCROOT}/TrivialTileMap.cpp
