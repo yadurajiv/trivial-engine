@@ -92,12 +92,12 @@ public:
         myEventManager->subscribe("middle-buttonup-mouse", this);
         myEventManager->subscribe("middle-buttondown-mouse", this);
 
-		myImageManager->add("testmap", "sprites/test.jpeg");
+		myImageManager->add("testmap", "data/test.jpeg");
 
 		aMap.loadMapImage("testmap");
 		
-		myImageManager->add("forest", "sprites/forest.png");
-		myImageManager->add("dirt", "sprites/dirt.png");
+		myImageManager->add("forest", "data/forest.png");
+		myImageManager->add("dirt", "data/dirt.png");
 
 		aMap.replaceRGBWithImage(221, 219, 72, "forest");
 		aMap.replaceRGBWithImage(4, 183, 57, "dirt");
