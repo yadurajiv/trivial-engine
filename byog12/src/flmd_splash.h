@@ -36,9 +36,6 @@ public:
         myFontManager = Trivial::FontManager::Instance();
         myAudioManager = Trivial::AudioManager::Instance();
 		
-		myImageManager->add("testmap", "../sprites/test.jpg");
-
-		aMap.loadMapImage("testmap");
 
         // subscribing to keyboard events
         myEventManager->subscribe("up-keydown", this);
@@ -95,8 +92,12 @@ public:
         myEventManager->subscribe("middle-buttonup-mouse", this);
         myEventManager->subscribe("middle-buttondown-mouse", this);
 
-		myImageManager->add("forest", "../sprites/forest.png");
-		myImageManager->add("dirt", "../sprites/dirt.png");
+		myImageManager->add("testmap", "sprites/test.jpeg");
+
+		aMap.loadMapImage("testmap");
+		
+		myImageManager->add("forest", "sprites/forest.png");
+		myImageManager->add("dirt", "sprites/dirt.png");
 
 		aMap.replaceRGBWithImage(221, 219, 72, "forest");
 		aMap.replaceRGBWithImage(4, 183, 57, "dirt");

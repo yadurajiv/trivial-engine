@@ -22,8 +22,7 @@ private:
 		Trivial::Sprite image;
 	};
 	
-	rgbaToImage *_mapColorArray;
-	int _mapColorIndex;
+	std::vector<rgbaToImage> _mapColorArray;
 	
 	const char *_imageName;
 
@@ -39,30 +38,31 @@ public:
         
 		_levelBackground.image(imageName);
 		
-		_mapColorIndex = 0;
 
 	}
 	
 	
 	void replaceRGBAWithImage(int r, int g, int b, int a, const char *imageName) {
-		_mapColorArray[_mapColorIndex].r = r;
-		_mapColorArray[_mapColorIndex].g = g;
-		_mapColorArray[_mapColorIndex].b = b;
-		_mapColorArray[_mapColorIndex].a = a;
+		rgbaToImage temp;
+		temp.r = r;
+		temp.g = g;
+		temp.b = b;
+		temp.a = a;
+
+		temp.image.image(imageName);
 		
-		_mapColorArray[_mapColorIndex].image.image(imageName);
-		
-		_mapColorIndex++;
+		_mapColorArray.push_back(temp);
 	}
 	
 	void replaceRGBWithImage(int r, int g, int b, const char *imageName) {
-		_mapColorArray[_mapColorIndex].r = r;
-		_mapColorArray[_mapColorIndex].g = g;
-		_mapColorArray[_mapColorIndex].b = b;
-		_mapColorArray[_mapColorIndex].a = 1;
-		_mapColorArray[_mapColorIndex].image.image(imageName);
+		rgbaToImage temp;
+		temp.r = r;
+		temp.g = g;
+		temp.b = b;
+		temp.a = 1;
+		temp.image.image(imageName);
 		
-		_mapColorIndex++;
+		_mapColorArray.push_back(temp);
 		
 	}
 	
@@ -74,14 +74,15 @@ public:
 		        sf::Color col = img.getPixel(i,j);
 		        
 				// Traverse Map Color Array to find images
-				for(int i=0; i<_mapColorIndex; i++) {
-					if (col.r == _mapColorArray[_mapColorIndex].r && col.g == _mapColorArray[_mapColorIndex].g && col.b == _mapColorArray[_mapColorIndex].b && col.a == _mapColorArray[_mapColorIndex].a) {
+				for(std::vector<rgbaToImage>::iterator it = _mapColorArray.begin(); it != _mapColorArray.end(); it++) {
+				//for(int ctr=0; ctr<_mapColorIndex; ctr++) {
+					if (col.r == it->r && col.g == it->g && col.b == it->b && col.a == it->a) {
 						stringstream mapIndex;
 						mapIndex<<"MapIndex"<<i<<":"<<j;
-						add(mapIndex.str().c_str(), _mapColorArray[_mapColorIndex].image);
-						int X = _mapColorArray[_mapColorIndex].image.width()*i;
-						int Y = _mapColorArray[_mapColorIndex].image.height()*j;
-						_mapColorArray[_mapColorIndex].image.moveTo(X,Y);
+						add(mapIndex.str().c_str(), it->image);
+						int X = it->image.width()*i;
+						int Y = it->image.height()*j;
+						it->image.moveTo(X,Y);
 					}
 				}
 			}
