@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TrivialEngine>
+    <settings>
+        <data type="string" name="info" value="auto generated settings"/>
+        <data type="string" name="nuke" value="boom"/>
+        <data type="string" name="test" value="rambo"/>
+    </settings>
+</TrivialEngine>

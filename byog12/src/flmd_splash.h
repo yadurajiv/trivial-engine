@@ -35,10 +35,11 @@ public:
         myImageManager = Trivial::ImageManager::Instance();
         myFontManager = Trivial::FontManager::Instance();
         myAudioManager = Trivial::AudioManager::Instance();
-		
-		myImageManager->add("testmap", "../sprites/test.jpg");
+		mySettings = Trivial::Settings::Instance();
 
-		aMap.loadMapImage("testmap");
+		myImageManager->add("testmap", "sprites/test.jpeg");
+
+		//aMap.loadMapImage("testmap");
 
         // subscribing to keyboard events
         myEventManager->subscribe("up-keydown", this);
@@ -95,16 +96,15 @@ public:
         myEventManager->subscribe("middle-buttonup-mouse", this);
         myEventManager->subscribe("middle-buttondown-mouse", this);
 
-		myImageManager->add("forest", "../sprites/forest.png");
-		myImageManager->add("dirt", "../sprites/dirt.png");
+		myImageManager->add("forest", "sprites/forest.png");
+		myImageManager->add("dirt", "sprites/dirt.png");
 
-		aMap.replaceRGBWithImage(221, 219, 72, "forest");
-		aMap.replaceRGBWithImage(4, 183, 57, "dirt");
-		
-		aMap.loadMap();
-		
-		add("Map", aMap);
+		//aMap.replaceRGBWithImage(221, 219, 72, "forest");
+		//aMap.replaceRGBWithImage(4, 183, 57, "dirt");
 
+		//aMap.loadMap();
+
+		//add("Map", aMap);
 
         /* loading a font */
         cout << "Loading a font! >> " << myFontManager->add("wendy","data/WENDY.TTF") << "\n";
@@ -113,6 +113,12 @@ public:
         HUDText.text(10,5,"FPS: 000");
         add("hudtext", HUDText);
 
+        cout << "testing - " << mySettings->get("test");
+
+        mySettings->set("nuke","boom");
+        cout << "\ntesting - " << mySettings->get("nuke");
+
+        mySettings->save();
 
     }
 
@@ -432,6 +438,7 @@ private:
     Trivial::ImageManager *myImageManager;
     Trivial::FontManager *myFontManager;
     Trivial::AudioManager *myAudioManager;
+    Trivial::Settings *mySettings;
 
 };
 

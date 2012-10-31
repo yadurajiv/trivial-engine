@@ -8,6 +8,7 @@
 #include "TrivialImageManager.h"
 #include "TrivialFontManager.h"
 #include "TrivialAudioManager.h"
+#include "TrivialSettings.h"
 
 // Classes
 #include "TrivialAnimatedSprite.h"

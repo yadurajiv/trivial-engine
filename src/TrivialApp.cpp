@@ -4,6 +4,7 @@
 #include "TrivialAudioManager.h"
 #include "TrivialFontManager.h"
 #include "TrivialImageManager.h"
+#include "TrivialSettings.h"
 
 namespace Trivial {
 
@@ -21,6 +22,11 @@ App::App() {
     _windowStyle = sf::Style::Default;
     // explicit ContextSettings(unsigned int depth = 0, unsigned int stencil = 0, unsigned int antialiasing = 0, unsigned int major = 2, unsigned int minor = 0) :
     // _contextSettings = sf::ContextSettings(_colorDepth, _colorDepth, 6, 3, 2);
+
+    /**
+        settings are loaded once initially!
+    **/
+    Trivial::Settings::Instance()->load();
 }
 
 App* App::Instance()
