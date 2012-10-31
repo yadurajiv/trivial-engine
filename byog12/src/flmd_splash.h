@@ -35,6 +35,7 @@ public:
         myImageManager = Trivial::ImageManager::Instance();
         myFontManager = Trivial::FontManager::Instance();
         myAudioManager = Trivial::AudioManager::Instance();
+        mySettings = Trivial::Settings::Instance();
 
         // subscribing to keyboard events
         myEventManager->subscribe("up-keydown", this);
@@ -94,22 +95,22 @@ public:
 		myImageManager->add("testmap", "data/test.jpeg");
 
 		aMap.loadMapImage("testmap");
-		
+
 		myImageManager->add("forest", "data/forest.png");
 		myImageManager->add("dirt", "data/dirt.png");
 
 		aMap.replaceRGBWithImage(221, 219, 72, "forest");
 		aMap.replaceRGBWithImage(4, 183, 57, "dirt");
-				
+
 		aMap.loadMap();
-		
+
 		add("Map", aMap);
-		
+
 		// Trivial::Sprite aSprite;
 		// 		aSprite.image("forest");
 		// 		aSprite.moveTo(8,8);
 		// 		add("aSprite",aSprite);
-		
+
 		//aMap.moveTo(400,300);
 
 		//add("Map", aMap);
