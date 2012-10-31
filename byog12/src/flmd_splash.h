@@ -105,6 +105,12 @@ public:
 		aMap.loadMap();
 		
 		add("Map", aMap);
+		
+		// Trivial::Sprite aSprite;
+		// 		aSprite.image("forest");
+		// 		aSprite.moveTo(8,8);
+		// 		add("aSprite",aSprite);
+		
 		//aMap.moveTo(400,300);
 
 

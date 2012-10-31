@@ -19,7 +19,7 @@ private:
 		int g;
 		int b;
 		int a;
-		Trivial::Sprite image;
+		const char *image;
 	};
 	
 	std::vector<rgbaToImage> _mapColorArray;
@@ -32,6 +32,7 @@ public:
 	Map() {
 		myImageManager = ImageManager::Instance();
 		Trivial::SceneObject();
+		moveTo(0,0);
 	}
 	
 	void loadMapImage(const char *imageName) {
@@ -57,7 +58,7 @@ public:
 		temp.b = b;
 		temp.a = a;
 
-		temp.image.image(imageName);
+		temp.image = imageName;
 		
 		_mapColorArray.push_back(temp);
 	}
@@ -68,7 +69,7 @@ public:
 		temp.g = g;
 		temp.b = b;
 		temp.a = 255;
-		temp.image.image(imageName);
+		temp.image = imageName;
 		
 		_mapColorArray.push_back(temp);
 		
@@ -76,7 +77,9 @@ public:
 	
 	void loadMap() {
 		cout<<"loading start"<<endl;
+		Trivial::Sprite **aSprite = new Trivial::Sprite*[50];
 		for (int i=0; i<50; i++) {
+			aSprite[i] = new Trivial::Sprite[38];
 			for (int j=0; j<38; j++) {
 				sf::Image img = Trivial::ImageManager::Instance()->get(_imageName)->copyToImage();
 
@@ -87,13 +90,17 @@ public:
 				//for(int ctr=0; ctr<_mapColorIndex; ctr++) {
 					if (col.r == it->r && col.g == it->g && col.b == it->b && col.a == it->a) {
 						stringstream mapIndex;
+						int index = i*j;
 						mapIndex<<"MapIndex"<<i<<":"<<j;
-						add(mapIndex.str().c_str(), it->image);
-						int X = it->image.width()*i + Trivial::SceneObject::X();
-						int Y = it->image.height()*j + Trivial::SceneObject::Y();
+						aSprite[i][j].image(it->image);
+						int X = aSprite[i][j].width()*i + aSprite[i][j].width()/2 + Trivial::SceneObject::X();
+						int Y = aSprite[i][j].height()*j + aSprite[i][j].height()/2 + Trivial::SceneObject::Y();
 
-						it->image.moveTo(X,Y);
-						cout<<"Postition : "<<it->image.X()<<":"<<it->image.Y()<<endl;
+						aSprite[i][j].moveTo(8 + 16*i,8 +16*j);
+						cout<<"Postition : "<<aSprite[i][j].X()<<":"<<aSprite[i][j].Y()<<endl;
+						//cout<<"Postition : "<<Trivial::SceneObject::X()<<":"<<Trivial::SceneObject::Y()<<endl;
+						add(mapIndex.str().c_str(), aSprite[i][j]);
+						
 						break;
 					}
 				}
@@ -103,7 +110,9 @@ public:
 	}
 	
 	
-	~Map(){}
+	~Map(){
+		
+	}
 };
 
 #endif
