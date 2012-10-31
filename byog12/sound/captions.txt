@@ -1,0 +1,67 @@
++---common
+|       death1.ogg                                                      Aah
+|       death2.ogg                                                      Uhh
+|       death3.ogg                                                   Ah
+|       hurt1.ogg                                                        Ah
+|       hurt2.ogg                                                       Ah
+|       
++---enemy
+|       alarmed1.ogg                                            Halt! Who goes there?
+|       alarmed2.ogg                                            Halt! Who goes there?
+|       curious1.ogg                                            Huh?
+|       curious2.ogg                                            What?
+|       pursuit1.ogg                                            I'll get you today!
+|       pursuit3.ogg                                            You will know no mercy today!
+|       
++---female
+|       affirmative1.ogg                                        Yes
+|       affirmative2.ogg                                        Sure
+|       affirmative3.ogg                                        Alright
+|       attack1.ogg                                                He's a goner!
+|       attack2.ogg                                                 No-proble-mo!
+|       attack3.ogg                                                  They stand no chance
+|       doubtful1.ogg                                           Are you sure?
+|       doubtful2.ogg                                           Really?
+|       move1.ogg                                               Okay
+|       move2.ogg                                               On It
+|       negative1.ogg                                           No
+|       negative2.ogg                                           Sorry
+|       select.ogg                                                      Yes
+|       
++---handler
+|       begin1.ogg                                              Our hopes are with you
+|       begin2.ogg                                              Shall we begin?
+|       begin3.ogg                                              Are you ready?
+|       lose1.ogg                                               There is always a next time
+|       lose2.ogg                                               Why do we fall, Master Wayne?
+|       lose3.ogg                                               Was that the best of you?
+|       win1.ogg                                                Fair tidings!
+|       win2.ogg                                                You have done it!
+|       
++---lord
+|       plead1.ogg                                              Please dont kill me
+|       plead2.ogg                                              I don't want to die
+|       plead3.ogg                                              Take what you want!
+|       plead4.ogg                                              Take Everything!
+|       plead5.ogg                                              Have Mercy!
+|       
+\---male
+        affirmative1.ogg                                        Yes
+        affirmative2.ogg                                        Sure
+        affirmative3.ogg                                        Alright
+        attack1.ogg                                                 He's a goner
+        attack2.ogg                                              No problem
+        attack3.ogg                                             They stand no chance
+        attack4.ogg                                             No-proble-mo
+        doubtful1.ogg                                           Are you sure?
+        doubtful2.ogg                                           Sure?
+        doubtful3.ogg                                           Really?
+        move1.ogg                                               On it
+        move2.ogg                                               On it
+        move3.ogg                                               Okay
+        move4.ogg                                               Okay
+        move5.ogg                                               Going
+        negative1.ogg                                           No
+        negative2.ogg                                           Sorry
+        negative3.ogg                                           Uh huh
+        select.ogg                                                      Yes
