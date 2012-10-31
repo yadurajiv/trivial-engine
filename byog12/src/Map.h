@@ -77,10 +77,10 @@ public:
 	
 	void loadMap() {
 		cout<<"loading start"<<endl;
-		Trivial::Sprite **aSprite = new Trivial::Sprite*[50];
-		for (int i=0; i<50; i++) {
-			aSprite[i] = new Trivial::Sprite[38];
-			for (int j=0; j<38; j++) {
+		Trivial::Sprite **aSprite = new Trivial::Sprite*[(int)_levelBackground.width()];
+		for (int i=0; i<_levelBackground.width(); i++) {
+			aSprite[i] = new Trivial::Sprite[(int)_levelBackground.height()];
+			for (int j=0; j<_levelBackground.height(); j++) {
 				sf::Image img = Trivial::ImageManager::Instance()->get(_imageName)->copyToImage();
 
 		        sf::Color col = img.getPixel(i,j);
@@ -96,14 +96,22 @@ public:
 						int X = aSprite[i][j].width()*i + aSprite[i][j].width()/2 + Trivial::SceneObject::X();
 						int Y = aSprite[i][j].height()*j + aSprite[i][j].height()/2 + Trivial::SceneObject::Y();
 
-						aSprite[i][j].moveTo(8 + 16*i,8 +16*j);
-						cout<<"Postition : "<<aSprite[i][j].X()<<":"<<aSprite[i][j].Y()<<endl;
-						//cout<<"Postition : "<<Trivial::SceneObject::X()<<":"<<Trivial::SceneObject::Y()<<endl;
-						add(mapIndex.str().c_str(), aSprite[i][j]);
+						aSprite[i][j].moveTo(X,Y);
+
+						//add(mapIndex.str().c_str(), aSprite[i][j]);
 						
 						break;
 					}
 				}
+			}
+		}
+		
+		for(int i=0; i<50; i++){
+			for(int j=0;j<38;j++){
+				stringstream mapIndex;
+				int index = i*j;
+				mapIndex<<"MapIndex"<<i<<":"<<j;
+				add(mapIndex.str().c_str(), aSprite[i][j]);
 			}
 		}
 		cout<<"loading end"<<endl;
