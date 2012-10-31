@@ -42,11 +42,11 @@ public:
 	}
 	
 	virtual void update() {
-		Trivial::SceneObject::update();
+		
 	}
 	
-	virtual void _update(const bool &render=false) {
-		Trivial::SceneObject::_update(true);
+	virtual void _update(const bool& render = false) {
+		Trivial::SceneObject::_update(render);
 	}
 	
 	
@@ -76,8 +76,8 @@ public:
 	
 	void loadMap() {
 		cout<<"loading start"<<endl;
-		for (int i=0; i<_levelBackground.width(); i++) {
-			for (int j=0; j<_levelBackground.height(); j++) {
+		for (int i=0; i<50; i++) {
+			for (int j=0; j<38; j++) {
 				sf::Image img = Trivial::ImageManager::Instance()->get(_imageName)->copyToImage();
 
 		        sf::Color col = img.getPixel(i,j);
@@ -89,10 +89,12 @@ public:
 						stringstream mapIndex;
 						mapIndex<<"MapIndex"<<i<<":"<<j;
 						add(mapIndex.str().c_str(), it->image);
-						int X = it->image.width()*i;
-						int Y = it->image.height()*j;
+						int X = it->image.width()*i + Trivial::SceneObject::X();
+						int Y = it->image.height()*j + Trivial::SceneObject::Y();
+
 						it->image.moveTo(X,Y);
-						
+						cout<<"Postition : "<<it->image.X()<<":"<<it->image.Y()<<endl;
+						break;
 					}
 				}
 			}
