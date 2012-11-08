@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="96" height="96" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="forest" tilewidth="32" tileheight="32">
+  <image source="../sprites/forestground06dv5_0.png" width="629" height="679"/>
+ </tileset>
+ <tileset firstgid="400" name="water" tilewidth="32" tileheight="32">
+  <image source="../sprites/watertileset3qb2tg0.png" width="410" height="331"/>
+ </tileset>
+ <tileset firstgid="520" name="plant2" tilewidth="32" tileheight="32">
+  <image source="../sprites/plant2.png" width="225" height="205"/>
+ </tileset>
+ <tileset firstgid="562" name="world_trans" tilewidth="32" tileheight="32">
+  <image source="../../../../../Downloads/byog/world_trans.png" width="256" height="20000"/>
+ </tileset>
+ <tileset firstgid="5562" name="lord" tilewidth="32" tileheight="32">
+  <image source="../sprites/lord.png" width="832" height="1344"/>
+ </tileset>
+ <layer name="terrain" width="96" height="96">
+  <data encoding="base64" compression="zlib">
+   eJztwwEJAAAMBKGL9v1TrcdQcNVUVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVfX5A4tIAIg=
+  </data>
+ </layer>
+ <layer name="trees" width="96" height="96">
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20PBxQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPwbkAAAAQ==
+  </data>
+ </layer>
+ <layer name="paths" width="96" height="96">
+  <data encoding="base64" compression="zlib">
+   eJztnElrFEEYhnsmHcxN/4IT48XlFmNOxpsG1IvLSQUX3FBxQ/0LekvuiaIobokaBHEBPQreRPDoelIRBVEU1K+wmql0ZjpVNdX9VdW8D7xUJ+lkpp+aqbUnSQJCYqan3BIUs5nSqCVJv+MsqVV7Hbt6k2S3zBFZ7qHs7a32eZgg3AtXA5RVjjNUkf8RmYPk+ZB0rR4f9tS/cD+YczZKWd9hViv+e+rlX8eIzHH5mj8hX/eiPEk55aF/4V64yfwPS/djHWZxrfk3M/9V1IFvFPWJmXvV/5D0J743XrPPWBv/It3ST5v0kY0W/ieonKRcUDKp5KKM+rNLlMs5/0s1n0PV/XTZ2PaVwt01ynXKDcrNNrklM0WZVnKbcoeyzuKxY8Kmz8za/nuU+5p5S3knj4X/R5TH0r9pPx0TuvOilcns9vkJeXhq4F/NC8X/Gs3nMBipfxPUOnhu6b6Vfx3g/z9ZHRT5/6Lp/xn8W7GW8qqN21+U35r+X8K/FUX+RRbU5/f/mvImIP8+rTcK/+/JwweLtv875SPlE+WzhX8xT+CYA5Sx5thveR3Cv+gDvtLvf5NOTfKD8lNG178Yp3KOQfNrX65ig/Av1m5EHfyh8q9Mrd48zr7Op16fPY7V9a86cOHftJ1Q1746XXNUY4MYA61wlOUGj+vSv2l7MqA8tg99AAcu/Kvefd6n8BEX/vPtuGl7Mgr/TvwP53zG2ma4RPVv29bm67CbfZpiulcwXz/qIwvTJOmbJ1y4GoNn+6c+IvwvapM+peSoB1dj8BDdF9WDaWxp13bHMu7W9d+qPvoMzreFew2ubGz9m8aWbvOfB/79AP79Bf79AP75gX9+4J8X+OcH/nmBf37gnxf4Dx/458Un/+fofXw+bZbdgE/+x8j5eNosQ8Nmz6Rq/3fJ60w691gwEbBz23tZq947f0COH6ZzjwVX6PhqYHXQyHm0jQ/tzxS5nw7Mf6f3nlW1f76PvO7XyIHU7FxuXN17Vvb++VFytYGysSCbKMdSs3O5CeXeM+F0C2VrQbYp/nXP5can8WMR8M9LjP5D+gx1jP4bDON3W2L0r449Q/C/nbKjIDsV/7rncpL/300+c5pcndHI2dTsXE5afXbCV2Kcf4XS9wpinH+F5j/W/hf+eYB/3muCf95rgn/eawrNf6zzrxD8xz7/AtUD/7zAPy/wzwv88wL/vMA/L/DPC/zzAv+8wD8v8M8L/PMC/7zAPy/wzwv88wL/vJTpf1lv64AmeP3zAv+8wD8v8M8L/PMC/7zAPy/wzwv88wL/vMA/L/DPC/y35h/5bDaO
+  </data>
+ </layer>
+ <layer name="objects" width="96" height="96">
+  <data encoding="base64" compression="zlib">
+   eJzt3btOFGEchnESd/cmuARLLsVEk6XTzkNjtBFtWEg4qYkHtAChQiqFhkMjUIGdpY2JR4KCFiLWvl92ieMys8yMM99/d+b5JW9wJ5sJeb64Biymrw8AAMCv89Xm1wtV2++jrOhvq67uA9og/c30094U/W3R3xb9bdHfFv1t0d8W/W25n8HGWhuPGAAAAAAAAAAAAAAAAAAAAAAAQBpHZ/4ujTe1bL+fsgh2/58zeEv/1LI4g/fq/6HDGVzW/a4EdjXl37OiiWqftP+e2n/t0P96yP3cGVwr8Tl0ap/234Eot0Lud0PXbtLftP+dkvY/rb2P/rdL2j9Oe/rnI277rM+A/k1J+2d1BsO6T6NtI9poifqnaZ9V/wndZ7JtUyVq71j2h7/+df0cNsjvI/6Rtn2a/hfV/lKgf52z8NofJ9HfFv1t0d8W/W3R3xb97dHfFu1t0d4O3W3R3hb97dHeFv3t9UL/+crp73nXw/+n4LP/qjqtaeu1eK+dxYj+H/WeT9pn7Yu226Nn4LP/hhptalu1eK+dJfVfDjmDb3rPvnagfdd+FKx/HmewrUY72utavNfOmtqvh/T/qfccar+0I+13j/Z3fPUfqybbQOv5FA19HdFGW6/PFey5Fd36+e+e3zKhTWpT2l3tnna/4P3zkvTz3/V/oD3UHmmPtWntifa0QGcQ7J5n/6Sf/8HnF83oz7PaM21Omy9Y/24U9vyoBV17ri3SP3dh/V/o2kttqUD9u9Vx/6FKc86Krq3S3ovj/o1Kc84rXdugvxfu+XVn28bzxAEAQJQ/AQPpxQ==
+  </data>
+ </layer>
+ <layer name="water" width="96" height="96">
+  <data encoding="base64" compression="zlib">
+   eJzt1bkOglAQQFGif6lWaqVW6o/baaV0IJFFwDeJ75xkGgoCd1iKAgAAAAAAAAAAAAAAAAAAAAAAACDealEU69psFtFXlJdt2XvXGDtI51P/vf7J6B9L/1j6x9I/1qFsfWzMSf9kzmXrS2Ou+gMJPJfVkFa9vR2k9al92w7G7MhOu3X1rzcbuqO+8/Our/+Q+eb8VOZoP/RbZQ/v5mz/i/fmn0V3z3kH0b1z30HbvTePpeibW/+uJhHPdm7vwJT7/XX/WyY7mGrO73rO/4G5jemof6x7rf1D/xCefQAAAAAAABjnBSq3QZI=
+  </data>
+ </layer>
+</map>
