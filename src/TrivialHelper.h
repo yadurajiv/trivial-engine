@@ -179,6 +179,17 @@ http://www.emanueleferonato.com/2012/03/09/algorithm-to-determine-if-a-point-is-
         prect->d = Trivial::Helper::rotatePoint(prect->d.x, prect->d.y, originx, originy, angle);
     }
 
+    static void UintToRGBA(const unsigned int& uicolor, int* r, int* g, int* b, int* a) {
+            *r = (uicolor >> 16) & 0xFF;
+			*g = (uicolor >> 8) & 0xFF;
+			*b = uicolor & 0xFF;
+			*a = int((uicolor >> 24) & 0xFF) / 255;
+    }
+
+    static unsigned int RGBAtoUint(const int& r, const int& g, const int& b, const int& a) {
+        return (((a>1)?a:(a * 255)) & 0xFF) << 24 | (r & 0xFF) << 16 | (g & 0xFF) << 8 | (b & 0xFF);
+    }
+
 private:
     Helper();  // Private so that it can  not be called
     ~Helper();

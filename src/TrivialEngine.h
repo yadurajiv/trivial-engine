@@ -26,5 +26,6 @@
 #include "TrivialSceneObject.h"
 #include "TrivialSprite.h"
 #include "TrivialCanvas.h"
+#include "TrivialTilemap.h"
 
 #endif // TRIVIALENGINE_H_INCLUDED

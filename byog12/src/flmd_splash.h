@@ -13,7 +13,6 @@
 
 #include "TrivialEngine.h"
 
-#include "Map.h"
 /**
 
 **/
@@ -92,19 +91,18 @@ public:
         myEventManager->subscribe("middle-buttonup-mouse", this);
         myEventManager->subscribe("middle-buttondown-mouse", this);
 
-		myImageManager->add("testmap", "data/test.jpeg");
+		myImageManager->add("testmap", "data/test.png");
+		myImageManager->add("tileset", "data/tileset.png");
 
-		aMap.loadMapImage("testmap");
+		tilemap.loadTilemap("testmap","tileset",64,64);
 
-		myImageManager->add("forest", "data/forest.png");
-		myImageManager->add("dirt", "data/dirt.png");
+/*
+        spr.image("testmap");
+        spr.moveBy(100,100);
+        add("spr",spr);
+*/
 
-		aMap.replaceRGBWithImage(221, 219, 72, "forest");
-		aMap.replaceRGBWithImage(4, 183, 57, "dirt");
-
-		aMap.loadMap();
-
-		add("Map", aMap);
+        add("map",tilemap);
 
 		// Trivial::Sprite aSprite;
 		// 		aSprite.image("forest");
@@ -118,16 +116,12 @@ public:
         /* loading a font */
         cout << "Loading a font! >> " << myFontManager->add("wendy","data/WENDY.TTF") << "\n";
 
+        addLayer("hud", 2);
+        setLayerCameraDamp("hud", 0, 0);
+
         HUDText.font("wendy");
         HUDText.text(10,5,"FPS: 000");
-        add("hudtext", HUDText);
-
-        cout << "testing - " << mySettings->get("test");
-
-        mySettings->set("nuke","boom");
-        cout << "\ntesting - " << mySettings->get("nuke");
-
-        mySettings->save();
+        add("hudtext", HUDText, "hud");
 
     }
 
@@ -333,6 +327,9 @@ public:
         if(!_activated)
             return;
 
+        float mcx = defaultCamera.X();
+        float mcy = defaultCamera.Y();
+
         float ft = myApp->frameTime()/1000;
 
         ossfps.str("");
@@ -341,19 +338,19 @@ public:
         flush(ossfps);
 
         if(key_left) {
-			defaultCamera.moveTo(defaultCamera.X() - 5, defaultCamera.Y());
+            mcx = mcx - 60 * ft;
         }
 
         if(key_right) {
-			defaultCamera.moveTo(defaultCamera.X() + 5, defaultCamera.Y());
+            mcx = mcx + 60 * ft;
         }
 
         if(key_up) {
-			defaultCamera.moveTo(defaultCamera.X(), defaultCamera.Y() - 5);
+            mcy = mcy - 60 * ft;
         }
 
         if(key_down) {
-			defaultCamera.moveTo(defaultCamera.X(), defaultCamera.Y() + 5);
+            mcy = mcy + 60 * ft;
         }
 
         if(key_escape) {
@@ -378,6 +375,7 @@ public:
         }
 
         if(key_up || key_down || key_left || key_right) {
+            defaultCamera.moveTo(mcx, mcy);
         }
 
         if(key_space) {
@@ -392,6 +390,8 @@ public:
             key_x = false;
 
         }
+
+
 
     }
 
@@ -410,9 +410,12 @@ public:
 
 
 private:
+
+    Trivial::Sprite spr;
+
     Trivial::GUIText HUDText;
 
-	Map aMap;
+    Trivial::Tilemap tilemap;
 
     bool key_up;
     bool key_down;
