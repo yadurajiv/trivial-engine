@@ -92,26 +92,19 @@ public:
         myEventManager->subscribe("middle-buttondown-mouse", this);
 
 		myImageManager->add("testmap", "data/test.png");
-		myImageManager->add("tileset", "data/tileset.png");
+		myImageManager->add("tileset", "data/iso_tileset.png");
 
-		tilemap.loadTilemap("testmap","tileset",64,64);
+		myImageManager->add("grassmap", "data/grasstest.png");
+		myImageManager->add("grassset", "data/iso_grass.png");
 
-/*
-        spr.image("testmap");
-        spr.moveBy(100,100);
-        add("spr",spr);
-*/
+        addLayer("base", 4);
+        addLayer("grass", 5);
 
-        add("map",tilemap);
+		tilemap.loadTilemap("testmap","tileset",64,64, true);
+        add("map",tilemap, "base");
 
-		// Trivial::Sprite aSprite;
-		// 		aSprite.image("forest");
-		// 		aSprite.moveTo(8,8);
-		// 		add("aSprite",aSprite);
-
-		//aMap.moveTo(400,300);
-
-		//add("Map", aMap);
+        grassmap.loadTilemap("grassmap","grassset",64,64,true);
+        add("grass",grassmap, "grass");
 
         /* loading a font */
         cout << "Loading a font! >> " << myFontManager->add("wendy","data/WENDY.TTF") << "\n";
@@ -416,6 +409,8 @@ private:
     Trivial::GUIText HUDText;
 
     Trivial::Tilemap tilemap;
+
+    Trivial::Tilemap grassmap;
 
     bool key_up;
     bool key_down;

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="main.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="210" topLine="0" />
+	</File>
+	<File name="myScene.h" open="0" top="0" tabpos="4">
+		<Cursor position="15736" topLine="120" />
+	</File>
+	<File name="pause.h" open="0" top="0" tabpos="1">
+		<Cursor position="2697" topLine="94" />
+	</File>
+	<File name="testCanvas.h" open="0" top="0" tabpos="2">
+		<Cursor position="5258" topLine="168" />
+	</File>
+	<File name="testScrollBg.h" open="0" top="0" tabpos="3">
+		<Cursor position="6334" topLine="211" />
+	</File>
+	<File name="thousandBooms.h" open="0" top="0" tabpos="3">
+		<Cursor position="7345" topLine="249" />
+	</File>
+</CodeBlocks_layout_file>

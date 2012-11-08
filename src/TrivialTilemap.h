@@ -36,7 +36,7 @@ public:
         update();
     };
 
-    bool loadTilemap(const string &map, const string &tileset, const int &tileWidth, const int &tileHeight) {
+    bool loadTilemap(const string &map, const string &tileset, const int &tileWidth, const int &tileHeight, const bool &isometric = false) {
 
         _tileset = tileset;
 
@@ -51,6 +51,8 @@ public:
 
         _tileWidth = tileWidth;
         _tileHeight = tileHeight;
+
+        _isometric = isometric;
 
         //cout << _width;
 
@@ -68,7 +70,10 @@ public:
         _mapEmpty = 0;
         _mapFilled = 0;
 
-        for(int i = 0, tileCounter=0,wc=1; i < c; i=i+4, wc++,tileCounter++) {
+        int twb2 = _tileWidth/2;
+        int twb4 = _tileWidth/4;
+
+        for(int i = 0, tileCounter=0,wc=1, row=0; i < c; i=i+4, wc++,tileCounter++) {
             r = *(pixels+i);
             g = *(pixels+(i+1));
             b = *(pixels+(i+2));
@@ -310,7 +315,15 @@ public:
                 tmp->addAnimation("n", 14, 14, 1);
                 tmp->addAnimation("x", 15, 15, 1);
 
-                tmp->moveTo( (tileCounter % ms.x) * _tileWidth, (tileCounter / ms.x) * _tileWidth);
+                if(_isometric) {
+                    if(row%2 == 0) {
+                        tmp->moveTo( ((tileCounter % ms.x) * _tileWidth) + twb2, ((tileCounter / ms.x) * twb4) );
+                    } else {
+                        tmp->moveTo( (tileCounter % ms.x) * _tileWidth, ((tileCounter / ms.x) * twb4)  );
+                    }
+                } else {
+                    tmp->moveTo( (tileCounter % ms.x) * _tileWidth, (tileCounter / ms.x) * _tileWidth);
+                }
                 //cout << "\nX: " << (tileCounter % ms.x) * _tileWidth;
                 //cout << " Y: " << (tileCounter / ms.x) * _tileWidth;
                 //cout << "\n";
@@ -334,6 +347,7 @@ public:
             if(wc == ms.x) {
                 cout << "\n";
                 wc = 0;
+                row++;
             }
         }
 
@@ -374,6 +388,8 @@ private:
 
     int _numCols;
     int _numRows;
+
+    bool _isometric;
 };
 
 }
