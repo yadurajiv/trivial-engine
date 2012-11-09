@@ -296,6 +296,9 @@ public:
                     cell = "e";
                 }
 
+                /**
+                    assuming 15 frames are possible ~_~
+                **/
                 Trivial::AnimatedSprite* tmp = new Trivial::AnimatedSprite();
                 tmp->image(_tileset,_tileWidth, _tileHeight);
                 tmp->addAnimation("y", 0, 0, 1);
@@ -315,6 +318,10 @@ public:
                 tmp->addAnimation("n", 14, 14, 1);
                 tmp->addAnimation("x", 15, 15, 1);
 
+                /**
+                    maybe a different approach can be found here
+                    http://stackoverflow.com/questions/892811/drawing-isometric-game-worlds
+                **/
                 if(_isometric) {
                     if(row%2 == 0) {
                         tmp->moveTo( ((tileCounter % ms.x) * _tileWidth) + twb2, ((tileCounter / ms.x) * twb4) );
