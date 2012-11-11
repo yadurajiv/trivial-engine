@@ -121,12 +121,12 @@ public:
 
         // Sound still has issues, look in the TrivialAudio class
 
-        cout << "Loading music file >> ";
-        myAudioManager->add("bgmusic","data/maenamMono.ogg", true); // Spatialization only works on mono sounds!!
-        myAudioManager->setSoundPosition("bgmusic",300,300); // positioned with the explosion sprite
-        myAudioManager->setSoundAttenuation("bgmusic",10); // fall off
-        myAudioManager->setSoundDistance("bgmusic",600); // minimum distance till the sound is heard
-        cout << myAudioManager->play("bgmusic") << "\n"; // play loaded music
+        //cout << "Loading music file >> ";
+        //myAudioManager->add("bgmusic","data/maenamMono.ogg", true); // Spatialization only works on mono sounds!!
+        //myAudioManager->setSoundPosition("bgmusic",300,300); // positioned with the explosion sprite
+        //myAudioManager->setSoundAttenuation("bgmusic",10); // fall off
+        //myAudioManager->setSoundDistance("bgmusic",600); // minimum distance till the sound is heard
+        //cout << myAudioManager->play("bgmusic") << "\n"; // play loaded music
 
 
         /** adding explosion **/
@@ -528,7 +528,7 @@ public:
         if(key_up || key_down || key_left || key_right) {
             defaultCamera.moveTo(mcx, mcy);
             //testSprite.moveTo(mcx,mcy);
-            myAudioManager->earPosition(defaultCamera.getCenterX(), defaultCamera.getCenterY());
+            //myAudioManager->earPosition(defaultCamera.getCenterX(), defaultCamera.getCenterY());
         }
 
         if(key_space) {
@@ -586,25 +586,25 @@ public:
         //debugDraw.setAlpha(90);
         // debugDraw.setBlending("multiply"); // be able to do this!! strings!
 
-            std::cout << "\nz key pressed - Audio code commented out";
+            //std::cout << "\nz key pressed - Audio code commented out";
 //                std::cout << "\nz key pressed - fade to stop!";
 
-            if(myAudioManager->playing("bgmusic")) {
-                std::cout << "\nsound is playing, trying to fadeOut in 5000ms";
-                myAudioManager->fadeOut("bgmusic",5);
-            }
+            //if(myAudioManager->playing("bgmusic")) {
+              //  std::cout << "\nsound is playing, trying to fadeOut in 5000ms";
+                //myAudioManager->fadeOut("bgmusic",5);
+            //}
 
         }
 
         if(key_x) {
             key_x = false;
-            std::cout << "\nx key pressed - Audio code commented out";
+            //std::cout << "\nx key pressed - Audio code commented out";
 //            std::cout << "\nx key pressed - fade to start";
 
-            if(myAudioManager->playing("bgmusic") == false) {
-                std::cout << "\nsound is *NOT* playing, trying to fadeIn and play in 5000ms";
-                myAudioManager->fadeIn("bgmusic",5);
-            }
+            //if(myAudioManager->playing("bgmusic") == false) {
+              //  std::cout << "\nsound is *NOT* playing, trying to fadeIn and play in 5000ms";
+                //myAudioManager->fadeIn("bgmusic",5);
+            //}
 
         }
 

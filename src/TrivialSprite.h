@@ -33,8 +33,8 @@ public:
     /** loads images from the image manager and updates sprite **/
     void image(const string &name);
 
-    virtual void moveTo( const float &x, const float &y);
-    virtual void moveBy( const float &x, const float &y);
+    virtual void moveTo( const float &x, const float &y, const float &z = 0);
+    virtual void moveBy( const float &x, const float &y, const float &z = 0);
     virtual void rotate(const float &angle);
     virtual void rotateBy(const float &angle);
 

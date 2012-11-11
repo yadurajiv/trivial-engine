@@ -21,7 +21,7 @@ public:
 
     virtual void update() { }
     virtual void _update(const bool& render = false) {
-	
+
 		//Calling update of all Child objects of the SceneObject
 		if(render){
 			map<string, GraphicsObject*>::iterator it;
@@ -30,7 +30,7 @@ public:
 	            (*it).second->_update(render);
 	        }
 		}
-        
+
         updateMotion();
         update(); // does this need to be called, it wasn't here.. mm..
     } // notice that unlike a GraphicsObject it does not check to see if one is active
@@ -56,23 +56,24 @@ public:
         return _affectChildren;
     }
 
-    virtual void moveTo( const float &x,  const float &y) {
+    virtual void moveTo( const float &x,  const float &y, const float &z = 0) {
 
         if(_affectChildren) {
             map<string, GraphicsObject*>::iterator it;
             for ( it=_items.begin() ; it != _items.end(); it++ ) {
                 float item_x = static_cast<SceneObject*>((*it).second)->X();
                 float item_y = static_cast<SceneObject*>((*it).second)->Y();
-                static_cast<SceneObject*>((*it).second)->moveTo( (x+(_x - item_x)), (y+(_y - item_y)));
+                static_cast<SceneObject*>((*it).second)->moveTo( (x+(_x - item_x)), (y+(_y - item_y)), z);
                 // cout << "\n this should work X - " << (x+(_x - item_x));
             }
         }
 
         _x = x;
         _y = y;
+        _z = z;
     }
 
-    virtual void moveBy( const float &x,  const float &y) {
+    virtual void moveBy( const float &x,  const float &y, const float &z = 0) {
 /*
         if(_affectChildren) {
             map<string, GraphicsObject*>::iterator it;
@@ -85,6 +86,7 @@ public:
 */
         _x += x;
         _y += y;
+        _z += z;
     }
 
     virtual void rotate(const float &angle) {
@@ -106,8 +108,25 @@ public:
     virtual float getLocalX(const float& x);
     virtual float getLocalY(const float& y);
 
+
     virtual float X() const { return _x; }
     virtual float Y() const { return _y; }
+    virtual float Z() const { return _z; }
+
+    virtual float setX(float x) {
+        _x = x;
+        return _x;
+    }
+
+    virtual float setY(float y) {
+        _y = y;
+        return _y;
+    }
+
+    virtual float setZ(float z) {
+        _z = z;
+        return _z;
+    }
 
     virtual float getOriginX() const { return _originX; }
     virtual float getOriginY() const { return _originY; }
@@ -291,6 +310,7 @@ protected:
 
     float _x;
     float _y;
+    float _z;
 
     float _width;
     float _height;
