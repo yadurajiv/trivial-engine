@@ -1,0 +1,4 @@
+This folder contains all the html documents that run the website at 
+www.trivialengine.com
+
+Kinshuk is responsible for everything that is here. Contact him for more details.
