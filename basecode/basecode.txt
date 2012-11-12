@@ -1,0 +1,41 @@
+REMEMBER!! Your SFML lib folders could be in a different path!!
+
+Build Options
+	Debug
+		Search Directories
+		
+			Compiler
+				
+				..\src
+		
+			Linker
+				
+				C:\sfml2\lib\Debug\mingw
+				C:\sfml2\extlibs\bin\x86
+				..\bin\Debug
+				
+	Release
+		Search Directories
+			
+			Compiler
+			
+				..\src
+				
+			Linker
+				
+					C:\sfml2\lib\Release\mingw
+					C:\sfml2\extlibs\bin\x86
+					..\bin\Release
+		
+	Both
+		Linker Settings
+		
+			libtrivial
+			libsfml-audio
+			libsfml-graphics
+			libsfml-main
+			libsfml-network
+			libsfml-system
+			libsfml-window
+			
+			libtrivial,libsfml-audio,libsfml-graphics,libsfml-main,libsfml-network,libsfml-system,libsfml-window

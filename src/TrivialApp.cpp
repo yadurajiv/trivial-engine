@@ -37,8 +37,8 @@ App* App::Instance()
    return _pInstance;
 }
 
-void App::render(sf::Drawable& drawable) {
-    _app.draw(drawable);
+void App::render(sf::Drawable& drawable, sf::RenderStates& renderState) {
+    _app.draw(drawable,renderState);
 }
 
 void App::renderView(sf::View& view) {

@@ -158,6 +158,16 @@ public:
         }
     }
 
+    const Int16 * sample() const {
+        if(_ready) {
+            if(_streaming) {
+                return 0;
+            } else {
+                return _soundBuffer->getSamples();
+            }
+        }
+    }
+
     sf::Time getSlider() {
         if(_ready) {
             if(_streaming) {

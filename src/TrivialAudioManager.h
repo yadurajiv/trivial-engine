@@ -117,6 +117,18 @@ public:
 		}
 	}
 
+	unsigned int getSampleRate(const string &name) {
+        if(_sounds.count(name) != 0){
+			return _sounds[name]->sampleRate();
+		}
+	}
+
+	const Int16 * getSample(const string &name) {
+        if(_sounds.count(name) != 0) {
+            return _sounds[name]->sample();
+        }
+	}
+
     void releaseResources();
 
 private:

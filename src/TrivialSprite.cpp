@@ -102,7 +102,7 @@ void Sprite::_update(const bool& render) {
     }
 
     if(render && _visible) {
-        App::Instance()->render(SFMLsprite);
+        App::Instance()->render(SFMLsprite, _renderStates);
     }
 }
 

@@ -18,9 +18,27 @@ public:
     bool getActive() const { return _isActive; }
     void setActive(bool b) { _isActive = b; }
 
+    bool setBlendMode(const string& mode) {
+        if(mode == "multiply") {
+            _renderStates.blendMode = sf::BlendMultiply;
+        } else if(mode == "none") {
+            _renderStates.blendMode = sf::BlendNone;
+        } else if(mode =="alpha") {
+            _renderStates.blendMode = sf::BlendAlpha;
+        } else if(mode =="add") {
+            _renderStates.blendMode = sf::BlendAdd;
+        } else {
+            return false;
+        }
+
+        return true;
+    }
+
 protected:
 
     bool _isActive;
+
+    sf::RenderStates _renderStates;
 
 /* be adventurous, every object now gets a pointer to the app! */
 /*

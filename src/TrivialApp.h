@@ -51,7 +51,7 @@ public:
 
         @param sprite - is any SFML Drawable
     */
-    void render(sf::Drawable& sprite);
+    void render(sf::Drawable& sprite, sf::RenderStates& renderState);
 
     /**
         renderView sets the current view to the given SFML view. Mostly always used internally.

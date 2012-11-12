@@ -1,26 +1,28 @@
-#ifndef TESTCANVAS_H_INCLUDED
-#define TESTCANVAS_H_INCLUDED
+#ifndef BASE_SCENE_H_INCLUDED
+#define BASE_SCENE_H_INCLUDED
 
-#include <array>
+#include <stdio.h>
+
+#include <iostream>
+
+#include <sstream>
+
+#include <string>
+
+#include <list>
+
+#include "TrivialEngine.h"
+
+/**
+
+**/
 
 using namespace std;
 
-class starSprite: public Trivial::Sprite {
-public:
-    starSprite() {
-        startX = 0;
-        startY = 0;
-    }
-
-    float startX;
-    float startY;
-};
-
-
-class testCanvas : public Trivial::Scene {
+class base_scene : public Trivial::Scene {
 public:
 
-    testCanvas() {
+    base_scene() {
 
     }
 
@@ -31,9 +33,9 @@ public:
         myEventManager = Trivial::EventManager::Instance();
         myImageManager = Trivial::ImageManager::Instance();
         myFontManager = Trivial::FontManager::Instance();
-//        myAudioManager = Trivial::AudioManager::Instance();
+        myAudioManager = Trivial::AudioManager::Instance();
 
-
+        // subscribing to keyboard events
         myEventManager->subscribe("up-keydown", this);
         myEventManager->subscribe("up-keyup", this);
 
@@ -48,6 +50,27 @@ public:
 
         myEventManager->subscribe("escape-keydown", this);
         myEventManager->subscribe("escape-keyup", this);
+
+        myEventManager->subscribe("spacebar-keydown", this);
+        myEventManager->subscribe("spacebar-keyup", this);
+
+        myEventManager->subscribe("z-keydown", this);
+        myEventManager->subscribe("z-keyup", this);
+
+        myEventManager->subscribe("x-keydown", this);
+        myEventManager->subscribe("x-keyup", this);
+
+        myEventManager->subscribe("1-keydown", this);
+        myEventManager->subscribe("1-keyup", this);
+
+        myEventManager->subscribe("2-keydown", this);
+        myEventManager->subscribe("2-keyup", this);
+
+        myEventManager->subscribe("3-keydown", this);
+        myEventManager->subscribe("3-keyup", this);
+
+        myEventManager->subscribe("4-keydown", this);
+        myEventManager->subscribe("4-keyup", this);
 
         // General Mouse event test
         myEventManager->subscribe("update-mouse",this);
@@ -67,45 +90,22 @@ public:
         myEventManager->subscribe("middle-buttonup-mouse", this);
         myEventManager->subscribe("middle-buttondown-mouse", this);
 
-        //_canvas.create(640,480);
-        //add("canvas",_canvas);
-        halfHeight = 300;
-        halfWidth = 400;
-        MAX_DEPTH = 600;
 
-        addLayer("hud", 1);
-
-        blob.image("blob");
-        blob.setAngularAcceleration(12);
-        blob.setAlpha(64);
-        blob.moveBy(halfWidth,halfHeight);
-        blob.setBlendMode("alpha");
-        add("blob",blob);
+        cout << "Loading music file >> ";
+        myAudioManager->add("bgmusic","../test/data/maenamMono.ogg", false); // Spatialization only works on mono sounds!!
+        myAudioManager->setSoundPosition("bgmusic",300,300); // positioned with the explosion sprite
+        myAudioManager->setSoundAttenuation("bgmusic",10); // fall off
+        myAudioManager->setSoundDistance("bgmusic",600); // minimum distance till the sound is heard
+        cout << myAudioManager->play("bgmusic") << "\n"; // play loaded music
 
 
-        warlock.image("warlock");
-        add("warlocksprite",warlock, "hud");
-        warlock.moveBy(halfWidth,halfHeight);
-        warlock.setBlendMode("add");
+        /* loading a font */
+        cout << "Loading a font! >> " << myFontManager->add("wendy","data/WENDY.TTF") << "\n";
 
         HUDText.font("wendy");
         HUDText.text(10,5,"FPS: 000");
-        HUDText.setColor(255,0,0,255);
-        add("hudtext", HUDText, "hud");
+        add("hudtext", HUDText);
 
-        setLayerCameraDamp("hud", 0, 0);
-
-        string star;
-
-        for(int i=0; i<stars.size();i++) {
-
-            stars[i].image("star");
-            stars[i].moveTo(Trivial::Helper::randomRange(-500,500),Trivial::Helper::randomRange(-500,500),Trivial::Helper::randomRange(100,MAX_DEPTH));
-            star = "star" + i;
-            stars[i].startX = stars[i].X();
-            stars[i].startY = stars[i].Y();
-            add(star, stars[i]);
-        }
 
     }
 
@@ -116,19 +116,27 @@ public:
         key_left = false;
         key_right = false;
         key_escape = false;
+        key_z = false;
+        key_1 = false;
+        key_2 = false;
+        key_3 = false;
+        key_4 = false;
+        key_space = false;
 
         _mscroll = 0;
-
-        Trivial::Helper::makePointRectAroundPoint(&_ptrect,0,0,10,10);
-
-        defaultCamera.lookAt(400,300);
-
-        myApp->setClearColor(8,31,70,255);
 
     }
 
     /* the event call back is called by the event manager */
     void keyBoardEventCallback(const Trivial::TrivialKeyBoardEvent &e) {
+        /* un/setting flags to be used later */
+
+        // if a key is pressed and never released when the scene is inactive, then the
+        // keyup event never registers..
+        /*
+        if(!_activated)
+            return;
+        */
 
         if (e.eventName == "up-keydown") {
             key_up = true;
@@ -165,6 +173,63 @@ public:
         if (e.eventName == "escape-keyup" && _activated) {
             key_escape = false;
         }
+
+        if (e.eventName == "spacebar-keydown") {
+            key_space = true;
+        }
+
+        if (e.eventName == "spacebar-keyup") {
+            key_space = false;
+        }
+
+        if (e.eventName == "z-keydown") {
+            key_z = true;
+        }
+
+        if (e.eventName == "z-keyup") {
+            key_z = false;
+        }
+
+        if (e.eventName == "x-keydown") {
+            key_x = true;
+        }
+
+        if (e.eventName == "x-keyup") {
+            key_x = false;
+        }
+
+        if (e.eventName == "1-keydown") {
+            key_1 = true;
+        }
+
+        if (e.eventName == "1-keyup") {
+            key_1 = false;
+        }
+
+        if (e.eventName == "2-keydown") {
+            key_2 = true;
+        }
+
+        if (e.eventName == "2-keyup") {
+            key_2 = false;
+        }
+
+        if (e.eventName == "3-keydown") {
+            key_3 = true;
+        }
+
+        if (e.eventName == "3-keyup") {
+            key_3 = false;
+        }
+
+        if (e.eventName == "4-keydown") {
+            key_4 = true;
+        }
+
+        if (e.eventName == "4-keyup") {
+            key_4 = false;
+        }
+
     }
 
     void mouseEventCallBack(const Trivial::TrivialMouseEvent &e) {
@@ -177,46 +242,30 @@ public:
             // aspect of the mouse changes.
             // e.pos and e.screenPosition are the same for now!!
             // so add the camera position to get world position
-            //_mx = e.pos.x + defaultCamera.X();
-            //_my = e.pos.y + defaultCamera.Y();
-
-            _mx = e.pos.x;
-            _my = e.pos.y;
+            _mx = e.pos.x + defaultCamera.X();
+            _my = e.pos.y + defaultCamera.Y();
 
             screenPositionX = e.screenPosition.x;
             screenPositionY = e.screenPosition.y;
 
             if(e.lButton) {
-                /*
-                if(_canvas.pointOverlap(_mx,_my)) {
-                    _mrad = Trivial::Helper::distance(0,0,_mx,_my);
-                    Trivial::Helper::makePointRectAroundPoint(&_ptrect,0,0,_mrad,_mrad);
-                    Trivial::Helper::rotatePointRect(&_ptrect,0,0,Trivial::Helper::getAngle(_mx,_my,0,0));
-                    _canvas.line(0,0,_mx,_my);
-                    _canvas.circle(0,0,_mrad);
-                    _canvas.rect(_ptrect);
-                }
-                */
             }
 
             if(e.rButton) {
-                cout << "\nRight Button is Down!";
             }
 
             if(e.mButton) {
-                cout << "\nMiddle Button is Down!";
             }
 
             if(e.x1Button) {
-                cout << "\nX1 Button is Down!";
             }
 
             if(e.x2Button) {
-                cout << "\nX2 Button is Down!";
             }
         }
 
         if (e.eventName == "scroll-mouse") {
+
         }
 
         if (e.eventName == "buttondown-mouse") {
@@ -224,16 +273,13 @@ public:
             // for that button. Motivation behind this was so I get an event
             // only for the click. The mouse event struct will anyway have
             // all the details about the mouse position etc.
-            cout << "\nSup mawn";
         }
 
         if (e.eventName == "buttonup-mouse") {
             // Same as the button down
-            cout << "\nBai mawn";
         }
 
         if (e.eventName == "left-buttondown-mouse") {
-            cout << "\nLeft button down lol ";
 
         }
 
@@ -242,7 +288,6 @@ public:
         }
 
         if (e.eventName == "middle-buttondown-mouse") {
-            cout << "\nMiddle button down lol ";
 
         }
 
@@ -251,7 +296,6 @@ public:
         }
 
         if (e.eventName == "right-buttondown-mouse") {
-            cout << "\nRight button down lol ";
 
         }
 
@@ -267,118 +311,96 @@ public:
         if(!_activated)
             return;
 
-        float mcx = defaultCamera.X();
-        float mcy = defaultCamera.Y();
-
-
-       float ft = myApp->frameTime()/1000;
+        float ft = myApp->frameTime()/1000;
 
         ossfps.str("");
         ossfps << "FPS: " << myApp->FPS();
-//        ossfps << "\ncanvasX: " << _canvas.X() << " canvasY: " << _canvas.Y();
-        ossfps << "\n_mx: " << _mx << " _my: " << _my;
-        ossfps << "\nscrx: " << screenPositionX << " scry: " << screenPositionY;
-        //ossfps << "\ndx: " << (_mx - (_canvas.X()-_canvas.width()/2)) << " dy: " << (_my- (_canvas.Y()-_canvas.height()/2));
-        //ossfps << "\nmouse overlap canvas: " << ((_canvas.pointOverlap(_mx,_my))?" True":" False");
         HUDText.text(ossfps.str());
         flush(ossfps);
 
-        for(int i=0;i<stars.size();i++) {
+        if(key_left) {
+        }
 
-            float sz = stars[i].Z() - 60 * ft;
-            float px = stars[i].startX / sz * 100 + 400;
-            float py = stars[i].startY / sz * 100  + 300;
+        if(key_right) {
+        }
 
-            float k = 128.0 / sz;
+        if(key_up) {
+        }
 
-            if(px < 0 || px > 800 || py < 0 || py > 600) {
-                stars[i].moveTo(Trivial::Helper::randomRange(-500,500),Trivial::Helper::randomRange(-500,500),Trivial::Helper::randomRange(100,MAX_DEPTH));
-                stars[i].startX = stars[i].X();
-                stars[i].startY = stars[i].Y();
-                //stars[i].setScale(1,1);
-                stars[i].setColor();
-            } else {
-                int shade = int((1-sz/32.0)*255);
-                int scale = sz/MAX_DEPTH;
-                stars[i].setColor(shade,shade,shade);
-                stars[i].moveTo(px,py,sz);
-            }
-
+        if(key_down) {
         }
 
         if(key_escape) {
             key_escape = false;
-            mySceneManager->setActiveScene("myScene");
+            myApp->quit();
         }
 
-
-        if(key_left) {
-            mcx = mcx - 60 * ft;
+        if(key_1) {
+            key_1 = false;
         }
 
-        if(key_right) {
-            mcx = mcx + 60 * ft;
+        if(key_2) {
+            key_2 = false;
         }
 
-        if(key_up) {
-            mcy = mcy - 60 * ft;
+        if(key_3) {
+            key_3 = false;
         }
 
-        if(key_down) {
-            mcy = mcy + 60 * ft;
+        if(key_4) {
+            key_4 = false;
         }
 
-        defaultCamera.lookAt(_mx,_my);
+        if(key_up || key_down || key_left || key_right) {
+        }
+
+        if(key_space) {
+            key_space = false;
+        }
+
+        if(key_z) {
+            key_z = false;
+        }
+
+        if(key_x) {
+            key_x = false;
+
+        }
 
     }
 
     void deactivated() {
         _activated = false;
-        cout << "\ntestCanvas deactivated" << endl;
     }
 
     void activated() {
         _activated = true;
-        cout << "\ntestCanvas activated!" << endl;
 
         reset();
     }
 
-    ~testCanvas() {
+    ~base_scene() {
     }
 
 
 private:
-
     Trivial::GUIText HUDText;
-    //Trivial::Canvas _canvas;
-
-    Trivial::TrivialPointRect _ptrect;
-
-    Trivial::Sprite warlock;
-
-    Trivial::Sprite blob;
-
-    bool childSmallCol;
-
-    float _lastTime;
 
     bool key_up;
     bool key_down;
     bool key_left;
     bool key_right;
     bool key_escape;
-
-    int halfWidth;
-    int halfHeight;
+    bool key_z;
+    bool key_x;
+    bool key_1;
+    bool key_2;
+    bool key_3;
+    bool key_4;
+    bool key_space;
 
     int _mx;
     int _my;
-
-    float mcx;
-    float mcy;
-
-    int _mrad;
 
     int screenPositionX;
     int screenPositionY;
@@ -386,10 +408,6 @@ private:
     bool _activated;
 
     int _mscroll;
-
-    array<starSprite, 512> stars;
-
-    int MAX_DEPTH;
 
     /* fps output string stream */
     ostringstream ossfps;
@@ -404,8 +422,8 @@ private:
     Trivial::EventManager *myEventManager;
     Trivial::ImageManager *myImageManager;
     Trivial::FontManager *myFontManager;
-    //Trivial::AudioManager *myAudioManager;
+    Trivial::AudioManager *myAudioManager;
 
 };
 
-#endif // TESTCANVAS_H_INCLUDED
+#endif // FLMD_SPLASH_H_INCLUDED

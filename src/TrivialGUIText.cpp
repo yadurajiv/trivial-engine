@@ -31,7 +31,7 @@ namespace Trivial {
         update();
 
         if(render && _visible) {
-            App::Instance()->render(_text);
+            App::Instance()->render(_text, _renderStates);
         }
     }
 
