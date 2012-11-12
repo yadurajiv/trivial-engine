@@ -123,9 +123,23 @@ public:
 		}
 	}
 
-	const Int16 * getSample(const string &name) {
+	const Int16 * getSamples(const string &name) {
         if(_sounds.count(name) != 0) {
-            return _sounds[name]->sample();
+            return _sounds[name]->samples();
+        }
+	}
+
+	unsigned int getChannelCount(const string &name) {
+        if(_sounds.count(name) != 0) {
+            return _sounds[name]->channels();
+        }
+	}
+
+	float getSlider(const string &name) {
+        if(_sounds.count(name) != 0) {
+            sf::Time t;
+            t = _sounds[name]->getSlider();
+            return t.asSeconds();
         }
 	}
 

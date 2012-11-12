@@ -92,12 +92,13 @@ public:
 
 
         cout << "Loading music file >> ";
-        myAudioManager->add("bgmusic","../test/data/maenamMono.ogg", false); // Spatialization only works on mono sounds!!
+        myAudioManager->add("bgmusic","data/test.ogg", false); // Spatialization only works on mono sounds!!
         myAudioManager->setSoundPosition("bgmusic",300,300); // positioned with the explosion sprite
         myAudioManager->setSoundAttenuation("bgmusic",10); // fall off
         myAudioManager->setSoundDistance("bgmusic",600); // minimum distance till the sound is heard
         cout << myAudioManager->play("bgmusic") << "\n"; // play loaded music
 
+        it = myAudioManager->getSampleRate("bgmusic") * myAudioManager->getChannelCount("bgmusic");
 
         /* loading a font */
         cout << "Loading a font! >> " << myFontManager->add("wendy","data/WENDY.TTF") << "\n";
@@ -315,6 +316,7 @@ public:
 
         ossfps.str("");
         ossfps << "FPS: " << myApp->FPS();
+        ossfps << "\n\n" << myAudioManager->getSamples("bgmusic")[int(it*myAudioManager->getSlider("bgmusic"))];
         HUDText.text(ossfps.str());
         flush(ossfps);
 
@@ -423,6 +425,8 @@ private:
     Trivial::ImageManager *myImageManager;
     Trivial::FontManager *myFontManager;
     Trivial::AudioManager *myAudioManager;
+
+    int it;
 
 };
 

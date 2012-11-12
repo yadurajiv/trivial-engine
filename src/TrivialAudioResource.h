@@ -158,7 +158,7 @@ public:
         }
     }
 
-    const Int16 * sample() const {
+    const Int16 * samples() const {
         if(_ready) {
             if(_streaming) {
                 return 0;
