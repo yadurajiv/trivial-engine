@@ -22,14 +22,21 @@ void Canvas::create(const int &w, const int &h,const sf::Color& color) {
     clear();
 }
 
-void Canvas::_update() {
-    Sprite::_update();
+void Canvas::_update(const bool& render) {
+
+    if(_updateTexture == true) {
+        _texture.loadFromImage(_image);
+        SFMLsprite.setTexture(_texture);
+        _updateTexture = false;
+        cout << "\nhere";
+    }
+
+    Sprite::_update(render);
 }
 
 void Canvas::clear(const sf::Color& color) {
     _image.create(_width, _height,_clearColor);
-    _texture.loadFromImage(_image);
-    SFMLsprite.setTexture(_texture);
+    _updateTexture = true;
     sf::Vector2u s = _texture.getSize();
     _width = s.x;
     _height = s.y;
@@ -46,8 +53,7 @@ void Canvas::setPixel(const int &x, const int &y,const sf::Color& color) {
             int lx = getLocalX(x);
             int ly = getLocalY(y);
             _image.setPixel(lx,ly,color);
-            _texture.loadFromImage(_image);
-            SFMLsprite.setTexture(_texture);
+            _updateTexture = true;
         } else {
             cout << "\noutside the zone biatch!";
         }
@@ -105,8 +111,7 @@ void Canvas::line(const int &x, const int &y, const int &tx, const int &ty) {
             break;
     }
 
-    _texture.loadFromImage(_image);
-    SFMLsprite.setTexture(_texture);
+    _updateTexture = true;
 }
 
 // get the safest point inside the drawable area and draw to it than crash
@@ -171,8 +176,7 @@ void Canvas::line(const float& lx1, const float& ly1, const float& lx2, const fl
 		}
 	}
 
-    _texture.loadFromImage(_image);
-    SFMLsprite.setTexture(_texture);
+    _updateTexture = true;
 
 }
 
@@ -215,8 +219,7 @@ void Canvas::circle(const int &x, const int &y, const int &radius) {
         _image.setPixel(x0 - cy, y0 - cx,sf::Color::Black);
     }
 
-    _texture.loadFromImage(_image);
-    SFMLsprite.setTexture(_texture);
+    _updateTexture = true;
 }
 
 void Canvas::ellipse(const int &w, const int &h) {

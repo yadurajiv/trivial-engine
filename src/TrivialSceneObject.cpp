@@ -52,11 +52,13 @@ SceneObject::~SceneObject() {
 }
 
 float SceneObject::getLocalX(const float& globalX) {
-    return globalX - (_x - _originX);
+    return globalX;
+    //return globalX - (_x - _originX);
 }
 
 float SceneObject::getLocalY(const float& globalY) {
-    return globalY - (_y - _originY);
+    return globalY;
+    //return globalY - (_y - _originY);
 }
 
 void SceneObject::hide() {

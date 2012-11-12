@@ -16,7 +16,7 @@ class Canvas : public Trivial::Sprite {
 
         virtual void update() { };
 
-        virtual void _update();
+        virtual void _update(const bool& render = false);
 
         void create(const int &width, const int &height, const sf::Color& color = sf::Color(255, 255, 255));
 
@@ -48,6 +48,8 @@ class Canvas : public Trivial::Sprite {
 
         sf::Image _image;
         sf::Texture _texture;
+
+        bool _updateTexture;
 
         sf::Color _clearColor;
 

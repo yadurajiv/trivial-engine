@@ -11,6 +11,8 @@
 
 #include <list>
 
+#include <array>
+
 #include "TrivialEngine.h"
 
 /**
@@ -97,15 +99,45 @@ public:
         myAudioManager->setSoundAttenuation("bgmusic",10); // fall off
         myAudioManager->setSoundDistance("bgmusic",600); // minimum distance till the sound is heard
         cout << myAudioManager->play("bgmusic") << "\n"; // play loaded music
+        myAudioManager->loop("bgmusic",true);
 
-        it = myAudioManager->getSampleRate("bgmusic") * myAudioManager->getChannelCount("bgmusic");
+        microSampleRate = myAudioManager->getSampleRate("bgmusic") / 1000;
+        bgmSamples = myAudioManager->getSamples("bgmusic");
 
         /* loading a font */
         cout << "Loading a font! >> " << myFontManager->add("wendy","data/WENDY.TTF") << "\n";
 
+        cout << "adding a layer: " << addLayer("hud",1) << "\n";
+        cout << "adding a layer: " << addLayer("meh",-1) << "\n";
+
         HUDText.font("wendy");
         HUDText.text(10,5,"FPS: 000");
-        add("hudtext", HUDText);
+        add("hudtext", HUDText,"hud");
+
+        myImageManager->add("bg","../test/data/blob.png");
+
+        setLayerCameraDamp("hud",0,0);
+
+        myImageManager->createTexture("dot",1,1,sf::Color::White);
+
+       string eqs;
+
+        for(int i=0;i<800;i++) {
+            eq[i].image("dot");
+            eq[i].moveTo(i+0.5f,300);
+            eq[i].setAlpha(64);
+            //eq[i].setBlendMode( "add");
+            eq[i].setColor(255,256 * i / 800,255,255);
+            eqs = "eq" + i;
+            add(eqs,eq[i]);
+        }
+
+        bg.image("bg");
+        bg.moveTo(400,300);
+        bg.setAngularAcceleration(20);
+        bg.setAlpha(64);
+        bg.setBlendMode("add");
+        add("bg",bg);
 
 
     }
@@ -125,6 +157,10 @@ public:
         key_space = false;
 
         _mscroll = 0;
+
+        defaultCamera.lookAt(400,300);
+
+        myApp->setClearColor(8,31,70,255);
 
     }
 
@@ -249,6 +285,7 @@ public:
             screenPositionX = e.screenPosition.x;
             screenPositionY = e.screenPosition.y;
 
+
             if(e.lButton) {
             }
 
@@ -316,9 +353,17 @@ public:
 
         ossfps.str("");
         ossfps << "FPS: " << myApp->FPS();
-        ossfps << "\n\n" << myAudioManager->getSamples("bgmusic")[int(it*myAudioManager->getSlider("bgmusic"))];
+//        ossfps << "\n\n" << myAudioManager->getSamples("bgmusic")[int(it*myAudioManager->getSlider("bgmusic"))];
         HUDText.text(ossfps.str());
         flush(ossfps);
+
+		for(unsigned i=0; i<800; i++)
+		{
+			int p = myAudioManager->getSlider("bgmusic") * microSampleRate;
+			unsigned h = ((bgmSamples[p+i] * 600) / 66000)+300;
+			//if(h<600)
+				eq[i].moveTo(i, h);
+		}
 
         if(key_left) {
         }
@@ -388,6 +433,10 @@ public:
 private:
     Trivial::GUIText HUDText;
 
+    array<Trivial::Sprite, 800> eq;
+
+    Trivial::Sprite bg;
+
     bool key_up;
     bool key_down;
     bool key_left;
@@ -427,6 +476,9 @@ private:
     Trivial::AudioManager *myAudioManager;
 
     int it;
+    float microSampleRate;
+
+    const Int16* bgmSamples;
 
 };
 

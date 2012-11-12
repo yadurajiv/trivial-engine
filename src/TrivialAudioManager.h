@@ -139,7 +139,7 @@ public:
         if(_sounds.count(name) != 0) {
             sf::Time t;
             t = _sounds[name]->getSlider();
-            return t.asSeconds();
+            return t.asMilliseconds();
         }
 	}
 
