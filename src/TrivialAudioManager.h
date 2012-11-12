@@ -18,12 +18,6 @@ public:
 
     void add(const string &name, const string &path, bool streamAudio) {
 
-/*
-        cout << "\n\n--[ Warning | AudioManager ]--";
-        cout << "\n> SFML Audio Quits with a SEGFAULT, Do not use till a fix is found";
-        cout << "\n> Refer: https://github.com/LaurentGomila/SFML/issues/30\n\n";
-*/
-
         if(streamAudio) {
             addMusic(name,path);
         } else {
@@ -121,6 +115,32 @@ public:
 		if(_sounds.count(name) != 0){
 			_sounds[name]->loop(value);
 		}
+	}
+
+	unsigned int getSampleRate(const string &name) {
+        if(_sounds.count(name) != 0){
+			return _sounds[name]->sampleRate();
+		}
+	}
+
+	const Int16 * getSamples(const string &name) {
+        if(_sounds.count(name) != 0) {
+            return _sounds[name]->samples();
+        }
+	}
+
+	unsigned int getChannelCount(const string &name) {
+        if(_sounds.count(name) != 0) {
+            return _sounds[name]->channels();
+        }
+	}
+
+	float getSlider(const string &name) {
+        if(_sounds.count(name) != 0) {
+            sf::Time t;
+            t = _sounds[name]->getSlider();
+            return t.asSeconds();
+        }
 	}
 
     void releaseResources();

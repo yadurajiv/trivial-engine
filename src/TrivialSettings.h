@@ -26,7 +26,7 @@ namespace Trivial {
     get("name")
     set("name", "value", TYPE)
 
-**/
+*/
 class Settings : public Object {
 
 public:

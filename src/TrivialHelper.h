@@ -2,6 +2,8 @@
 #define TRIVIALHELPER_H_INCLUDED
 
 #include <math.h>
+#include <time.h>
+#include <stdlib.h>
 #include "TrivialObject.h"
 
 using namespace std;
@@ -13,6 +15,13 @@ typedef struct {
     float x;
     float y;
 } TrivialPoint;
+// change to Point
+
+typedef struct {
+    float x;
+    float y;
+    float z;
+} Point3D;
 
 typedef struct {
     float x;
@@ -20,6 +29,7 @@ typedef struct {
     float width;
     float height;
 } TrivialRect;
+// change to Rect
 
 typedef struct {
     TrivialPoint a;
@@ -27,6 +37,7 @@ typedef struct {
     TrivialPoint c;
     TrivialPoint d;
 } TrivialPointRect;
+// change to PointRect
 
 #define PI 3.1415926535897932384626433832795
 
@@ -177,6 +188,25 @@ http://www.emanueleferonato.com/2012/03/09/algorithm-to-determine-if-a-point-is-
         prect->b = Trivial::Helper::rotatePoint(prect->b.x, prect->b.y, originx, originy, angle);
         prect->c = Trivial::Helper::rotatePoint(prect->c.x, prect->c.y, originx, originy, angle);
         prect->d = Trivial::Helper::rotatePoint(prect->d.x, prect->d.y, originx, originy, angle);
+    }
+
+    static void UintToRGBA(const unsigned int& uicolor, int* r, int* g, int* b, int* a) {
+            *r = (uicolor >> 16) & 0xFF;
+			*g = (uicolor >> 8) & 0xFF;
+			*b = uicolor & 0xFF;
+			*a = int((uicolor >> 24) & 0xFF) / 255;
+    }
+
+    static unsigned int RGBAtoUint(const int& r, const int& g, const int& b, const int& a) {
+        return (((a>1)?a:(a * 255)) & 0xFF) << 24 | (r & 0xFF) << 16 | (g & 0xFF) << 8 | (b & 0xFF);
+    }
+
+    static int random(int seed) {
+        return ((69621 * int(seed * 0x7FFFFFFF)) % 0x7FFFFFFF) / 0x7FFFFFFF;
+    }
+
+    static int randomRange(const int& min=0, const int& max=100) {
+        return floor(rand() % (max - min - 1)) + min;
     }
 
 private:

@@ -102,17 +102,17 @@ void Sprite::_update(const bool& render) {
     }
 
     if(render && _visible) {
-        App::Instance()->render(SFMLsprite);
+        App::Instance()->render(SFMLsprite, _renderStates);
     }
 }
 
-void Sprite::moveTo( const float &x, const float &y) {
-    SceneObject::moveTo(x, y);
+void Sprite::moveTo( const float &x, const float &y, const float &z) {
+    SceneObject::moveTo(x, y, z);
     this->SFMLsprite.setPosition(_x, _y);
 }
 
-void Sprite::moveBy( const float &x, const float &y) {
-    SceneObject::moveBy(x, y);
+void Sprite::moveBy( const float &x, const float &y, const float &z) {
+    SceneObject::moveBy(x, y, z);
     this->SFMLsprite.setPosition(_x, _y);
 }
 

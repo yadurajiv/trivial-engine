@@ -1,5 +1,5 @@
-#ifndef FLMD_SPLASH_H_INCLUDED
-#define FLMD_SPLASH_H_INCLUDED
+#ifndef BASE_SCENE_H_INCLUDED
+#define BASE_SCENE_H_INCLUDED
 
 #include <stdio.h>
 
@@ -19,10 +19,10 @@
 
 using namespace std;
 
-class flmd_splash : public Trivial::Scene {
+class base_scene : public Trivial::Scene {
 public:
 
-    flmd_splash() {
+    base_scene() {
 
     }
 
@@ -34,7 +34,6 @@ public:
         myImageManager = Trivial::ImageManager::Instance();
         myFontManager = Trivial::FontManager::Instance();
         myAudioManager = Trivial::AudioManager::Instance();
-        mySettings = Trivial::Settings::Instance();
 
         // subscribing to keyboard events
         myEventManager->subscribe("up-keydown", this);
@@ -91,30 +90,23 @@ public:
         myEventManager->subscribe("middle-buttonup-mouse", this);
         myEventManager->subscribe("middle-buttondown-mouse", this);
 
-		myImageManager->add("testmap", "data/test.png");
-		myImageManager->add("tileset", "data/iso_tileset.png");
 
-		myImageManager->add("grassmap", "data/grasstest.png");
-		myImageManager->add("grassset", "data/iso_grass.png");
+        cout << "Loading music file >> ";
+        myAudioManager->add("bgmusic","data/test.ogg", false); // Spatialization only works on mono sounds!!
+        myAudioManager->setSoundPosition("bgmusic",300,300); // positioned with the explosion sprite
+        myAudioManager->setSoundAttenuation("bgmusic",10); // fall off
+        myAudioManager->setSoundDistance("bgmusic",600); // minimum distance till the sound is heard
+        cout << myAudioManager->play("bgmusic") << "\n"; // play loaded music
 
-        addLayer("base", 4);
-        addLayer("grass", 5);
-
-		tilemap.loadTilemap("testmap","tileset",64,64, true);
-        add("map",tilemap, "base");
-
-        grassmap.loadTilemap("grassmap","grassset",64,64,true);
-        add("grass",grassmap, "grass");
+        it = myAudioManager->getSampleRate("bgmusic") * myAudioManager->getChannelCount("bgmusic");
 
         /* loading a font */
         cout << "Loading a font! >> " << myFontManager->add("wendy","data/WENDY.TTF") << "\n";
 
-        addLayer("hud", 2);
-        setLayerCameraDamp("hud", 0, 0);
-
         HUDText.font("wendy");
         HUDText.text(10,5,"FPS: 000");
-        add("hudtext", HUDText, "hud");
+        add("hudtext", HUDText);
+
 
     }
 
@@ -320,30 +312,24 @@ public:
         if(!_activated)
             return;
 
-        float mcx = defaultCamera.X();
-        float mcy = defaultCamera.Y();
-
         float ft = myApp->frameTime()/1000;
 
         ossfps.str("");
         ossfps << "FPS: " << myApp->FPS();
+        ossfps << "\n\n" << myAudioManager->getSamples("bgmusic")[int(it*myAudioManager->getSlider("bgmusic"))];
         HUDText.text(ossfps.str());
         flush(ossfps);
 
         if(key_left) {
-            mcx = mcx - 60 * ft;
         }
 
         if(key_right) {
-            mcx = mcx + 60 * ft;
         }
 
         if(key_up) {
-            mcy = mcy - 60 * ft;
         }
 
         if(key_down) {
-            mcy = mcy + 60 * ft;
         }
 
         if(key_escape) {
@@ -368,7 +354,6 @@ public:
         }
 
         if(key_up || key_down || key_left || key_right) {
-            defaultCamera.moveTo(mcx, mcy);
         }
 
         if(key_space) {
@@ -384,8 +369,6 @@ public:
 
         }
 
-
-
     }
 
     void deactivated() {
@@ -398,19 +381,12 @@ public:
         reset();
     }
 
-    ~flmd_splash() {
+    ~base_scene() {
     }
 
 
 private:
-
-    Trivial::Sprite spr;
-
     Trivial::GUIText HUDText;
-
-    Trivial::Tilemap tilemap;
-
-    Trivial::Tilemap grassmap;
 
     bool key_up;
     bool key_down;
@@ -449,7 +425,8 @@ private:
     Trivial::ImageManager *myImageManager;
     Trivial::FontManager *myFontManager;
     Trivial::AudioManager *myAudioManager;
-    Trivial::Settings *mySettings;
+
+    int it;
 
 };
 
