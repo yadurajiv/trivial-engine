@@ -44,6 +44,28 @@ public:
         return true;
     }
 
+    bool stop(const string &name) {
+        // If layer not found, return
+        if (_sounds.count(name) == 0) {
+            return false;
+        }
+
+        _sounds[name]->stop();
+
+        return true;
+    }
+
+    bool pause(const string &name) {
+        // If layer not found, return
+        if (_sounds.count(name) == 0) {
+            return false;
+        }
+
+        _sounds[name]->pause();
+
+        return true;
+    }
+
     bool ready(const string &name) {
         if (_sounds.count(name) == 0) {
             return false;
