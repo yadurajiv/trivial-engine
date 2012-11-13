@@ -95,6 +95,7 @@ public:
 
         cout << "Loading music file >> ";
         myAudioManager->add("bgmusic","data/test.ogg", false); // Spatialization only works on mono sounds!!
+        //myAudioManager->add("bgmusic","../test/data/maenamMono.ogg", false); // Spatialization only works on mono sounds!!
         myAudioManager->setSoundPosition("bgmusic",300,300); // positioned with the explosion sprite
         myAudioManager->setSoundAttenuation("bgmusic",10); // fall off
         myAudioManager->setSoundDistance("bgmusic",600); // minimum distance till the sound is heard
@@ -119,8 +120,18 @@ public:
         setLayerCameraDamp("hud",0,0);
 
         myImageManager->createTexture("dot",1,1,sf::Color::White);
+        myImageManager->createTexture("box",200,200,sf::Color::Cyan);
 
-       string eqs;
+        string eqs;
+
+        for(int j=0;j<4;j++) {
+            eq4[j].image("box");
+            eq4[j].moveTo((j*200)+100,300);
+            eq4[j].setAlpha(64);
+            eq4[j].setBlendMode( "add");
+            eqs = "eq4" + j;
+            add(eqs,eq4[j]);
+        }
 
         for(int i=0;i<800;i++) {
             eq[i].image("dot");
@@ -357,12 +368,21 @@ public:
         HUDText.text(ossfps.str());
         flush(ossfps);
 
-		for(unsigned i=0; i<800; i++)
-		{
+        int j = 0;
+
+		for(unsigned i=0; i<800; i++) {
 			int p = myAudioManager->getSlider("bgmusic") * microSampleRate;
 			unsigned h = ((bgmSamples[p+i] * 600) / 66000)+300;
-			//if(h<600)
+			unsigned k = ((bgmSamples[p+j] * 600) / 66000)+300;
+			if(h<600)
 				eq[i].moveTo(i, h);
+
+            if(i%200) {
+                if(j<4) {
+                    eq4[j].setY(k);
+                    j=j+1;
+                }
+            }
 		}
 
         if(key_left) {
@@ -434,6 +454,8 @@ private:
     Trivial::GUIText HUDText;
 
     array<Trivial::Sprite, 800> eq;
+
+    array<Trivial::Sprite, 4> eq4;
 
     Trivial::Sprite bg;
 
