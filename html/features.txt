@@ -24,7 +24,7 @@ Simple scene based system where each scene is managed by a scene manager. Each s
 
 The event manager lets you subscribe any object to keyboard, mouse, joystick(later) and custom events.
 
-Input frmo Keyboard, Mouse and Joystick(to be added later) easily available to the main scene via callbacks from the event manager.
+Input from Keyboard, Mouse and Joystick (to be added later) easily available to the main scene via callbacks from the event manager.
 
 Graphics
 
@@ -37,6 +37,8 @@ Thousands of sprites
 Easy rotation and translation of sprites, also acceleration and angular accelerations built in.
 
 Easy to use animated sprite class that uses sprite sheets.
+
+Simple parallax effect - custom layer speeds for items in a scene
 
 Define multiple animations from a single sprite sheet via the animated sprite class.
 
