@@ -1,0 +1,89 @@
+Object-oriented
+
+Easy cross platform development and deployment - Windows (98, 2000, XP, Vista) and Unix systems (Linux, Mac OS X)
+
+Simple to use image manager, font manager audio manager to keep track of your audio, image and sound resources.
+
+Simple event manager based on listeners
+
+Hardware acceleration for audio and video
+
+Simple xml-based settings file for easy storage of information
+
+Helper classes and functions
+
+Documented with Doxygen
+
+Detailed examples explanining features (to be done)
+
+System
+
+Get an app up and running with two function calls, configure and run.
+
+Simple scene based system where each scene is managed by a scene manager. Each scene manages it's own entities.
+
+The event manager lets you subscribe any object to keyboard, mouse, joystick(later) and custom events.
+
+Input frmo Keyboard, Mouse and Joystick(to be added later) easily available to the main scene via callbacks from the event manager.
+
+Graphics
+
+Easy to access camera system with trivial functions like lookAt(object) lookAt(x,y) moveTo(x,y) moveBy(x,y) etc
+
+Image manager to load and manage images
+
+Thousands of sprites
+
+Easy rotation and translation of sprites, also acceleration and angular accelerations built in.
+
+Easy to use animated sprite class that uses sprite sheets.
+
+Define multiple animations from a single sprite sheet via the animated sprite class.
+
+Create game levels using tilemaps
+
+Image blending options like add, multiply, alpha for sprites
+
+Take screenshots
+
+To be done
+	Simple interface to capture video and save to disk
+
+GUI
+
+Simple text class for labels using custom fonts
+	
+Text label rotation
+
+Simple Button class
+
+To be done
+	Simple input class
+	More GUI elements to follow
+
+Audio
+
+Audio manager to load and manage audio resources
+
+Playback 23 diffenre formats - ogg, wav, flac, aiff, au, raw, paf, svx, nist, voc, ircam, w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64
+
+Streaming audio
+
+Load audio from file or from memory
+
+Loop tracks
+
+Get information like Sample Rate, Channel count, current playing position and actual sample data via single function calls
+
+FadeIn & FadeOut effects
+
+2D Sound spacialization
+
+To be done
+	Simple interface to caputre audio and save to disk
+
+Network (coming soon)
+	Network status
+	Easy to use client/server system
+	Easy to use irc client system
+	
