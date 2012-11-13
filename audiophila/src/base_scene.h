@@ -120,17 +120,20 @@ public:
         setLayerCameraDamp("hud",0,0);
 
         myImageManager->createTexture("dot",1,1,sf::Color::White);
-        myImageManager->createTexture("box",200,200,sf::Color::Cyan);
+        myImageManager->createTexture("box",1,300,sf::Color::Cyan);
 
+        stringstream box;
         string eqs;
 
-        for(int j=0;j<4;j++) {
+        for(int j=0;j<800;j++) {
+            box.str("");
             eq4[j].image("box");
-            eq4[j].moveTo((j*200)+100,300);
+            eq4[j].moveTo(j,300);
             eq4[j].setAlpha(64);
             eq4[j].setBlendMode( "add");
-            eqs = "eq4" + j;
-            add(eqs,eq4[j]);
+            box << "eqx" << j;
+            eqs = box.str();
+            add(eqs,eq4[j],"meh");
         }
 
         for(int i=0;i<800;i++) {
@@ -139,7 +142,9 @@ public:
             eq[i].setAlpha(64);
             //eq[i].setBlendMode( "add");
             eq[i].setColor(255,256 * i / 800,255,255);
-            eqs = "eq" + i;
+            box.str("");
+            box << "eq" << i;
+            eqs = box.str();
             add(eqs,eq[i]);
         }
 
@@ -326,6 +331,11 @@ public:
 
         if (e.eventName == "buttonup-mouse") {
             // Same as the button down
+            if(myAudioManager->playing("bgmusic")) {
+                myAudioManager->pause("bgmusic");
+            } else {
+                myAudioManager->play("bgmusic");
+            }
         }
 
         if (e.eventName == "left-buttondown-mouse") {
@@ -364,25 +374,27 @@ public:
 
         ossfps.str("");
         ossfps << "FPS: " << myApp->FPS();
+        ossfps << "\nClick to pause/resume";
 //        ossfps << "\n\n" << myAudioManager->getSamples("bgmusic")[int(it*myAudioManager->getSlider("bgmusic"))];
         HUDText.text(ossfps.str());
         flush(ossfps);
 
-        int j = 0;
+        //int j = 0;
 
 		for(unsigned i=0; i<800; i++) {
 			int p = myAudioManager->getSlider("bgmusic") * microSampleRate;
 			unsigned h = ((bgmSamples[p+i] * 600) / 66000)+300;
-			unsigned k = ((bgmSamples[p+j] * 600) / 66000)+300;
-			if(h<600)
+			//unsigned k = ((bgmSamples[p+i] * 200) / 66000)+800;
+			if(h<600) {
 				eq[i].moveTo(i, h);
-
-            if(i%200) {
-                if(j<4) {
-                    eq4[j].setY(k);
-                    j=j+1;
-                }
+				eq4[i].setY(h);
             }
+            //if(i%200) {
+              //  if(j<4) {
+
+                //    j=j+1;
+                //}
+            //}
 		}
 
         if(key_left) {
@@ -455,7 +467,7 @@ private:
 
     array<Trivial::Sprite, 800> eq;
 
-    array<Trivial::Sprite, 4> eq4;
+    array<Trivial::Sprite, 800> eq4;
 
     Trivial::Sprite bg;
 

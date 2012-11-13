@@ -124,11 +124,13 @@ bool Scene::setLayerCameraDamp(const string &name, const float &xFactor, const f
 bool Scene::add(const string &objectName,  SceneObject &object, const string &layer) {
     // If an object with this name already exisits, return
     if(_objects.count(objectName) > 0) {
+        cout << "\n[scene.add: " << _name << "] " << objectName << " object already exitsts!";
         return false;
     }
 
     // If layer not found, return
     if (_layers.count(layer) == 0) {
+        cout << "\n[scene.add: " << _name << "] layer not found!";
         return false;
     }
     // Box2D for removal
