@@ -52,31 +52,41 @@ public:
         myImageManager = Trivial::ImageManager::Instance();	//Creating Instance for Trivial Graphic Objects
 
 		//Adding image resources;
-		myImageManager->add("brick", "data/brick.png");
-		myImageManager->add("ball", "data/ball.png");
+		myImageManager->add("brick", "data/element_yellow_rectangle_glossy.png");
+		myImageManager->add("paddle","data/paddleBlu.png");
+		myImageManager->add("ball", "data/ballBlue.png");
 		myImageManager->add("button", "data/button.png");
 		myImageManager->add("buttonPressed", "data/buttonPressed.png");
 		myImageManager->add("buttonHover", "data/buttonHover.png");
 		myImageManager->add("animatedButton", "data/vegeta.png");
 		//myImageManager->add("maskedSprite","data/obj1.png");
 
+        myImageManager->add("blob","../test/data/blob.png");
+
+        blob.image("blob");
+        blob.setAngularAcceleration(12);
+        blob.setAlpha(64);
+        blob.moveBy(400,300);
+        blob.setBlendMode("alpha");
+        add("blob",blob);
+
 		//To load all the Bricks
 		for(int i = 0; i < 4; ++i)
 		{
-			for(int j = 0; j < 11; ++j)
+			for(int j = 0; j < 12; ++j)
 			{
 				stringstream append;
 				append<<"brickImage"<<i<<j;
 				brickSprite[i][j].image("brick");
 				add(append.str().c_str(), brickSprite[i][j]);
 				pos brickPosition;
-				brickPosition.x = 35+(70*j + 1);
-				brickPosition.y = 18+(36*i + 1);
+				brickPosition.x = 48+(64*j + 1);
+				brickPosition.y = 32+(32*i + 1);
 				brickSprite[i][j].setPositionBy(brickPosition);
 			}
 		}
 
-		paddleSprite.image("brick");
+		paddleSprite.image("paddle");
 		add("paddleImage", paddleSprite);
 		pos paddlePosition;
 		paddlePosition.x = 400;
@@ -87,6 +97,7 @@ public:
 		add("ballImage", ballSprite);
 		ballPosition.x = 400;
 		ballPosition.y = 555;
+		ballSprite.setAngularAcceleration(20);
 		ballSprite.setPosition(ballPosition);
 
 		/*aButton2.buttonWithAnimatedSprite("animatedButton", 150, 40);
@@ -116,7 +127,7 @@ public:
         // look at object needs to be rewritten or given to scene
         defaultCamera.lookAt(400, 300);
 
-        myApp->setClearColor();
+        myApp->setClearColor(8,31,70,255);
 
 ////        myAudioManager->earPosition(camera.getCenterX(), camera.getCenterY());
     }
@@ -153,7 +164,7 @@ public:
 
 			for(int i = 0; i < 4; ++i)
 			{
-				for(int j = 0; j < 11; ++j)
+				for(int j = 0; j < 12; ++j)
 				{
 					if(ballSprite.getPosition().x >= brickSprite[i][j].getPosition().x-35 && ballSprite.getPosition().x <= brickSprite[i][j].getPosition().x+35)
 					{
@@ -239,13 +250,13 @@ public:
 
 private:
 
-
+    Trivial::Sprite blob;
 
 
     bool _activated;
 	bool isBallMoving;
 
-	brick brickSprite[4][11];
+	brick brickSprite[4][12];
 	paddle paddleSprite;
 	ball ballSprite;
 	pos ballPosition;

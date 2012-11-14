@@ -86,7 +86,7 @@ public:
         warlock.image("warlock");
         add("warlocksprite",warlock, "hud");
         warlock.moveBy(halfWidth,halfHeight);
-        warlock.setBlendMode("add");
+        warlock.setBlendMode("multiply");
 
         HUDText.font("wendy");
         HUDText.text(10,5,"FPS: 000");
@@ -95,13 +95,18 @@ public:
 
         setLayerCameraDamp("hud", 0, 0);
 
+        stringstream s;
+        s << "star";
         string star;
 
         for(int i=0; i<stars.size();i++) {
 
             stars[i].image("star");
             stars[i].moveTo(Trivial::Helper::randomRange(-500,500),Trivial::Helper::randomRange(-500,500),Trivial::Helper::randomRange(100,MAX_DEPTH));
-            star = "star" + i;
+            stars[i].setAngularAcceleration(20);
+            s.clear();
+            s << "star" << i;
+            star = s.str();
             stars[i].startX = stars[i].X();
             stars[i].startY = stars[i].Y();
             add(star, stars[i]);

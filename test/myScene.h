@@ -215,9 +215,10 @@ public:
         add("debugDraw",debugDraw,"debug");
         debugDraw.setAlpha(90);
 
-        myImageManager->add("warlock","data/warlock.png");
+        myImageManager->add("warlock","data/ingdin.png");
         myImageManager->add("blob","data/blob.png");
         myImageManager->createTexture("star",2,2,sf::Color::White);
+        //myImageManager->add("star","data/particleSmallStar.png");
 
     }
 

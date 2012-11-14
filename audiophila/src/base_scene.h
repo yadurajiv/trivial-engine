@@ -156,6 +156,14 @@ public:
         add("bg",bg);
 
 
+        std::stringstream test;
+        test << "\"Random\"";
+        std::string xbox(test.str());
+        xbox.erase(std::remove(xbox.begin(), xbox.end(), '\"'), xbox.end());
+        cout << test.str() << endl;
+        cout << xbox;
+
+
     }
 
     void reset() {

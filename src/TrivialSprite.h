@@ -91,7 +91,7 @@ public:
             return false;
         } else {
             sf::Color col = img.getPixel(x/_scaleX,y/_scaleY);
-            if(col.a == alphaThreshold) {
+            if(col.a <= alphaThreshold) {
                 return false;
             } else {
                 return true;
