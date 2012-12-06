@@ -5775,3 +5775,11 @@ a.badge:hover {
 .affix {
   position: fixed;
 }
+
+.even {
+  background-image: url("../img/even.png");
+}
+
+.odd {
+  background-image: url("../img/odd.png");
+}
