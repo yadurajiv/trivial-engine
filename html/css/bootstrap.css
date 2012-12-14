@@ -162,8 +162,8 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 20px;
-  color: #333333;
-  background-color: #efefef;
+  color: #222222;
+  background-color: #333333;
   padding:20px;
 }
 
@@ -4150,7 +4150,7 @@ input[type="submit"].btn.btn-mini {
   *z-index: 2;
   margin-bottom: 20px;
   overflow: visible;
-  color: #777777;
+  color: #FFFFFF;
 }
 
 .navbar-inner {
@@ -4201,7 +4201,7 @@ input[type="submit"].btn.btn-mini {
   margin-left: -20px;
   font-size: 20px;
   font-weight: 200;
-  color: #777777;
+  color: #FFFFFF;
   text-shadow: 0 1px 0 #ffffff;
 }
 
@@ -4215,7 +4215,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 .navbar-link {
-  color: #777777;
+  color: #FFFFFF;
 }
 
 .navbar-link:hover {
@@ -5774,12 +5774,4 @@ a.badge:hover {
 
 .affix {
   position: fixed;
-}
-
-.even {
-  background-image: url("../img/even.png");
-}
-
-.odd {
-  background-image: url("../img/odd.png");
 }
