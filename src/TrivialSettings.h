@@ -89,6 +89,17 @@ public:
 
     }
 
+    int getint(const string &name) {
+        int ret = 0;
+        string result = get(name);
+
+        if(result != "") {
+            stringstream(result) >> ret;
+        }
+
+        return ret;
+    }
+
     bool set(const string &name, const string &value) {
         if(!_ready) {
             load();

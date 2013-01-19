@@ -34,6 +34,7 @@ public:
         myImageManager = Trivial::ImageManager::Instance();
         myFontManager = Trivial::FontManager::Instance();
         myAudioManager = Trivial::AudioManager::Instance();
+        mySettings = Trivial::Settings::Instance();
 
         // subscribing to keyboard events
         myEventManager->subscribe("up-keydown", this);
@@ -90,16 +91,36 @@ public:
         myEventManager->subscribe("middle-buttonup-mouse", this);
         myEventManager->subscribe("middle-buttondown-mouse", this);
 
-		/* base HUD layer */
-		addLayer("hudLayer",808 );
-        setLayerCameraDamp("hudLayer", 0, 0);
 
         /* loading a font */
         cout << "Loading a font! >> " << myFontManager->add("wendy","data/WENDY.TTF") << "\n";
 
+        addLayer("hudLayer",808 );
+        setLayerCameraDamp("hudLayer", 0, 0);
+
         HUDText.font("wendy");
         HUDText.text(10,5,"FPS: 000");
-        add("hudtext", HUDText);
+        add("hudtext", HUDText, "hudLayer");
+
+        m_status = "loading settings...";
+
+        if(mySettings->load()) {
+            m_status = "trying to load spritesheet...";
+            if(myImageManager->add("spritesheet", mySettings->get("spritesheet"))) {
+                m_status = "setting up image...";
+                m_sheet.image("spritesheet", mySettings->getint("spritesheet_cellwidth"),mySettings->getint("spritesheet_cellheight"));
+                m_sheet.addAnimation("idle",mySettings->getint("spritesheet_startFrame"),mySettings->getint("spritesheet_endFrame"),mySettings->getint("spritesheet_framerate"));
+                m_sheet.play("idle");
+                m_status = "adding to scene...";
+                add("sheet", m_sheet);
+                defaultCamera.lookAt(0,0);
+                m_status = "done!";
+            } else {
+                m_status = "unable to load image! - " + mySettings->get("spritesheet");
+            }
+        } else {
+            m_status = "unable to load settings! - trivial.xml missing!";
+        }
 
 
     }
@@ -310,6 +331,7 @@ public:
 
         ossfps.str("");
         ossfps << "FPS: " << myApp->FPS();
+        ossfps << "\nStatus: " << m_status;
         HUDText.text(ossfps.str());
         flush(ossfps);
 
@@ -407,6 +429,10 @@ private:
     /* fps output string stream */
     ostringstream ossfps;
 
+    string m_status;
+
+    Trivial::AnimatedSprite m_sheet;
+
     /**
         moved inside class since sfml has its own global variables and they might
         not be initialized before main, which causes a segfault.
@@ -418,6 +444,7 @@ private:
     Trivial::ImageManager *myImageManager;
     Trivial::FontManager *myFontManager;
     Trivial::AudioManager *myAudioManager;
+    Trivial::Settings *mySettings;
 
 };
 
