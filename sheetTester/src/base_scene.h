@@ -104,7 +104,7 @@ public:
 
         m_status = "loading settings...";
 
-        if(mySettings->load()) {
+        if(mySettings->load("sheetTester.config")) {
             m_status = "trying to load spritesheet...";
             if(myImageManager->add("spritesheet", mySettings->get("spritesheet"))) {
                 m_status = "setting up image...";

@@ -26,7 +26,8 @@ App::App() {
     /**
         settings are loaded once initially!
     **/
-    Trivial::Settings::Instance()->load();
+    // disable auto load, since most of the times, there wont be one!
+    // Trivial::Settings::Instance()->load();
 }
 
 App* App::Instance()
