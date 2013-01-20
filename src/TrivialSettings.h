@@ -5,6 +5,8 @@
 
 #include <string>
 
+#include <sstream>
+
 #include "TrivialObject.h"
 
 #include "../extlibs/tinyxml2/tinyxml2.h"
