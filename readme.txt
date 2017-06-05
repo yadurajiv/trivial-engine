@@ -1,3 +1,17 @@
+## What is Trivial Engine? ##
+
+Trivial Engine is a game framework inspired by game frameworks like Flixel and FlashPunk. The goal for Trivial is to make writing games easier and simple, giving you a higher level framework and tools to work with so that you can focus on what you do best, make games.
+
+Getting our base app up and running is easy as, with 3 lines of code.
+
+```
+#!c++
+
+Trivial::App *myApp = Trivial::App::Instance();
+myApp->configure(NULL, 800, 600, 32, "my game");
+myApp->run();
+```
+
 INSTALLATION ON UNIX
 --------------------
 
